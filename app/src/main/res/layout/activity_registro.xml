@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/registro"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/negroClaro"
+    android:orientation="vertical">
+
+    <!-- Logo de la aplicación -->
+    <ImageView
+        android:id="@+id/registro_logo"
+        android:layout_width="match_parent"
+        android:layout_height="73dp"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginRight="75dp"
+        android:contentDescription="@string/logo"
+        android:src="@drawable/logo" />
+
+    <!-- Título de registro de la aplicación -->
+    <TextView
+        android:id="@+id/registro_titulo"
+        android:layout_width="296dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal|center"
+        android:layout_marginTop="35dp"
+        android:fontFamily="@font/montserrat_medio"
+        android:gravity="center"
+        android:text="@string/registro_texto"
+        android:textColor="@color/doradoClaro"
+        android:textSize="25sp" />
+
+    <!-- Layout nombre y apellido -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/registro_nombre_apellido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Texto Nombre -->
+        <TextView
+            android:id="@+id/registro_texto_nombre"
+            android:layout_width="110dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="17dp"
+            android:fontFamily="@font/montserrat_light"
+            android:text="@string/nombre"
+            android:textColor="@color/doradoClaro"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Texto Apellido -->
+        <TextView
+            android:id="@+id/registro_texto_apellido"
+            android:layout_width="100dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="215dp"
+            android:layout_marginTop="17dp"
+            android:fontFamily="@font/montserrat_light"
+            android:text="@string/apellido"
+            android:textColor="@color/doradoClaro"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <!-- Layout TextInputEditText Apellido -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/registro_layoutTextInput_apellido"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="25dp"
+            android:fontFamily="@font/montserrat_light"
+            android:textColorHint="@color/doradoClaro"
+            android:textSize="16sp"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/doradoClaro"
+            app:errorEnabled="true"
+            app:helperTextEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/registro_texto_apellido">
+
+            <!-- TextInput Apellido Registro -->
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/registro_textInput_apellido"
+                android:layout_width="165dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_light"
+                android:hint="@string/apellido_hint"
+                android:textColor="@color/doradoClaro"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Layout TextInputEditText Nombre -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/registro_layoutTextInput_nombre"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="12dp"
+            android:fontFamily="@font/montserrat_light"
+            android:textColorHint="@color/doradoClaro"
+            android:textSize="16sp"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/doradoClaro"
+            app:errorEnabled="true"
+            app:helperTextEnabled="true"
+            app:layout_constraintEnd_toStartOf="@+id/registro_layoutTextInput_apellido"
+            app:layout_constraintTop_toBottomOf="@+id/registro_texto_nombre">
+
+            <!-- TextInput Nombre Registro -->
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/registro_textInput_nombre"
+                android:layout_width="166dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_light"
+                android:hint="@string/nombre_hint"
+                android:textColor="@color/doradoClaro"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Layout Correo Eelctrónico Registro -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/registro_layout_correo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Texto Correo electronico -->
+        <TextView
+            android:id="@+id/registro_texto_correo"
+            android:layout_width="220dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="17dp"
+            android:fontFamily="@font/montserrat_light"
+            android:text="@string/login_correo"
+            android:textColor="@color/doradoClaro"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Layout TextInputEditText Correo Electrónico -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/registro_layoutTextInput_correo"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="347dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/montserrat_light"
+            android:textColorHint="@color/doradoClaro"
+            android:textSize="16sp"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/doradoClaro"
+            app:errorEnabled="true"
+            app:helperTextEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/registro_texto_correo">
+
+            <!-- TextInput Correo Electrónico Registro -->
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/registro_textInput_correo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_light"
+                android:hint="@string/login_correo_hint"
+                android:textColor="@color/doradoClaro"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Layout Contraseña Registro -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/login_layout_contraseña"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Texto Contraseña -->
+        <TextView
+            android:id="@+id/registro_texto_contraseña"
+            android:layout_width="147dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="17dp"
+            android:fontFamily="@font/montserrat_light"
+            android:text="@string/login_contraseña"
+            android:textColor="@color/doradoClaro"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Layout TextInputEditText Contraseña -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/registro_layoutTextInput_contraseña"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="347dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/montserrat_light"
+            android:textColorHint="@color/doradoClaro"
+            android:textSize="16sp"
+            app:endIconMode="password_toggle"
+            app:endIconTint="@color/doradoClaro"
+            app:errorEnabled="true"
+            app:helperTextEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/registro_texto_contraseña">
+
+            <!-- TextInput Contraseña Registro -->
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/registro_textInput_contraseña"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_light"
+                android:hint="@string/login_contraseña_hint"
+                android:inputType="textPassword"
+                android:textColor="@color/doradoClaro"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Botón de Crear Cuenta -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_registro"
+        android:layout_width="296dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal|center"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/btn_login"
+        android:fontFamily="@font/montserrat_medio"
+        android:gravity="center"
+        android:text="@string/boton_registro"
+        android:textColor="@color/negroClaro"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registro_layoutTextInput_contraseña" />
+
+    <!-- Texto de Registrarse en el Login -->
+    <TextView
+        android:id="@+id/registro_texto_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/montserrat_light"
+        android:gravity="center_horizontal"
+        android:text="@string/registro_login"
+        android:textColor="@color/doradoClaro"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/registro_contraseña"
+        app:layout_constraintTop_toTopOf="parent" />
+</LinearLayout>

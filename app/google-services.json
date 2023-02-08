@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "308427160766",
+    "project_id": "eatit-d0487",
+    "storage_bucket": "eatit-d0487.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:308427160766:android:31d566f8a4fc51fdf5f2ef",
+        "android_client_info": {
+          "package_name": "com.example.eatit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "308427160766-d2l0fniv38o3kpvdh119uekej62hnh5i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtmBAckHazzB-7qg1cgI06dab4K5ScQ6g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "308427160766-d2l0fniv38o3kpvdh119uekej62hnh5i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

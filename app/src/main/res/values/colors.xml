@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Colores básicos de la aplicación -->
+    <color name="negro">#FF000000</color>
+    <color name="blanco">#f0f0f0</color>
+
+    <!-- Estilo de la aplicación -->
+    <color name="negroClaro">#15130b</color>
+    <color name="doradoClaro">#ba9e67</color>
+    <color name="doradoClaro2">#aa905e</color>
+    <color name="doradoClaro3">#9a8356</color>
+    <color name="doradoClaro4">#8a764e</color>
+    <color name="grisClaro">#7b7a75</color>
+</resources>

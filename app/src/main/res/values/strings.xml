@@ -1,0 +1,29 @@
+<resources>
+    <!-- Cadenas de Texto del Login -->
+    <string name="nombreApp">EatIt</string>
+    <string name="logo">Logo App</string>
+    <string name="login_texto">INICIAR SESIÓN</string>
+    <string name="login_correo">CORREO ELECTRÓNICO</string>
+    <string name="login_contraseña">CONTRASEÑA</string>
+    <string name="login_correo_hint">Escribe tu correo electróncio</string>
+    <string name="login_contraseña_hint">Escribe tu contraseña</string>
+    <string name="login_btn">Iniciar Sesión</string>
+    <string name="sesion_iniciada">Mantener la sesión iniciada</string>
+    <string name="contraseña_olvidada">He olvidado la contraseña</string>
+    <string name="registrarse">Registrarse</string>
+
+    <!-- Cadenas de Texto del Registro -->
+    <string name="registro_texto">CREAR CUENTA</string>
+    <string name="boton_registro">Crear Cuenta</string>
+    <string name="nombre">NOMBRE</string>
+    <string name="apellido">APELLIDO</string>
+    <string name="nombre_hint">Escribe tu nombre</string>
+    <string name="apellido_hint">Escribe tu apellido</string>
+    <string name="registro_login">¿Ya tienes cuenta? Iniciar Sesión</string>
+
+    <!-- Cadenas de Texto Actividad Principal -->
+    <string name="actividad_principal">RECETAS</string>
+
+    <!-- Cadenas de texto auxiliares -->
+    <string name="toast_fail1">Correo o contraseña no válidos</string>
+</resources>

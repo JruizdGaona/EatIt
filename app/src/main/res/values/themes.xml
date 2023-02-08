@@ -1,0 +1,22 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.EatIt" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/doradoClaro</item>
+        <item name="colorPrimaryVariant">@color/doradoClaro</item>
+        <item name="colorOnPrimary">@color/doradoClaro</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/doradoClaro</item>
+        <item name="colorSecondaryVariant">@color/doradoClaro2</item>
+        <item name="colorOnSecondary">@color/doradoClaro</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="RoundCorner" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">30dp</item>
+        <item name="color">@color/doradoClaro</item>
+    </style>
+</resources>

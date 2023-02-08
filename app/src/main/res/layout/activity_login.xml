@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Layout principal del Login -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/negroClaro"
+    android:orientation="vertical">
+
+    <!-- Logo de la aplicación -->
+    <ImageView
+        android:id="@+id/login_logo"
+        android:layout_width="match_parent"
+        android:layout_height="73dp"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginRight="75dp"
+        android:contentDescription="@string/logo"
+        android:src="@drawable/logo" />
+
+    <!-- Título de login de la aplicación -->
+    <TextView
+        android:id="@+id/login_titulo"
+        android:layout_width="296dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal|center"
+        android:layout_marginTop="35dp"
+        android:fontFamily="@font/montserrat_medio"
+        android:gravity="center"
+        android:text="@string/login_texto"
+        android:textColor="@color/doradoClaro"
+        android:textSize="25sp" />
+
+    <!-- Layout Correo Eelctrónico Login -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/login_layout_correo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Texto Correo electronico -->
+        <TextView
+            android:id="@+id/login_texto_correo"
+            android:layout_width="220dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/montserrat_light"
+            android:text="@string/login_correo"
+            android:textColor="@color/doradoClaro"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Layout TextInputEditText Correo Electrónico -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/login_layoutTextInput_correo"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="347dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/montserrat_light"
+            android:textColorHint="@color/doradoClaro"
+            android:textSize="16sp"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/doradoClaro"
+            app:errorEnabled="true"
+            app:helperTextEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_texto_correo">
+
+            <!-- TextInput Correo Electrónico Login -->
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/login_textInput_correo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_light"
+                android:hint="@string/login_correo_hint"
+                android:textColor="@color/doradoClaro"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Layout Contraseña Login -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/login_layout_contraseña"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Texto Contraseña -->
+        <TextView
+            android:id="@+id/login_texto_contraseña"
+            android:layout_width="147dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/montserrat_light"
+            android:text="@string/login_contraseña"
+            android:textColor="@color/doradoClaro"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Texto Contraseña Olvidada -->
+        <TextView
+            android:id="@+id/login_contraseña_olvidada"
+            android:layout_width="190dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="40dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/montserrat_light"
+            android:text="@string/contraseña_olvidada"
+            android:textColor="@color/doradoClaro"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/login_texto_contraseña"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Layout TextInputEditText Contraseña -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/login_layoutTextInput_contraseña"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="347dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/montserrat_light"
+            android:textColorHint="@color/doradoClaro"
+            android:textSize="16sp"
+            app:endIconMode="password_toggle"
+            app:endIconTint="@color/doradoClaro"
+            app:errorEnabled="true"
+            app:helperTextEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_texto_contraseña">
+
+            <!-- TextInput Contraseña Login -->
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/login_textInput_contraseña"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_light"
+                android:hint="@string/login_contraseña_hint"
+                android:inputType="textPassword"
+                android:textColor="@color/doradoClaro"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- CheckBox para mantener la sesión iniciada -->
+        <CheckBox
+            android:id="@+id/checkBoxLogin"
+            android:layout_width="300dp"
+            android:layout_height="48dp"
+            android:fontFamily="@font/montserrat_light"
+            android:text="@string/sesion_iniciada"
+            android:textColor="@color/doradoClaro"
+            android:textSize="14sp"
+            android:theme="@style/MyCheckBox"
+            app:layout_constraintStart_toStartOf="@+id/login_layoutTextInput_contraseña"
+            app:layout_constraintTop_toBottomOf="@+id/login_layoutTextInput_contraseña" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Botón de Inicio de Sesión -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_login"
+        android:layout_width="296dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal|center"
+        android:layout_marginTop="45dp"
+        android:background="@drawable/btn_login"
+        android:fontFamily="@font/montserrat_medio"
+        android:gravity="center"
+        android:text="@string/login_btn"
+        android:textColor="@color/negroClaro"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_layoutTextInput_contraseña" />
+
+    <!-- Texto de Registrarse en el Login -->
+    <TextView
+        android:id="@+id/login_registrarse"
+        android:layout_width="219dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/montserrat_light"
+        android:gravity="center_horizontal"
+        android:text="@string/registrarse"
+        android:textColor="@color/doradoClaro"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/login_contraseña"
+        app:layout_constraintTop_toTopOf="parent" />
+</LinearLayout>
