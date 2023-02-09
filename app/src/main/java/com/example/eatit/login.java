@@ -191,7 +191,6 @@ public class login extends Activity {
                 if (firebaseAuth.getCurrentUser().isEmailVerified()) {
                     this.finish();
                     startActivity(new Intent(login.this, panelControl.class));
-                    Toast.makeText(login.this, "Hecho", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(login.this, "Correo no validado", Toast.LENGTH_SHORT).show();
                 }

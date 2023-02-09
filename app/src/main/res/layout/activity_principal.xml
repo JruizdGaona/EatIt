@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:id="@+id/principal"
@@ -7,24 +8,53 @@
     android:layout_height="match_parent"
     android:background="@color/negroClaro">
 
+    <!-- ConstraintLayout para meter el icono de ajustes y menú -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp">
+
+        <!-- Icono de Menu -->
+        <ImageView
+            android:id="@+id/menu"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/ajustes"
+            android:src="@drawable/menu"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Icono de Ajustes -->
+        <ImageView
+            android:id="@+id/ajustes"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/ajustes"
+            android:src="@drawable/ajustes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <!-- Logo de la aplicación -->
     <ImageView
         android:id="@+id/login_logo"
         android:layout_width="match_parent"
         android:layout_height="73dp"
         android:layout_marginLeft="75dp"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="25dp"
         android:layout_marginRight="75dp"
         android:contentDescription="@string/logo"
         android:src="@drawable/logo" />
 
-    <!-- Título de login de la aplicación -->
+    <!-- Título de recetas de la aplicación -->
     <TextView
-        android:id="@+id/login_titulo"
+        android:id="@+id/recetas"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_gravity="center_horizontal|center"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="15dp"
         android:fontFamily="@font/montserrat_medio"
         android:gravity="center"
         android:text="@string/actividad_principal"
