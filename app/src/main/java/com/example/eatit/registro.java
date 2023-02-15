@@ -28,6 +28,7 @@ public class registro extends Activity {
     TextInputEditText contraseñaET, correoET, nombreET, apellidoET;
     TextInputLayout contraseña, correo, nombre, apellido;
     FirebaseAuth firebaseAuth;
+    LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,6 +65,7 @@ public class registro extends Activity {
         nombre = findViewById(R.id.registro_layoutTextInput_nombre);
         apellido = findViewById(R.id.registro_layoutTextInput_apellido);
         firebaseAuth = FirebaseAuth.getInstance();
+        loadingDialog = new LoadingDialog(this);
     }
 
     /**
@@ -187,8 +189,8 @@ public class registro extends Activity {
      */
     private void comprobarContraseña() {
         contraseñaET.addTextChangedListener(new TextWatcher() {
-            boolean condEmail = correoET.getText().toString().matches("^[A-Za-z0-9]+@[a-z]\\.[a-z]+$");
-            boolean condContraseña = contraseñaET.getText().toString().matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,15}$");
+            final boolean condEmail = correoET.getText().toString().matches("^[A-Za-z0-9]+@[a-z]\\.[a-z]+$");
+            final boolean condContraseña = contraseñaET.getText().toString().matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,15}$");
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 cambiarEstadoBoton(!charSequence.toString().isEmpty());
@@ -231,6 +233,7 @@ public class registro extends Activity {
      */
     private void clickBotonRegistro(ProgressDialog progressDialog) {
         botonRegistro.setOnClickListener((View) -> {
+            loadingDialog.showDialog("Registrando Usuario...");
             String correo = correoET.getText().toString();
             String contraseña = contraseñaET.getText().toString();
 
@@ -249,7 +252,9 @@ public class registro extends Activity {
                 enviarCorreoValidacion();
                 this.finish();
                 startActivity(new Intent(registro.this, login.class));
+                loadingDialog.closeDialog();
             } else {
+                loadingDialog.closeDialog();
                 Toast.makeText(registro.this, "Error al realizar el registro, pruebe más tarde", Toast.LENGTH_LONG).show();
             }
         });

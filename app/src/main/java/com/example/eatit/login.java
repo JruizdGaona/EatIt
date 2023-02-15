@@ -30,6 +30,7 @@ public class login extends Activity {
     TextInputEditText contraseñaET, correoET;
     TextInputLayout contraseña, correo;
     FirebaseAuth firebaseAuth;
+    LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,6 +64,7 @@ public class login extends Activity {
         contraseña = findViewById(R.id.login_layoutTextInput_contraseña);
         correo = findViewById(R.id.login_layoutTextInput_correo);
         firebaseAuth = FirebaseAuth.getInstance();
+        loadingDialog = new LoadingDialog(this);
     }
 
     /**
@@ -161,7 +163,7 @@ public class login extends Activity {
      */
     private void clickBotonLogin(ProgressDialog progressDialog) {
         botonLogin.setOnClickListener((View) -> {
-            //progressDialog.show();
+            loadingDialog.showDialog("Iniciando sesión...");
             String correo = correoET.getText().toString();
             String contraseña = contraseñaET.getText().toString();
 
@@ -180,10 +182,13 @@ public class login extends Activity {
                 if (firebaseAuth.getCurrentUser().isEmailVerified()) {
                     this.finish();
                     startActivity(new Intent(login.this, panelControl.class));
+                    loadingDialog.closeDialog();
                 } else {
+                    loadingDialog.closeDialog();
                     Toast.makeText(login.this, "Correo no validado", Toast.LENGTH_SHORT).show();
                 }
             } else {
+                loadingDialog.closeDialog();
                 Toast.makeText(login.this, "Correo o contraseña no válidos", Toast.LENGTH_SHORT).show();
             }
         });
