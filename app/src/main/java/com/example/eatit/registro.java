@@ -83,11 +83,7 @@ public class registro extends Activity {
         nombreET.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(charSequence.toString().isEmpty()) {
-                    cambiarEstadoBoton(false);
-                } else {
-                    cambiarEstadoBoton(true);
-                }
+                cambiarEstadoBoton(!charSequence.toString().isEmpty());
             }
 
             @Override
@@ -123,11 +119,7 @@ public class registro extends Activity {
         apellidoET.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(charSequence.toString().isEmpty()) {
-                    cambiarEstadoBoton(false);
-                } else {
-                    cambiarEstadoBoton(true);
-                }
+                cambiarEstadoBoton(!charSequence.toString().isEmpty());
             }
 
             @Override
@@ -164,11 +156,7 @@ public class registro extends Activity {
         correoET.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(charSequence.toString().isEmpty()) {
-                    cambiarEstadoBoton(false);
-                } else {
-                    cambiarEstadoBoton(true);
-                }
+                cambiarEstadoBoton(!charSequence.toString().isEmpty());
             }
 
             @Override
@@ -203,11 +191,7 @@ public class registro extends Activity {
             boolean condContraseña = contraseñaET.getText().toString().matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,15}$");
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(charSequence.toString().isEmpty()) {
-                    cambiarEstadoBoton(false);
-                } else {
-                    cambiarEstadoBoton(true);
-                }
+                cambiarEstadoBoton(!charSequence.toString().isEmpty());
             }
 
             @Override
@@ -248,7 +232,7 @@ public class registro extends Activity {
     private void clickBotonRegistro(ProgressDialog progressDialog) {
         botonRegistro.setOnClickListener((View) -> {
             String correo = correoET.getText().toString();
-            String contraseña = correoET.getText().toString();
+            String contraseña = contraseñaET.getText().toString();
 
             registroFirebase(correo, contraseña);
         });
@@ -263,6 +247,7 @@ public class registro extends Activity {
         firebaseAuth.createUserWithEmailAndPassword(correo, contraseña).addOnCompleteListener((task) -> {
             if (task.isSuccessful()) {
                 enviarCorreoValidacion();
+                this.finish();
                 startActivity(new Intent(registro.this, login.class));
             } else {
                 Toast.makeText(registro.this, "Error al realizar el registro, pruebe más tarde", Toast.LENGTH_LONG).show();

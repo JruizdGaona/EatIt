@@ -7,11 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -75,11 +72,7 @@ public class login extends Activity {
         correoET.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(charSequence.toString().isEmpty()) {
-                    cambiarEstadoBoton(false);
-                } else {
-                    cambiarEstadoBoton(true);
-                }
+                cambiarEstadoBoton(!charSequence.toString().isEmpty());
             }
 
             @Override
@@ -111,11 +104,7 @@ public class login extends Activity {
         contraseñaET.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(charSequence.toString().isEmpty()) {
-                    cambiarEstadoBoton(false);
-                } else {
-                    cambiarEstadoBoton(true);
-                }
+                cambiarEstadoBoton(!charSequence.toString().isEmpty());
             }
 
             @Override
