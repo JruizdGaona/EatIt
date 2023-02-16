@@ -19,8 +19,8 @@
         <!-- Icono de Menu -->
         <ImageView
             android:id="@+id/menu"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:contentDescription="@string/ajustes"
             android:src="@drawable/menu"
             app:layout_constraintStart_toStartOf="parent"
@@ -29,8 +29,8 @@
         <!-- Icono de Ajustes -->
         <ImageView
             android:id="@+id/ajustes"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:contentDescription="@string/ajustes"
             android:src="@drawable/ajustes"
             app:layout_constraintEnd_toEndOf="parent"
