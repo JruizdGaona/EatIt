@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- CardView de una receta -->
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_list_receta"
@@ -12,18 +13,23 @@
     app:strokeColor="@color/doradoClaro"
     app:strokeWidth="2dp">
 
+    <!-- Layout externo para el CardView -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/layout_external_card">
 
+        <!-- Laoyut interno para el CardView -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/layout_card">
 
+            <!-- Imagen de la receta -->
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/ilm_foto"
+                android:id="@+id/img_receta"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="4dp"
@@ -37,18 +43,19 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:shapeAppearanceOverlay="@style/RoundCorner" />
 
+            <!-- Texto con el Nombre de la receta -->
             <TextView
-                android:id="@+id/ilm_nombre"
+                android:id="@+id/receta_nombre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/montserrat_light"
-                android:text="Receta"
+                android:text="@string/receta"
                 android:textColor="@color/doradoClaro"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/ilm_foto"
+                app:layout_constraintStart_toEndOf="@+id/img_receta"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>

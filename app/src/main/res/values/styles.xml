@@ -5,16 +5,19 @@
         <item name="colorControlNormal">@color/doradoClaro</item>
         <item name="colorControlActivated">@color/doradoClaro</item>
     </style>
+    <!-- Estilo MaterialDialog personalizado -->
     <style name="MyThemeOverlay.MaterialComponents.MaterialAlertDialog" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
         <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
         <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
         <item name="fontFamily">@font/montserrat_light</item>
     </style>
+    <!-- Estilo Botón Aceptar -->
     <style name="PositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
         <item name="android:textColor">@color/negroClaro</item>
         <item name="fontFamily">@font/montserrat_medio</item>
         <item name="backgroundTint">@color/doradoClaro</item>
     </style>
+    <!-- Estilo Botón Cancelar -->
     <style name="NegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
         <item name="android:textColor">@color/doradoClaro</item>
         <item name="fontFamily">@font/montserrat_medio</item>

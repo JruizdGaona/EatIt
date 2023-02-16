@@ -2,7 +2,9 @@ package com.example.eatit;
 
 import java.io.Serializable;
 
-
+/**
+ * @author Javier Ruiz de Gaona Tre.
+ */
 public class Receta implements Serializable {
     private String nombre;
 

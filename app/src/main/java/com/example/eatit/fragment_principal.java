@@ -9,16 +9,27 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Javier Ruiz de Gaona Tre.
+ */
 public class fragment_principal extends Fragment {
 
+    // Declaración de Variables.
     List<Receta> recetas = new ArrayList<>();
     RecyclerView recyclerView;
     AdapterReceta adapter;
 
+    /**
+     * Método onCreate del fragment de Recetas.
+     * @param inflater Variable que inlfa el Layout en la actividad.
+     * @param container Contenedor invisible que define la estructura de diseño de View
+     * @param savedInstanceState Estado de la instancia de la aplicación.
+     *
+     * @return Vista creada.
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -30,6 +41,9 @@ public class fragment_principal extends Fragment {
         return view;
     }
 
+    /**
+     * Método que crea las recetas y las carga en el adapter de recetas.
+     */
     private void mostrarRecetas() {
         for (int i = 0; i < 20; i++) {
             String nombre = "Receta" +i;
