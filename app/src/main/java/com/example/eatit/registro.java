@@ -1,7 +1,6 @@
 package com.example.eatit;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,12 +12,16 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 
+/**
+ * @author Javier Ruiz de Gaona Tre.
+ */
 public class registro extends Activity {
 
     // Declaramos las variables.
@@ -34,14 +37,13 @@ public class registro extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
-        final ProgressDialog progressDialog = new ProgressDialog(this);
 
         inicializarVariables();
         cambiarEstadoBoton(false);
 
         comprobarCampos();
         clickLogin();
-        clickBotonRegistro(progressDialog);
+        clickBotonRegistro();
     }
 
     /**
@@ -90,7 +92,6 @@ public class registro extends Activity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
@@ -115,7 +116,7 @@ public class registro extends Activity {
     }
 
     /**
-     * Método que comprueba que el apellido del usuario es válido
+     * Método que comprueba que el apellido del usuario es válido.
      */
     private void comprobarApellido() {
         apellidoET.addTextChangedListener(new TextWatcher() {
@@ -126,7 +127,6 @@ public class registro extends Activity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
@@ -163,7 +163,6 @@ public class registro extends Activity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
@@ -189,7 +188,7 @@ public class registro extends Activity {
      */
     private void comprobarContraseña() {
         contraseñaET.addTextChangedListener(new TextWatcher() {
-            final boolean condEmail = correoET.getText().toString().matches("^[A-Za-z0-9]+@[a-z]\\.[a-z]+$");
+            final boolean condEmail = correoET.getText().toString().matches("^[A-Za-z0-9.]+@[a-z]+\\.[a-z]+$");
             final boolean condContraseña = contraseñaET.getText().toString().matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,15}$");
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -198,7 +197,6 @@ public class registro extends Activity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
@@ -231,7 +229,7 @@ public class registro extends Activity {
     /**
      * Método que registra al usuario nuevo al pulsar el botón.
      */
-    private void clickBotonRegistro(ProgressDialog progressDialog) {
+    private void clickBotonRegistro() {
         botonRegistro.setOnClickListener((View) -> {
             loadingDialog.showDialog("Registrando Usuario...");
             String correo = correoET.getText().toString();
@@ -246,7 +244,7 @@ public class registro extends Activity {
      * @param correo Correo del nuevo usuario.
      * @param contraseña Contraseña del nuevo usuario.
      */
-    private void registroFirebase(String correo, String contraseña) {
+    private void registroFirebase(@NonNull String correo, @NonNull String contraseña) {
         firebaseAuth.createUserWithEmailAndPassword(correo, contraseña).addOnCompleteListener((task) -> {
             if (task.isSuccessful()) {
                 enviarCorreoValidacion();
@@ -308,10 +306,8 @@ public class registro extends Activity {
      */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        // Guardamos la vista seleccionada.
         View view = this.getCurrentFocus();
 
-        // Si no es null (Tenemos una vista seleccionada), cerramos el teclado.
         if (view != null) {
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);

@@ -1,23 +1,19 @@
 package com.example.eatit;
 
 import android.os.Bundle;
-import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * @author Javier Ruiz de Gaona Tre.
+ */
 public class panelControl extends AppCompatActivity {
 
+    // Declaración de variables.
     ImageView ajustes, logo, menu;
     TextView recetas;
 
@@ -32,6 +28,9 @@ public class panelControl extends AppCompatActivity {
         clickMenu();
     }
 
+    /**
+     * Método que inicializa todos los componenetes de la Actividad.
+     */
     private void inicializarVariables() {
         ajustes = findViewById(R.id.ajustes);
         logo = findViewById(R.id.login_logo);
@@ -39,18 +38,23 @@ public class panelControl extends AppCompatActivity {
         menu = findViewById(R.id.menu);
     }
 
+    /**
+     * Método que inicia la actividad de Ajustes al pulsar el icono de la Actividad.
+     */
     private void clickAjustes() {
-        ajustes.setOnClickListener((View) -> {
-            Toast.makeText(panelControl.this, "Ajustes", Toast.LENGTH_SHORT).show();
-        });
+        ajustes.setOnClickListener((View) -> Toast.makeText(panelControl.this, "Ajustes", Toast.LENGTH_SHORT).show());
     }
 
+    /**
+     * Método que inicia la actividad de Menú al pulsar el icono de la Actividad.
+     */
     private void clickMenu() {
-        menu.setOnClickListener((View) -> {
-            Toast.makeText(panelControl.this, "Menu", Toast.LENGTH_SHORT).show();
-        });
+        menu.setOnClickListener((View) -> Toast.makeText(panelControl.this, "Menu", Toast.LENGTH_SHORT).show());
     }
 
+    /**
+     * Método que carga las recetas de la base de datos en el fragment de la Actividad.
+     */
     private void cargarRecetas() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

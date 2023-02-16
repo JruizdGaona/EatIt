@@ -1,9 +1,7 @@
 package com.example.eatit;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -17,15 +15,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
-
-import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 
+/**
+ * @author Javier Ruiz de Gaona Tre.
+ */
 public class login extends Activity {
 
     // Declaramos las variables.
@@ -117,7 +117,6 @@ public class login extends Activity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
@@ -170,32 +169,49 @@ public class login extends Activity {
         textoContraseñaOlvidada.setOnClickListener((View) -> {
             View v = LayoutInflater.from(login.this).inflate(R.layout.activity_recordar_password, null);
 
-            new MaterialAlertDialogBuilder(login.this, R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog)
-                    .setTitle("Recuperar Contraseña")
-                    .setView(v)
-                    .setPositiveButton("Enviar", (dialogInterface, i) -> {
-                        loadingDialog.showDialog("Enviando Correo...");
-                        EditText correoRecovery = v.findViewById(R.id.alert_rp_prompt_correo_EditText);
-                        String correo = correoRecovery.getText().toString();
-
-                        if (correo.isEmpty() || !correo.matches("^[A-Za-z0-9.]+@[a-z]+\\.[a-z]+$")) {
-                            loadingDialog.closeDialog();
-                            Toast.makeText(login.this, "Correo electrónico no válido", Toast.LENGTH_LONG).show();
-                        } else {
-                            firebaseAuth.sendPasswordResetEmail(correo).addOnCompleteListener((Task) -> {
-                                if (Task.isSuccessful()) {
-                                    loadingDialog.closeDialog();
-                                    Toast.makeText(login.this, "Correo de recuperación enviado", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    loadingDialog.closeDialog();
-                                    Toast.makeText(login.this, "Cuenta no registrada", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }
-                    }
-            ).setNegativeButton("Cancelar", (dialogInterface, i) -> dialogInterface.cancel())
-            .show();
+            crearMaterialAlert(v);
         });
+    }
+
+    /**
+     * Método que nos crea el Material Alert para que el usuario introduzca su correo para
+     * reestablecer la contraseña.
+     * @param v View sobre la que vamos a crear el MaterialAlert.
+     */
+    private void crearMaterialAlert(View v) {
+        new MaterialAlertDialogBuilder(login.this, R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog)
+                .setTitle("Recuperar Contraseña")
+                .setView(v)
+                .setPositiveButton("Enviar", (dialogInterface, i) -> {
+                    loadingDialog.showDialog("Enviando Correo...");
+                    EditText correoRecovery = v.findViewById(R.id.cambiarContraseña_editTextCorreo);
+                    String correo = correoRecovery.getText().toString();
+
+                    reestablecerContraseña(correo);
+                }
+        ).setNegativeButton("Cancelar", (dialogInterface, i) -> dialogInterface.cancel())
+        .show();
+    }
+
+    /**
+     * Método que envía el correo de reestablecimiento de la contraseña a través de FireBase.
+     * @param correo Correo electrónico introducido por el usuario.
+     */
+    private void reestablecerContraseña(@NonNull String correo) {
+        if (correo.isEmpty() || !correo.matches("^[A-Za-z0-9.]+@[a-z]+\\.[a-z]+$")) {
+            loadingDialog.closeDialog();
+            Toast.makeText(login.this, "Correo electrónico no válido", Toast.LENGTH_LONG).show();
+        } else {
+            firebaseAuth.sendPasswordResetEmail(correo).addOnCompleteListener((Task) -> {
+                if (Task.isSuccessful()) {
+                    loadingDialog.closeDialog();
+                    Toast.makeText(login.this, "Correo de recuperación enviado", Toast.LENGTH_SHORT).show();
+                } else {
+                    loadingDialog.closeDialog();
+                    Toast.makeText(login.this, "Cuenta no registrada", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     /**
@@ -216,7 +232,7 @@ public class login extends Activity {
      * @param correo Correo Electrónico del usuario.
      * @param contraseña Contraseña del Usuario.
      */
-    private void inicioSesionFirebase(String correo, String contraseña) {
+    private void inicioSesionFirebase(@NonNull String correo, @NonNull String contraseña) {
         firebaseAuth.signInWithEmailAndPassword(correo, contraseña).addOnCompleteListener((task) -> {
             if (task.isSuccessful()) {
                 if (firebaseAuth.getCurrentUser().isEmailVerified()) {
@@ -237,14 +253,13 @@ public class login extends Activity {
     /**
      * Método usado para cerrar el teclado al pulsar sobre otro lado de la pantalla.
      * @param event - Objeto utilizado para informar eventos de movimiento.
+     *
      * @return - True, si la vista es distinta de null, False si la View es null.
      */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        // Guardamos la vista seleccionada.
         View view = this.getCurrentFocus();
 
-        // Si no es null (Tenemos una vista seleccionada), cerramos el teclado.
         if (view != null) {
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);

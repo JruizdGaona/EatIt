@@ -5,7 +5,7 @@
     <string name="login_texto">INICIAR SESIÓN</string>
     <string name="login_correo">CORREO ELECTRÓNICO</string>
     <string name="login_contraseña">CONTRASEÑA</string>
-    <string name="login_correo_hint">Escribe tu correo electróncio</string>
+    <string name="login_correo_hint">Escribe tu correo electrónico</string>
     <string name="login_contraseña_hint">Escribe tu contraseña</string>
     <string name="login_btn">Iniciar Sesión</string>
     <string name="sesion_iniciada">Mantener la sesión iniciada</string>
@@ -29,4 +29,5 @@
     <string name="ajustes">Ajustes</string>
     <string name="aceptar">Enviar</string>
     <string name="cancelar">Cancelar</string>
+    <string name="receta">Receta</string>
 </resources>
