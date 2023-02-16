@@ -168,7 +168,7 @@ public class registro extends Activity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(!editable.toString().isEmpty() && editable.toString().matches("^[A-Za-z0-9]+@[a-z]+\\.[a-z]+$")) {
+                if(!editable.toString().isEmpty() && editable.toString().matches("^[A-Za-z0-9.]+@[a-z]+\\.[a-z]+$")) {
                     if(nombreET.getText().toString().isEmpty() || contraseñaET.getText().toString().isEmpty()){
                         correo.setError(null);
                         cambiarEstadoBoton(false);

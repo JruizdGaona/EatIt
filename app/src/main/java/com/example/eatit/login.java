@@ -3,19 +3,25 @@ package com.example.eatit;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
+
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,7 +42,6 @@ public class login extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        final ProgressDialog progressDialog = new ProgressDialog(this);
 
         inicializarVariables();
         cambiarEstadoBoton(false);
@@ -44,7 +49,8 @@ public class login extends Activity {
         comprobarCorreo();
         comprobarContraseña();
         clickRegistrarse();
-        clickBotonLogin(progressDialog);
+        clickRestaurarContraseña();
+        clickBotonLogin();
     }
 
     /**
@@ -158,10 +164,44 @@ public class login extends Activity {
     }
 
     /**
-     * Método que le da funcionalidad al botón de Inicio de Sesión.
-     * @param progressDialog Muestra un indicador de progreso.
+     * Método que permitirá al usuario cambiar la contraseña en caso de que se la haya olvidado.
      */
-    private void clickBotonLogin(ProgressDialog progressDialog) {
+    private void clickRestaurarContraseña() {
+        textoContraseñaOlvidada.setOnClickListener((View) -> {
+            View v = LayoutInflater.from(login.this).inflate(R.layout.activity_recordar_password, null);
+
+            new MaterialAlertDialogBuilder(login.this, R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog)
+                    .setTitle("Recuperar Contraseña")
+                    .setView(v)
+                    .setPositiveButton("Enviar", (dialogInterface, i) -> {
+                        loadingDialog.showDialog("Enviando Correo...");
+                        EditText correoRecovery = v.findViewById(R.id.alert_rp_prompt_correo_EditText);
+                        String correo = correoRecovery.getText().toString();
+
+                        if (correo.isEmpty() || !correo.matches("^[A-Za-z0-9.]+@[a-z]+\\.[a-z]+$")) {
+                            loadingDialog.closeDialog();
+                            Toast.makeText(login.this, "Correo electrónico no válido", Toast.LENGTH_LONG).show();
+                        } else {
+                            firebaseAuth.sendPasswordResetEmail(correo).addOnCompleteListener((Task) -> {
+                                if (Task.isSuccessful()) {
+                                    loadingDialog.closeDialog();
+                                    Toast.makeText(login.this, "Correo de recuperación enviado", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    loadingDialog.closeDialog();
+                                    Toast.makeText(login.this, "Cuenta no registrada", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }
+            ).setNegativeButton("Cancelar", (dialogInterface, i) -> dialogInterface.cancel())
+            .show();
+        });
+    }
+
+    /**
+     * Método que le da funcionalidad al botón de Inicio de Sesión.
+     */
+    private void clickBotonLogin() {
         botonLogin.setOnClickListener((View) -> {
             loadingDialog.showDialog("Iniciando sesión...");
             String correo = correoET.getText().toString();
