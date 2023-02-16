@@ -57,6 +57,36 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/img_receta"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Texto con la dificultad de la Receta -->
+            <TextView
+                android:id="@+id/receta_dificultad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="25dp"
+                android:fontFamily="@font/montserrat_light"
+                android:text="@string/receta"
+                android:textColor="@color/doradoClaro"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Texto con la duración de la Receta -->
+            <TextView
+                android:id="@+id/receta_duracion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="25dp"
+                android:fontFamily="@font/montserrat_light"
+                android:text="@string/receta"
+                android:textColor="@color/doradoClaro"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/receta_dificultad" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
