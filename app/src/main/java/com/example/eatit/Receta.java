@@ -6,9 +6,13 @@ import java.io.Serializable;
  * @author Javier Ruiz de Gaona Tre.
  */
 public class Receta implements Serializable {
-    private String nombre;
+    private String nombre, dificultad;
+    private float duracion;
 
-    public Receta() {
+    public Receta(String nombre, String dificultad, float duracion) {
+        this.nombre = nombre;
+        this.dificultad = dificultad;
+        this.duracion = duracion;
     }
 
     public Receta(String nombre) {
@@ -21,5 +25,21 @@ public class Receta implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getDificultad() {
+        return dificultad;
+    }
+
+    public void setDificultad(String dificultad) {
+        this.dificultad = dificultad;
+    }
+
+    public float getDuracion() {
+        return duracion;
+    }
+
+    public void setDuracion(float duracion) {
+        this.duracion = duracion;
     }
 }

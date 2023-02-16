@@ -19,7 +19,7 @@ public class AdapterReceta extends RecyclerView.Adapter<AdapterReceta.MyViewHold
     // Declaración de Variables.
     private final List<Receta> recetas;
     private final Context context;
-    TextView nombre;
+    TextView nombre, dificultad, duracion;
 
     /**
      * Constructor del Adapter de Recetas.
@@ -75,11 +75,15 @@ public class AdapterReceta extends RecyclerView.Adapter<AdapterReceta.MyViewHold
         public MyViewHolder(View view){
             super(view);
             nombre = view.findViewById(R.id.receta_nombre);
+            duracion = view.findViewById(R.id.receta_duracion);
+            dificultad = view.findViewById(R.id.receta_dificultad);
             cv = view.findViewById(R.id.layout_list_receta);
         }
 
         void bindData(final Receta item) {
             nombre.setText((item.getNombre()));
+            duracion.setText(String.valueOf(item.getDuracion()).concat(" h"));
+            dificultad.setText(item.getDificultad());
         }
     }
 }

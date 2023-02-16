@@ -47,7 +47,9 @@ public class fragment_principal extends Fragment {
     private void mostrarRecetas() {
         for (int i = 0; i < 20; i++) {
             String nombre = "Receta" +i;
-            recetas.add(new Receta(nombre));
+            String dificultad = "Dificultad " +i;
+
+            recetas.add(new Receta(nombre, dificultad, (float) i));
         }
         adapter = new AdapterReceta(recetas, fragment_principal.this.getContext());
         recyclerView.setAdapter(adapter);
