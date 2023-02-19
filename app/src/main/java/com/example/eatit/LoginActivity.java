@@ -3,6 +3,7 @@ package com.example.eatit;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -37,6 +38,7 @@ public class LoginActivity extends Activity {
     TextInputLayout contraseña, correo;
     FirebaseAuth firebaseAuth;
     LoadingDialog loadingDialog;
+    boolean estaActivado;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,6 +49,8 @@ public class LoginActivity extends Activity {
         cambiarEstadoBoton(false);
 
         comprobarCorreo();
+        inicioAuto();
+        chbxLogin();
         comprobarContraseña();
         clickRegistrarse();
         clickRestaurarContraseña();
@@ -70,6 +74,7 @@ public class LoginActivity extends Activity {
         contraseña = findViewById(R.id.login_layoutTextInput_contraseña);
         correo = findViewById(R.id.login_layoutTextInput_correo);
         firebaseAuth = FirebaseAuth.getInstance();
+        estaActivado = mantenerSesion.isChecked();
         loadingDialog = new LoadingDialog(this);
     }
 
@@ -248,6 +253,58 @@ public class LoginActivity extends Activity {
                 Toast.makeText(LoginActivity.this, "Correo o contraseña no válidos", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+
+    /**
+     * Método que nos envía a la pantalla de inicio si está marcado el checkbox.
+     */
+    private void inicioAuto() {
+        if (obtenerEstadoCheckBox()) {
+            startActivity(new Intent(LoginActivity.this, PanelControlActivity.class));
+        }
+    }
+
+    /**
+     * Método que le da la funcionalidad al CheckBox y guarda su valor.
+     */
+    private void chbxLogin() {
+        mantenerSesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (estaActivado) {
+                    mantenerSesion.setChecked(false);
+                }
+                estaActivado = mantenerSesion.isChecked();
+                guardarEstadoCheckBox();
+            }
+        });
+    }
+
+    /**
+     * Método que cambia el estado del checkbox de inicio de sesión automático.
+     * @param c - Interfaz a la información global sobre un entorno de aplicación.
+     * @param b - Boolean que recibe el valor del checkbox.
+     */
+    public static void cambiarEstadoCheckbox(Context c, boolean b) {
+        SharedPreferences sharedPreferences = c.getSharedPreferences("Correo", MODE_PRIVATE);
+        sharedPreferences.edit().putBoolean("BotonChecked", b).apply();
+    }
+
+    /**
+     * Método que guarda el valor del Checkbox.
+     */
+    public void guardarEstadoCheckBox() {
+        SharedPreferences sharedPreferences = getSharedPreferences("Correo", MODE_PRIVATE);
+        sharedPreferences.edit().putBoolean("BotonChecked", mantenerSesion.isChecked()).apply();
+    }
+
+    /**
+     * Método que obtiene el valor del Checkbox.
+     */
+    public boolean obtenerEstadoCheckBox() {
+        SharedPreferences sharedPreferences = getSharedPreferences("Correo", MODE_PRIVATE);
+        return sharedPreferences.getBoolean("BotonChecked", false);
     }
 
     /**
