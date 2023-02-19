@@ -22,11 +22,11 @@ import com.google.firebase.auth.FirebaseAuth;
 /**
  * @author Javier Ruiz de Gaona Tre.
  */
-public class registro extends Activity {
+public class RegistroActivity extends Activity {
 
     // Declaramos las variables.
     ImageView logoApp;
-    TextView textoRegistro, textoCorreo, textoContraseña, textoContraseñaOlvidada, textoNombre, textoApellido, textoLogin;
+    TextView textoRegistro, textoCorreo, textoContraseña, textoNombre, textoApellido, textoLogin;
     AppCompatButton botonRegistro;
     TextInputEditText contraseñaET, correoET, nombreET, apellidoET;
     TextInputLayout contraseña, correo, nombre, apellido;
@@ -249,11 +249,11 @@ public class registro extends Activity {
             if (task.isSuccessful()) {
                 enviarCorreoValidacion();
                 this.finish();
-                startActivity(new Intent(registro.this, login.class));
+                startActivity(new Intent(RegistroActivity.this, LoginActivity.class));
                 loadingDialog.closeDialog();
             } else {
                 loadingDialog.closeDialog();
-                Toast.makeText(registro.this, "Error al realizar el registro, pruebe más tarde", Toast.LENGTH_LONG).show();
+                Toast.makeText(RegistroActivity.this, "Error al realizar el registro, pruebe más tarde", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -264,13 +264,13 @@ public class registro extends Activity {
     private void enviarCorreoValidacion() {
         firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                Toast.makeText(registro.this, "Usuario registrado, verifique su correo", Toast.LENGTH_LONG).show();
+                Toast.makeText(RegistroActivity.this, "Usuario registrado, verifique su correo", Toast.LENGTH_LONG).show();
                 correoET.setText("");
                 contraseñaET.setText("");
                 nombreET.setText("");
                 apellidoET.setText("");
             } else {
-                Toast.makeText(registro.this, "Error al realizar el registro, pruebe más tarde", Toast.LENGTH_LONG).show();
+                Toast.makeText(RegistroActivity.this, "Error al realizar el registro, pruebe más tarde", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -295,7 +295,7 @@ public class registro extends Activity {
     private void clickLogin() {
         textoLogin.setOnClickListener((View) -> {
             this.finish();
-            startActivity(new Intent(registro.this, login.class));
+            startActivity(new Intent(RegistroActivity.this, LoginActivity.class));
         });
     }
 

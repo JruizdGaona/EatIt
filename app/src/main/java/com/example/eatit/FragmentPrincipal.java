@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * @author Javier Ruiz de Gaona Tre.
  */
-public class fragment_principal extends Fragment {
+public class FragmentPrincipal extends Fragment {
 
     // Declaración de Variables.
     List<Receta> recetas = new ArrayList<>();
@@ -51,7 +51,7 @@ public class fragment_principal extends Fragment {
 
             recetas.add(new Receta(nombre, dificultad, (float) i));
         }
-        adapter = new AdapterReceta(recetas, fragment_principal.this.getContext());
+        adapter = new AdapterReceta(recetas, FragmentPrincipal.this.getContext());
         recyclerView.setAdapter(adapter);
     }
 }
