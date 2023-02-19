@@ -30,4 +30,14 @@
     <string name="aceptar">Enviar</string>
     <string name="cancelar">Cancelar</string>
     <string name="receta">Receta</string>
+    <string name="ajustes_activity">AJUSTES</string>
+    <string name="retroceso">Flecha Retroceso</string>
+    <string name="nombre_usuario">CAMBIAR NOMBRE DE USUARIO</string>
+    <string name="ajustes_nombre_usuario_hint">Nuevo nombre de usuario</string>
+    <string name="ajustes_contraseña_vieja">CAMBIAR CONTRASEÑA</string>
+    <string name="ajustes_contraseña_vieja_hint">Contraseña Actual</string>
+    <string name="ajustes_contraseña_nueva_hint">Nueva Contraseña</string>
+    <string name="ajustes_contraseña_nueva_hint_bis">Repetir Nueva Contraseña</string>
+    <string name="guardar_ajustes">GUARDAR</string>
+    <string name="confirmar_cambios">¿Desea guardar los cambios?</string>
 </resources>

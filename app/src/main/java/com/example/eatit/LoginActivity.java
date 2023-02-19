@@ -26,7 +26,7 @@ import com.google.firebase.auth.FirebaseAuth;
 /**
  * @author Javier Ruiz de Gaona Tre.
  */
-public class login extends Activity {
+public class LoginActivity extends Activity {
 
     // Declaramos las variables.
     ImageView logoApp;
@@ -158,7 +158,7 @@ public class login extends Activity {
     private void clickRegistrarse() {
         textoRegistrarse.setOnClickListener((View) -> {
             this.finish();
-            startActivity(new Intent(login.this, registro.class));
+            startActivity(new Intent(LoginActivity.this, RegistroActivity.class));
         });
     }
 
@@ -167,7 +167,7 @@ public class login extends Activity {
      */
     private void clickRestaurarContraseña() {
         textoContraseñaOlvidada.setOnClickListener((View) -> {
-            View v = LayoutInflater.from(login.this).inflate(R.layout.activity_recordar_password, null);
+            View v = LayoutInflater.from(LoginActivity.this).inflate(R.layout.activity_recordar_password, null);
 
             crearMaterialAlert(v);
         });
@@ -179,7 +179,7 @@ public class login extends Activity {
      * @param v View sobre la que vamos a crear el MaterialAlert.
      */
     private void crearMaterialAlert(View v) {
-        new MaterialAlertDialogBuilder(login.this, R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog)
+        new MaterialAlertDialogBuilder(LoginActivity.this, R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog)
                 .setTitle("Recuperar Contraseña")
                 .setView(v)
                 .setPositiveButton("Enviar", (dialogInterface, i) -> {
@@ -200,15 +200,15 @@ public class login extends Activity {
     private void reestablecerContraseña(@NonNull String correo) {
         if (correo.isEmpty() || !correo.matches("^[A-Za-z0-9.]+@[a-z]+\\.[a-z]+$")) {
             loadingDialog.closeDialog();
-            Toast.makeText(login.this, "Correo electrónico no válido", Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginActivity.this, "Correo electrónico no válido", Toast.LENGTH_LONG).show();
         } else {
             firebaseAuth.sendPasswordResetEmail(correo).addOnCompleteListener((Task) -> {
                 if (Task.isSuccessful()) {
                     loadingDialog.closeDialog();
-                    Toast.makeText(login.this, "Correo de recuperación enviado", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Correo de recuperación enviado", Toast.LENGTH_SHORT).show();
                 } else {
                     loadingDialog.closeDialog();
-                    Toast.makeText(login.this, "Cuenta no registrada", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Cuenta no registrada", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -237,15 +237,15 @@ public class login extends Activity {
             if (task.isSuccessful()) {
                 if (firebaseAuth.getCurrentUser().isEmailVerified()) {
                     this.finish();
-                    startActivity(new Intent(login.this, panelControl.class));
+                    startActivity(new Intent(LoginActivity.this, PanelControlActivity.class));
                     loadingDialog.closeDialog();
                 } else {
                     loadingDialog.closeDialog();
-                    Toast.makeText(login.this, "Correo no validado", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Correo no validado", Toast.LENGTH_SHORT).show();
                 }
             } else {
                 loadingDialog.closeDialog();
-                Toast.makeText(login.this, "Correo o contraseña no válidos", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Correo o contraseña no válidos", Toast.LENGTH_SHORT).show();
             }
         });
     }

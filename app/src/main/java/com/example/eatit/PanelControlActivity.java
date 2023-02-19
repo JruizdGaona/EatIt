@@ -1,5 +1,6 @@
 package com.example.eatit;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,7 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 /**
  * @author Javier Ruiz de Gaona Tre.
  */
-public class panelControl extends AppCompatActivity {
+public class PanelControlActivity extends AppCompatActivity {
 
     // Declaración de variables.
     ImageView ajustes, logo, menu;
@@ -42,14 +43,14 @@ public class panelControl extends AppCompatActivity {
      * Método que inicia la actividad de Ajustes al pulsar el icono de la Actividad.
      */
     private void clickAjustes() {
-        ajustes.setOnClickListener((View) -> Toast.makeText(panelControl.this, "Ajustes", Toast.LENGTH_SHORT).show());
+        ajustes.setOnClickListener((View) -> startActivity(new Intent(PanelControlActivity.this, AjustesActivity.class)));
     }
 
     /**
      * Método que inicia la actividad de Menú al pulsar el icono de la Actividad.
      */
     private void clickMenu() {
-        menu.setOnClickListener((View) -> Toast.makeText(panelControl.this, "Menu", Toast.LENGTH_SHORT).show());
+        menu.setOnClickListener((View) -> Toast.makeText(PanelControlActivity.this, "Menu", Toast.LENGTH_SHORT).show());
     }
 
     /**
@@ -58,7 +59,7 @@ public class panelControl extends AppCompatActivity {
     private void cargarRecetas() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.panel_recetas, new fragment_principal());
+        fragmentTransaction.add(R.id.panel_recetas, new FragmentPrincipal());
         fragmentTransaction.commit();
     }
 }
