@@ -22,7 +22,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:contentDescription="@string/ajustes"
-            android:src="@drawable/menu"
+            android:src="@drawable/icono_menu"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,7 +32,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:contentDescription="@string/ajustes"
-            android:src="@drawable/ajustes"
+            android:src="@drawable/icono_ajustes"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
