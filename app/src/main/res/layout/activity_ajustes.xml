@@ -57,7 +57,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ajustes_layout_nombre_usuario"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
 
         <!-- Texto Nombre Usuario -->
         <TextView
@@ -163,6 +164,7 @@
             android:fontFamily="@font/montserrat_light"
             android:textColorHint="@color/doradoClaro"
             android:textSize="16sp"
+            android:layout_marginTop="20dp"
             app:endIconMode="password_toggle"
             app:endIconTint="@color/doradoClaro"
             app:errorEnabled="true"
