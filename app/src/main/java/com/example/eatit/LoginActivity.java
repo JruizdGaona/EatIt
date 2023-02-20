@@ -48,9 +48,10 @@ public class LoginActivity extends Activity {
         inicializarVariables();
         cambiarEstadoBoton(false);
 
-        comprobarCorreo();
         inicioAuto();
         chbxLogin();
+
+        comprobarCorreo();
         comprobarContraseña();
         clickRegistrarse();
         clickRestaurarContraseña();
@@ -261,6 +262,7 @@ public class LoginActivity extends Activity {
      */
     private void inicioAuto() {
         if (obtenerEstadoCheckBox()) {
+            this.finish();
             startActivity(new Intent(LoginActivity.this, PanelControlActivity.class));
         }
     }
@@ -269,15 +271,12 @@ public class LoginActivity extends Activity {
      * Método que le da la funcionalidad al CheckBox y guarda su valor.
      */
     private void chbxLogin() {
-        mantenerSesion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (estaActivado) {
-                    mantenerSesion.setChecked(false);
-                }
-                estaActivado = mantenerSesion.isChecked();
-                guardarEstadoCheckBox();
+        mantenerSesion.setOnClickListener(view -> {
+            if (estaActivado) {
+                mantenerSesion.setChecked(false);
             }
+            estaActivado = mantenerSesion.isChecked();
+            guardarEstadoCheckBox();
         });
     }
 

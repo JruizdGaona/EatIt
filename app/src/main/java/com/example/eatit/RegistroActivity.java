@@ -18,6 +18,8 @@ import androidx.appcompat.widget.AppCompatButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
  * @author Javier Ruiz de Gaona Tre.
@@ -31,6 +33,8 @@ public class RegistroActivity extends Activity {
     TextInputEditText contraseñaET, correoET, nombreET, apellidoET;
     TextInputLayout contraseña, correo, nombre, apellido;
     FirebaseAuth firebaseAuth;
+    FirebaseFirestore database;
+    CollectionReference coleccion;
     LoadingDialog loadingDialog;
 
     @Override
@@ -67,6 +71,8 @@ public class RegistroActivity extends Activity {
         nombre = findViewById(R.id.registro_layoutTextInput_nombre);
         apellido = findViewById(R.id.registro_layoutTextInput_apellido);
         firebaseAuth = FirebaseAuth.getInstance();
+        database = FirebaseFirestore.getInstance();
+        coleccion = database.collection("usuarios");
         loadingDialog = new LoadingDialog(this);
     }
 
@@ -247,6 +253,7 @@ public class RegistroActivity extends Activity {
     private void registroFirebase(@NonNull String correo, @NonNull String contraseña) {
         firebaseAuth.createUserWithEmailAndPassword(correo, contraseña).addOnCompleteListener((task) -> {
             if (task.isSuccessful()) {
+                crearUsuario(correo);
                 enviarCorreoValidacion();
                 this.finish();
                 startActivity(new Intent(RegistroActivity.this, LoginActivity.class));
@@ -256,6 +263,16 @@ public class RegistroActivity extends Activity {
                 Toast.makeText(RegistroActivity.this, "Error al realizar el registro, pruebe más tarde", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    /**
+     * Método que crea el usuario en la Base de Datos al registrarse.
+     *
+     * @param correo Correo electrónico del nuevo Usuario.
+     */
+    private void crearUsuario(String correo) {
+        Usuario usuarioNuevo = new Usuario(correo, nombreET.getText().toString(), apellidoET.getText().toString());
+        coleccion.add(usuarioNuevo);
     }
 
     /**
