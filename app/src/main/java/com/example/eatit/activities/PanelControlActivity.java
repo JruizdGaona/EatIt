@@ -1,4 +1,4 @@
-package com.example.eatit;
+package com.example.eatit.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.example.eatit.R;
+import com.example.eatit.utils.FragmentPrincipal;
 
 /**
  * @author Javier Ruiz de Gaona Tre.

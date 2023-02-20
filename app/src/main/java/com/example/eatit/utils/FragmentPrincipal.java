@@ -1,4 +1,4 @@
-package com.example.eatit;
+package com.example.eatit.utils;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +9,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.eatit.R;
+import com.example.eatit.entities.Receta;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +53,7 @@ public class FragmentPrincipal extends Fragment {
             String nombre = "Receta" +i;
             String dificultad = "Dificultad " +i;
 
-            recetas.add(new Receta(nombre, dificultad, (float) i));
+            recetas.add(new Receta(nombre, dificultad, null, (float) i, 0, null));
         }
         adapter = new AdapterReceta(recetas, FragmentPrincipal.this.getContext());
         recyclerView.setAdapter(adapter);

@@ -1,10 +1,12 @@
-package com.example.eatit;
+package com.example.eatit.utils;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.widget.TextView;
+
+import com.example.eatit.R;
 
 /**
  * @author Javier Ruiz de Gaona Tre.

@@ -1,4 +1,4 @@
-package com.example.eatit;
+package com.example.eatit.utils;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.eatit.R;
+import com.example.eatit.entities.Receta;
 import com.google.android.material.card.MaterialCardView;
 import java.util.List;
 

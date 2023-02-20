@@ -5,7 +5,7 @@
     android:id="@+id/layout_fragment_recetas"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".FragmentPrincipal">
+    tools:context=".utils.FragmentPrincipal">
 
     <!-- RecyclerView con la Lista de Recetas -->
     <androidx.recyclerview.widget.RecyclerView

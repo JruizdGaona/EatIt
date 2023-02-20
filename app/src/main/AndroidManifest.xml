@@ -9,19 +9,19 @@
         android:theme="@style/Theme.EatIt">
 
         <activity
-            android:name=".AjustesActivity"
+            android:name=".activities.AjustesActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".RegistroActivity"
+            android:name=".gestionUsers.RegistroActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PanelControlActivity"
+            android:name=".activities.PanelControlActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".gestionUsers.LoginActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="true"
             android:screenOrientation="portrait">
