@@ -22,7 +22,7 @@
     <string name="registro_login">¿Ya tienes cuenta? Iniciar Sesión</string>
 
     <!-- Cadenas de Texto Actividad Principal -->
-    <string name="actividad_principal">RECETAS</string>
+    <string name="actividad_principal">TUS RECETAS</string>
 
     <!-- Cadenas de texto auxiliares -->
     <string name="toast_fail1">Correo o contraseña no válidos</string>
