@@ -41,4 +41,17 @@
     <string name="ajustes_contraseña_nueva_hint_bis">Repetir Nueva Contraseña</string>
     <string name="guardar_ajustes">GUARDAR</string>
     <string name="confirmar_cambios">¿Desea guardar los cambios?</string>
+
+    <!-- Cadenas de Texto para el menú lateral -->
+    <string name="ingredientes">INGREDIENTES</string>
+    <string name="recetas">RECETAS</string>
+    <string name="recomendador">RECOMENDADOR</string>
+    <string name="tools">AJUSTES</string>
+    <string name="sesion">CERRAR SESIÓN</string>
+    <string name="addIngredientes">AÑADIR INGREDIENTES</string>
+    <string name="verIngredientes">MIS INGREDIENTES</string>
+    <string name="verRecetas">MIS RECETAS</string>
+    <string name="copyright">EatIt - All Rights Reserved</string>
+    <string name="bienvenida">¡Hola de nuevo, Javier!</string>
+    <string name="inicio">INICIO</string>
 </resources>
