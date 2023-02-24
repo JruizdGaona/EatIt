@@ -8,8 +8,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import com.example.eatit.R;
+import com.example.eatit.gestionUsers.LoginActivity;
 import com.example.eatit.utils.FragmentPrincipal;
 
 /**
@@ -18,7 +18,7 @@ import com.example.eatit.utils.FragmentPrincipal;
 public class PanelControlActivity extends AppCompatActivity {
 
     // Declaración de variables.
-    ImageView ajustes, logo, menu;
+    ImageView logo, menu, ajustes;
     TextView recetas;
 
     @Override
@@ -28,18 +28,18 @@ public class PanelControlActivity extends AppCompatActivity {
 
         inicializarVariables();
         cargarRecetas();
-        clickAjustes();
         clickMenu();
+        clickAjustes();
     }
 
     /**
      * Método que inicializa todos los componenetes de la Actividad.
      */
     private void inicializarVariables() {
-        ajustes = findViewById(R.id.ajustes);
         logo = findViewById(R.id.login_logo);
         recetas = findViewById(R.id.recetas);
         menu = findViewById(R.id.menu);
+        ajustes = findViewById(R.id.ajustes);
     }
 
     /**

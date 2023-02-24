@@ -27,6 +27,7 @@
     <!-- Cadenas de texto auxiliares -->
     <string name="toast_fail1">Correo o contraseña no válidos</string>
     <string name="ajustes">Ajustes</string>
+    <string name="menu">Menú</string>
     <string name="aceptar">Enviar</string>
     <string name="cancelar">Cancelar</string>
     <string name="receta">Receta</string>
