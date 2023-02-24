@@ -1,6 +1,6 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
-    <style name="Theme.EatIt" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.EatIt" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/doradoClaro</item>
         <item name="colorPrimaryVariant">@color/doradoClaro</item>
@@ -9,10 +9,16 @@
         <item name="colorSecondary">@color/doradoClaro</item>
         <item name="colorSecondaryVariant">@color/doradoClaro</item>
         <item name="colorOnSecondary">@color/doradoClaro</item>
+        <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.PrimarySurface</item>
+        <item name="drawerArrowStyle">@style/AppTheme.DrawerArrowStyle</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/doradoClaro</item>
     </style>
 </resources>

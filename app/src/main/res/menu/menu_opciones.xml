@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item android:title="@string/ingredientes">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/nav_ingredientes2"
+                        android:title="@string/addIngredientes"/>
+                    <item
+                        android:id="@+id/nav_ingredientes3"
+                        android:title="@string/verIngredientes"/>
+                </group>
+            </menu>
+        </item>
+
+        <item android:title="@string/recetas">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/nav_recetas2"
+                        android:title="@string/recomendador"/>
+                    <item
+                        android:id="@+id/nav_recetas3"
+                        android:title="@string/verRecetas"/>
+                </group>
+            </menu>
+        </item>
+    </group>
+    <group
+        android:id="@+id/grupoGestionUsuario"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_ajustes"
+            android:title="@string/tools" />
+    </group>
+
+    <group
+        android:id="@+id/grupoGestionUsuario2"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_send"
+            android:title="@string/sesion" />
+    </group>
+</menu>

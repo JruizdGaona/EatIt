@@ -22,4 +22,8 @@
         <item name="android:textColor">@color/doradoClaro</item>
         <item name="fontFamily">@font/montserrat_medio</item>
     </style>
+
+    <style name="Style_TextView">
+        <item name="fontFamily">@font/montserrat_medio</item>
+    </style>
 </resources>
