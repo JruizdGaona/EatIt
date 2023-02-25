@@ -9,17 +9,15 @@ public class Receta implements Serializable {
     private String nombre, dificultad, descripcion;
     private float duracion;
     private int kcal;
-    private Usuario usuario;
 
     public Receta() {}
 
-    public Receta(String nombre, String dificultad, String description, float duracion, int kcal, Usuario usuario) {
+    public Receta(String nombre, String dificultad, String description, float duracion, int kcal) {
         this.nombre = nombre;
         this.dificultad = dificultad;
         this.duracion = duracion;
         this.descripcion = description;
         this.kcal = kcal;
-        this.usuario = usuario;
     }
 
     public Receta(String nombre) {
@@ -64,13 +62,5 @@ public class Receta implements Serializable {
 
     public void setKcal(int kcal) {
         this.kcal = kcal;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
 }

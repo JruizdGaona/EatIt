@@ -9,17 +9,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.eatit.R;
 import com.example.eatit.entities.Receta;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Javier Ruiz de Gaona Tre.
  */
-public class FragmentPrincipal extends Fragment {
+public class FragmentRecetas extends Fragment {
 
     // Declaración de Variables.
     List<Receta> recetas = new ArrayList<>();
@@ -53,9 +51,9 @@ public class FragmentPrincipal extends Fragment {
             String nombre = "Receta" +i;
             String dificultad = "Dificultad " +i;
 
-            recetas.add(new Receta(nombre, dificultad, null, (float) i, 0, null));
+            recetas.add(new Receta(nombre, dificultad, null, (float) i, 0));
         }
-        adapter = new AdapterReceta(recetas, FragmentPrincipal.this.getContext());
+        adapter = new AdapterReceta(recetas, FragmentRecetas.this.getContext());
         recyclerView.setAdapter(adapter);
     }
 }

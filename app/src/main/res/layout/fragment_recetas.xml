@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Fragments de las recetas -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_fragment_recetas"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".utils.FragmentPrincipal">
+    android:layout_height="wrap_content">
 
     <!-- RecyclerView con la Lista de Recetas -->
     <androidx.recyclerview.widget.RecyclerView
