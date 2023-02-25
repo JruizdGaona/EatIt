@@ -72,6 +72,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        app:itemBackground="@drawable/add_background"
         android:background="@color/doradoClaro"
         app:headerLayout="@layout/cabecera_menu"
         app:menu="@menu/menu_opciones"
