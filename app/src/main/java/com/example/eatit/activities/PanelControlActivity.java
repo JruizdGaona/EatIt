@@ -1,5 +1,6 @@
 package com.example.eatit.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -11,6 +12,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 import com.example.eatit.R;
+import com.example.eatit.gestionUsers.LoginActivity;
+import com.example.eatit.utils.FragmentAjustes;
 import com.example.eatit.utils.FragmentInicio;
 import com.google.android.material.navigation.NavigationView;
 import java.util.Objects;
@@ -48,11 +51,6 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
         navigationView.setNavigationItemSelectedListener(this);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
-
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frame_inicio, new FragmentInicio());
-
-        fragmentTransaction.commit();
     }
 
     /**
@@ -80,8 +78,11 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
     }
 
     private int mostrarOpcion(@NonNull MenuItem item) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
         switch (item.getItemId()) {
             case R.id.inicio:
+                fragmentTransaction.replace(R.id.frame_inicio, new FragmentInicio()).commit();
                 return 0;
             case R.id.nav_ingredientes2:
                 Toast.makeText(this, "Añadir Ingredientes", Toast.LENGTH_SHORT).show();
@@ -96,8 +97,12 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
                 Toast.makeText(this, "Ver Recetas", Toast.LENGTH_SHORT).show();
                 return 0;
             case R.id.nav_ajustes:
+                fragmentTransaction.replace(R.id.frame_inicio, new FragmentAjustes()).commit();
                 return 0;
             case R.id.nav_sesion:
+                LoginActivity.cambiarEstadoCheckbox(PanelControlActivity.this, false);
+                this.finish();
+                startActivity(new Intent(PanelControlActivity.this, LoginActivity.class));
                 return 0;
             default:
                 Toast.makeText(this, "Opción no Implementada aún", Toast.LENGTH_SHORT).show();
