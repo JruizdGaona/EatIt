@@ -1,9 +1,12 @@
 package com.example.eatit.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +40,7 @@ public class FragmentAjustes extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         inicializarVariables(view);
         clickGuardar();
+        view.setOnTouchListener((view1, motionEvent) -> ocultar());
     }
 
     /**
@@ -136,6 +140,23 @@ public class FragmentAjustes extends Fragment {
 
         if (cambiar) {
             Toast.makeText(this.getContext(), "Cambios Guardados Correctamente", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    /**
+     * Método usado para cerrar el teclado al pulsar sobre otro lado de la pantalla.
+     *
+     * @return - True, si la vista es distinta de null, False si la View es null.
+     */
+    public boolean ocultar() {
+        View view = this.getActivity().getCurrentFocus();
+
+        if (view != null) {
+            InputMethodManager input = (InputMethodManager) (getActivity().getSystemService(Context.INPUT_METHOD_SERVICE));
+            input.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            return true;
+        } else {
+            return false;
         }
     }
 }
