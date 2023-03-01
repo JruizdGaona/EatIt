@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/negroClaro">
+
+    <ImageView
+        android:id="@+id/login_logo"
+        android:layout_width="match_parent"
+        android:layout_height="73dp"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="75dp"
+        android:contentDescription="@string/logo"
+        android:src="@drawable/logo" />
+
+    <!-- Título de recetas de la aplicación -->
+    <TextView
+        android:id="@+id/ingredientes"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal|center"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/montserrat_medio"
+        android:gravity="center"
+        android:text="@string/mis_ingredientes"
+        android:textColor="@color/doradoClaro"
+        android:textSize="25sp" />
+
+    <FrameLayout
+        android:id="@+id/frame_ingredientes"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp">
+    </FrameLayout>
+</LinearLayout>

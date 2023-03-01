@@ -13,7 +13,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 import com.example.eatit.R;
 import com.example.eatit.fragments.FragmentAjustes;
+import com.example.eatit.fragments.FragmentIngredientes;
 import com.example.eatit.fragments.FragmentInicio;
+import com.example.eatit.fragments.FragmentInicioIngredientes;
 import com.example.eatit.fragments.FragmentScanner;
 import com.google.android.material.navigation.NavigationView;
 import java.util.Objects;
@@ -88,7 +90,7 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
                 fragmentTransaction.replace(R.id.frame_inicio, new FragmentScanner()).commit();
                 return 0;
             case R.id.nav_ingredientes3:
-                Toast.makeText(this, "Ver Ingredientes", Toast.LENGTH_SHORT).show();
+                fragmentTransaction.replace(R.id.frame_inicio, new FragmentInicioIngredientes()).commit();
                 return 0;
             case R.id.nav_recetas2:
                 Toast.makeText(this, "Recomendador", Toast.LENGTH_SHORT).show();

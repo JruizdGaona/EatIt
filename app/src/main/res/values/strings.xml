@@ -23,6 +23,7 @@
 
     <!-- Cadenas de Texto Actividad Principal -->
     <string name="actividad_principal">TUS RECETAS</string>
+    <string name="mis_ingredientes">MIS INGREDIENTES</string>
 
     <!-- Cadenas de texto auxiliares -->
     <string name="toast_fail1">Correo o contraseña no válidos</string>
