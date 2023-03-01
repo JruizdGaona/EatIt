@@ -23,6 +23,7 @@
 
     <!-- Cadenas de Texto Actividad Principal -->
     <string name="actividad_principal">TUS RECETAS</string>
+    <string name="mis_ingredientes">MIS INGREDIENTES</string>
 
     <!-- Cadenas de texto auxiliares -->
     <string name="toast_fail1">Correo o contraseña no válidos</string>
@@ -54,4 +55,9 @@
     <string name="copyright">EatIt - All Rights Reserved</string>
     <string name="bienvenida">¡Hola de nuevo, Javier!</string>
     <string name="inicio">INICIO</string>
+
+    <string name="add_ingrediente">AÑADIR INGREDIENTE</string>
+    <string name="scanner">Imagen Scanner</string>
+    <string name="btn_float">Botón Flotante</string>
+    <string name="ingrediente">Ingredientes</string>
 </resources>

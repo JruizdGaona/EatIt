@@ -1,18 +1,19 @@
-package com.example.eatit.activities;
+package com.example.eatit.fragments;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
-
+import androidx.fragment.app.Fragment;
 import com.example.eatit.R;
 import com.example.eatit.utils.LoadingDialog;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -20,55 +21,46 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import java.util.Objects;
 
-/**
- * @author Javier Ruiz de Gaona Tre.
- */
-public class AjustesActivity  extends Activity {
+public class FragmentAjustes extends Fragment {
 
-    // Declaramos las variables.
-    ImageView logoApp, flecha;
+    ImageView logoApp;
     TextView textoNombreUsuario, textoCambiarContraseña, textoAjustes;
     AppCompatButton btnGuardar;
     TextInputEditText nombreUsuarioET, contraseñaActualET, nuevaContraseñaET, repetirContraseñaET;
     TextInputLayout nombreUsuario, cambiarContraseña, nuevaContrasñea, repetirContraseña;
     LoadingDialog loadingDialog;
 
+    @Nullable
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ajustes);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return LayoutInflater.from(getContext()).inflate(R.layout.fragment_ajustes, container, false);
+    }
 
-        inicializarVariables();
-        clickRetroceso();
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        inicializarVariables(view);
         clickGuardar();
+        view.setOnTouchListener((view1, motionEvent) -> ocultar());
     }
 
     /**
      * Método que inicializa todos los componentes de la Actividad.
      */
-    private void inicializarVariables() {
-        logoApp = findViewById(R.id.login_logo);
-        textoAjustes = findViewById(R.id.ajustes_titulo);
-        textoCambiarContraseña = findViewById(R.id.ajustes_texto_contraseña_vieja);
-        textoNombreUsuario = findViewById(R.id.ajustes_texto_nombre_usuario);
-        btnGuardar = findViewById(R.id.btn_guardar);
-        nombreUsuarioET = findViewById(R.id.ajustes_textInput_nombre_usuario);
-        contraseñaActualET = findViewById(R.id.registro_textInput_contraseña);
-        nuevaContraseñaET = findViewById(R.id.registro_textInput_contraseña_nueva);
-        repetirContraseñaET = findViewById(R.id.registro_textInput_contraseña_nueva_repetir);
-        nombreUsuario = findViewById(R.id.ajustes_layoutTextInput_nombre_usuario);
-        cambiarContraseña = findViewById(R.id.ajustes_layoutTextInput_contraseña_vieja);
-        nuevaContrasñea = findViewById(R.id.ajustes_layoutTextInput_contraseña_Nueva);
-        repetirContraseña = findViewById(R.id.ajustes_layoutTextInput_contraseña_Nueva_repetir);
-        flecha = findViewById(R.id.flecha_ajustes);
-        loadingDialog = new LoadingDialog(this);
-    }
-
-    /**
-     * Método que cierra la Actividad de Ajustes y nos envía al panel de control.
-     */
-    private void clickRetroceso() {
-        flecha.setOnClickListener((View) -> this.finish());
+    private void inicializarVariables(View view) {
+        logoApp = view.findViewById(R.id.login_logo);
+        textoAjustes = view.findViewById(R.id.ajustes_titulo);
+        textoCambiarContraseña = view.findViewById(R.id.ajustes_texto_contraseña_vieja);
+        textoNombreUsuario = view.findViewById(R.id.ajustes_texto_nombre_usuario);
+        btnGuardar = view.findViewById(R.id.btn_guardar);
+        nombreUsuarioET = view.findViewById(R.id.ajustes_textInput_nombre_usuario);
+        contraseñaActualET = view.findViewById(R.id.registro_textInput_contraseña);
+        nuevaContraseñaET = view.findViewById(R.id.registro_textInput_contraseña_nueva);
+        repetirContraseñaET = view.findViewById(R.id.registro_textInput_contraseña_nueva_repetir);
+        nombreUsuario = view.findViewById(R.id.ajustes_layoutTextInput_nombre_usuario);
+        cambiarContraseña = view.findViewById(R.id.ajustes_layoutTextInput_contraseña_vieja);
+        nuevaContrasñea = view.findViewById(R.id.ajustes_layoutTextInput_contraseña_Nueva);
+        repetirContraseña = view.findViewById(R.id.ajustes_layoutTextInput_contraseña_Nueva_repetir);
+        loadingDialog = new LoadingDialog(this.getContext());
     }
 
     /**
@@ -76,7 +68,7 @@ public class AjustesActivity  extends Activity {
      */
     private void clickGuardar() {
         btnGuardar.setOnClickListener((View) -> {
-            View v = LayoutInflater.from(AjustesActivity.this).inflate(R.layout.activity_confirmar_cambios, null);
+            View v = LayoutInflater.from(this.getContext()).inflate(R.layout.activity_confirmar_cambios, null);
             String nombreUsuario, contraseñaActual, nuevaContraseña, repetirContraseña;
 
             nombreUsuario = Objects.requireNonNull(nombreUsuarioET.getText()).toString();
@@ -99,9 +91,9 @@ public class AjustesActivity  extends Activity {
      */
     private void crearAlertDialog(View v, String nombreUsario, String contraseñaActual, String nuevaContraseña, String repetirContraseña) {
         if (nombreUsario.length() == 0 && contraseñaActual.length() == 0 && nuevaContraseña.length() == 0 && repetirContraseña.length() == 0 ) {
-            Toast.makeText(AjustesActivity.this, "No se ha cambiado ningún dato", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getContext(), "No se ha cambiado ningún dato", Toast.LENGTH_SHORT).show();
         } else {
-            new MaterialAlertDialogBuilder(AjustesActivity.this, R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog)
+            new MaterialAlertDialogBuilder(this.requireContext(), R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog)
                     .setTitle("Confirmar Cambios")
                     .setView(v)
                     .setPositiveButton("Confirmar", (dialogInterface, i) -> {
@@ -138,32 +130,30 @@ public class AjustesActivity  extends Activity {
                     // Lógica
                 } else {
                     loadingDialog.closeDialog();
-                    Toast.makeText(AjustesActivity.this, "Las contraseñas nuevas deben coincidir", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this.getContext(), "Las contraseñas nuevas deben coincidir", Toast.LENGTH_LONG).show();
                 }
             } else {
                 loadingDialog.closeDialog();
-                Toast.makeText(AjustesActivity.this, "La contraseña Actual no es válida", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this.getContext(), "La contraseña Actual no es válida", Toast.LENGTH_SHORT).show();
             }
         }
 
         if (cambiar) {
-            Toast.makeText(AjustesActivity.this, "Cambios Guardados Correctamente", Toast.LENGTH_LONG).show();
+            Toast.makeText(this.getContext(), "Cambios Guardados Correctamente", Toast.LENGTH_LONG).show();
         }
     }
 
     /**
      * Método usado para cerrar el teclado al pulsar sobre otro lado de la pantalla.
-     * @param event Objeto utilizado para informar eventos de movimiento.
      *
-     * @return True, si la vista es distinta de null, False si la View es null.
+     * @return - True, si la vista es distinta de null, False si la View es null.
      */
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        View view = this.getCurrentFocus();
+    public boolean ocultar() {
+        View view = this.getActivity().getCurrentFocus();
 
         if (view != null) {
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            InputMethodManager input = (InputMethodManager) (getActivity().getSystemService(Context.INPUT_METHOD_SERVICE));
+            input.hideSoftInputFromWindow(view.getWindowToken(), 0);
             return true;
         } else {
             return false;

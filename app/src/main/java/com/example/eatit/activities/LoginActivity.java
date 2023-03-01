@@ -1,4 +1,4 @@
-package com.example.eatit.gestionUsers;
+package com.example.eatit.activities;
 
 import android.app.Activity;
 import android.content.Context;
@@ -21,7 +21,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 
 import com.example.eatit.utils.LoadingDialog;
-import com.example.eatit.activities.PanelControlActivity;
 import com.example.eatit.R;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;

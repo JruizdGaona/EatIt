@@ -1,4 +1,4 @@
-package com.example.eatit.utils;
+package com.example.eatit.fragments.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,16 +6,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.eatit.R;
+import com.example.eatit.entities.Ingrediente;
 import com.example.eatit.entities.Receta;
 import com.google.android.material.card.MaterialCardView;
+
 import java.util.List;
 
-public class AdapterReceta extends RecyclerView.Adapter<AdapterReceta.MyViewHolder> {
+public class AdapterIngrediente extends RecyclerView.Adapter<AdapterIngrediente.MyViewHolder>{
 
-    private final List<Receta> recetas;
+    private final List<Ingrediente> ingredientes;
     private final Context context;
     TextView nombre, dificultad, duracion;
 
@@ -24,8 +28,8 @@ public class AdapterReceta extends RecyclerView.Adapter<AdapterReceta.MyViewHold
      * @param re Lista de recetas a añadir en el Fragment.
      * @param context Contexto en el que usamos el Adapter.
      */
-    public AdapterReceta(List<Receta> re, Context context){
-        this.recetas = re;
+    public AdapterIngrediente(List<Ingrediente> re, Context context){
+        this.ingredientes = re;
         this.context = context;
     }
 
@@ -38,9 +42,9 @@ public class AdapterReceta extends RecyclerView.Adapter<AdapterReceta.MyViewHold
      */
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_receta,parent,false);
-        return new MyViewHolder(itemView);
+    public AdapterIngrediente.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_ingredientes,parent,false);
+        return new AdapterIngrediente.MyViewHolder(itemView);
     }
 
     /**
@@ -49,9 +53,9 @@ public class AdapterReceta extends RecyclerView.Adapter<AdapterReceta.MyViewHold
      * @param position Posicion de la nueva Receta.
      */
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(AdapterIngrediente.MyViewHolder holder, int position) {
         holder.cv.setAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_transition));
-        holder.bindData(recetas.get(position));
+        holder.bindData(ingredientes.get(position));
     }
 
     /**
@@ -61,7 +65,7 @@ public class AdapterReceta extends RecyclerView.Adapter<AdapterReceta.MyViewHold
      */
     @Override
     public int getItemCount() {
-        return recetas.size();
+        return ingredientes.size();
     }
 
     /**
@@ -72,16 +76,12 @@ public class AdapterReceta extends RecyclerView.Adapter<AdapterReceta.MyViewHold
 
         public MyViewHolder(View view){
             super(view);
-            nombre = view.findViewById(R.id.receta_nombre);
-            duracion = view.findViewById(R.id.receta_duracion);
-            dificultad = view.findViewById(R.id.receta_dificultad);
-            cv = view.findViewById(R.id.layout_list_receta);
+            nombre = view.findViewById(R.id.ingrediente_nombre);
+            cv = view.findViewById(R.id.layout_list_ingredientes);
         }
 
-        void bindData(final Receta item) {
+        void bindData(final Ingrediente item) {
             nombre.setText((item.getNombre()));
-            duracion.setText(String.valueOf(item.getDuracion()).concat(" h"));
-            dificultad.setText(item.getDificultad());
         }
     }
 }
