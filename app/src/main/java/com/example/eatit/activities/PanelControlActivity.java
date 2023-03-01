@@ -13,7 +13,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 import com.example.eatit.R;
 import com.example.eatit.fragments.FragmentAjustes;
-import com.example.eatit.fragments.FragmentIngredientes;
 import com.example.eatit.fragments.FragmentInicio;
 import com.example.eatit.fragments.FragmentInicioIngredientes;
 import com.example.eatit.fragments.FragmentScanner;
@@ -85,30 +84,32 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
         switch (item.getItemId()) {
             case R.id.inicio:
                 fragmentTransaction.replace(R.id.frame_inicio, new FragmentInicio()).commit();
-                return 0;
+                break;
             case R.id.nav_ingredientes2:
                 fragmentTransaction.replace(R.id.frame_inicio, new FragmentScanner()).commit();
-                return 0;
+                break;
             case R.id.nav_ingredientes3:
                 fragmentTransaction.replace(R.id.frame_inicio, new FragmentInicioIngredientes()).commit();
-                return 0;
+                break;
             case R.id.nav_recetas2:
                 Toast.makeText(this, "Recomendador", Toast.LENGTH_SHORT).show();
-                return 0;
+                break;
             case R.id.nav_recetas3:
                 Toast.makeText(this, "Ver Recetas", Toast.LENGTH_SHORT).show();
-                return 0;
+                break;
             case R.id.nav_ajustes:
                 fragmentTransaction.replace(R.id.frame_inicio, new FragmentAjustes()).commit();
-                return 0;
+                break;
             case R.id.nav_sesion:
                 LoginActivity.cambiarEstadoCheckbox(PanelControlActivity.this, false);
                 this.finish();
                 startActivity(new Intent(PanelControlActivity.this, LoginActivity.class));
-                return 0;
+                break;
             default:
                 Toast.makeText(this, "Opción no Implementada aún", Toast.LENGTH_SHORT).show();
         }
+
+        drawerLayout.closeDrawer(GravityCompat.START);
         return 0;
     }
 }
