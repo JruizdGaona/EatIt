@@ -59,4 +59,5 @@
     <string name="add_ingrediente">AÑADIR INGREDIENTE</string>
     <string name="scanner">Imagen Scanner</string>
     <string name="btn_float">Botón Flotante</string>
+    <string name="ingrediente">Ingredientes</string>
 </resources>
