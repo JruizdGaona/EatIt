@@ -54,4 +54,8 @@
     <string name="copyright">EatIt - All Rights Reserved</string>
     <string name="bienvenida">¡Hola de nuevo, Javier!</string>
     <string name="inicio">INICIO</string>
+
+    <string name="add_ingrediente">AÑADIR INGREDIENTE</string>
+    <string name="scanner">Imagen Scanner</string>
+    <string name="btn_float">Botón Flotante</string>
 </resources>
