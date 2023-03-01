@@ -12,10 +12,9 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 import com.example.eatit.R;
-import com.example.eatit.gestionUsers.LoginActivity;
-import com.example.eatit.utils.FragmentAjustes;
-import com.example.eatit.utils.FragmentInicio;
-import com.example.eatit.utils.FragmentScanner;
+import com.example.eatit.fragments.FragmentAjustes;
+import com.example.eatit.fragments.FragmentInicio;
+import com.example.eatit.fragments.FragmentScanner;
 import com.google.android.material.navigation.NavigationView;
 import java.util.Objects;
 

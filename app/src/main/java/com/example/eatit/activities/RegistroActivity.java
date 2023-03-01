@@ -1,4 +1,4 @@
-package com.example.eatit.gestionUsers;
+package com.example.eatit.activities;
 
 import android.app.Activity;
 import android.content.Context;

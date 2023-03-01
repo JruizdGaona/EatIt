@@ -1,4 +1,4 @@
-package com.example.eatit.utils;
+package com.example.eatit.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.example.eatit.R;
+import com.example.eatit.fragments.FragmentRecetas;
 
 public class FragmentInicio extends Fragment {
 
