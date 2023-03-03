@@ -89,12 +89,15 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
 
         switch (item.getItemId()) {
             case R.id.inicio:
+                fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
                 fragmentTransaction.replace(R.id.frame_inicio, new FragmentInicio());
                 break;
             case R.id.nav_ingredientes2:
+                fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
                 fragmentTransaction.replace(R.id.frame_inicio, new FragmentScanner());
                 break;
             case R.id.nav_ingredientes3:
+                fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
                 fragmentTransaction.replace(R.id.frame_inicio, new FragmentInicioIngredientes());
                 break;
             case R.id.nav_recetas2:
@@ -104,6 +107,7 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
                 Toast.makeText(this, "Ver Recetas", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_ajustes:
+                fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
                 fragmentTransaction.replace(R.id.frame_inicio, new FragmentAjustes());
                 break;
             case R.id.nav_sesion:
@@ -115,9 +119,9 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
                 Toast.makeText(this, "Opción no Implementada aún", Toast.LENGTH_SHORT).show();
         }
 
-        fragmentTransaction.commit();
+        drawerLayout.closeDrawer(GravityCompat.START);
 
-        new Handler().postDelayed(() -> drawerLayout.closeDrawer(GravityCompat.START), 350);
+        new Handler().postDelayed(fragmentTransaction::commit, 450);
 
         return 0;
     }
