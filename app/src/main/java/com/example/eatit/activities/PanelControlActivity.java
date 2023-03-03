@@ -129,7 +129,7 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
             new Handler().postDelayed(() -> {
                 fragmentTransaction.commit();
                 loadingDialog.closeDialog();
-            }, 1000);
+            }, 700);
         }
 
         return 0;
