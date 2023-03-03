@@ -86,6 +86,8 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
 
     private int mostrarOpcion(@NonNull MenuItem item) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        LoadingDialog loadingDialog = new LoadingDialog(this);
+        loadingDialog.showDialog("Cargando...");
 
         switch (item.getItemId()) {
             case R.id.inicio:
@@ -101,9 +103,11 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
                 fragmentTransaction.replace(R.id.frame_inicio, new FragmentInicioIngredientes());
                 break;
             case R.id.nav_recetas2:
+                fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
                 Toast.makeText(this, "Recomendador", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_recetas3:
+                fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
                 Toast.makeText(this, "Ver Recetas", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_ajustes:
@@ -121,7 +125,12 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
 
         drawerLayout.closeDrawer(GravityCompat.START);
 
-        new Handler().postDelayed(fragmentTransaction::commit, 450);
+        if (!isFinishing()) {
+            new Handler().postDelayed(() -> {
+                fragmentTransaction.commit();
+                loadingDialog.closeDialog();
+            }, 1000);
+        }
 
         return 0;
     }
