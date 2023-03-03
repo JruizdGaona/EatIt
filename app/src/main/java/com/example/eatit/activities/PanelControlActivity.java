@@ -115,12 +115,9 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
                 Toast.makeText(this, "Opción no Implementada aún", Toast.LENGTH_SHORT).show();
         }
 
-        // Cierra el menú lateral
-        drawerLayout.closeDrawer(GravityCompat.START);
+        fragmentTransaction.commit();
 
-        // Agrega un pequeño retraso antes de cargar el fragmento
-        // Realiza la transacción del fragmento
-        new Handler().postDelayed(fragmentTransaction::commit, 500);
+        new Handler().postDelayed(() -> drawerLayout.closeDrawer(GravityCompat.START), 350);
 
         return 0;
     }
