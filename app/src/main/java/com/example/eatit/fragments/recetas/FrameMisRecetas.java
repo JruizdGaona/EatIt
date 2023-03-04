@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -12,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.eatit.R;
 import com.example.eatit.entities.Receta;
 import com.example.eatit.fragments.adapters.AdapterMisRecetas;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,8 +41,21 @@ public class FrameMisRecetas extends Fragment {
         recyclerView = view.findViewById(R.id.fragment_recetas);
         recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
 
-        mostrarRecetas();
         return view;
+    }
+
+    /**
+     * Método que se ejecuta una vez se ha creado el Fragment nuevo.
+     * Llama al Fragment de recetas para que las muestre en el Frame.
+     * @param view Vista del Fragment creado.
+     * @param savedInstanceState Estado de la instancia de la aplicación.
+     */
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        mostrarRecetas();
+
+        FloatingActionButton floatingActionButton = view.findViewById(R.id.floatingActionButtonMisRecetas);
+        floatingActionButton.setOnClickListener((View) -> Toast.makeText(this.getContext(), "Añadir Receta", Toast.LENGTH_SHORT).show());
     }
 
     /**
