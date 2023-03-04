@@ -17,6 +17,7 @@ import com.example.eatit.fragments.FragmentAjustes;
 import com.example.eatit.fragments.FragmentInicio;
 import com.example.eatit.fragments.ingredientes.FragmentMisIngredientes;
 import com.example.eatit.fragments.ingredientes.FragmentAddIngredientes;
+import com.example.eatit.fragments.recetas.FragmentMisRecetas;
 import com.example.eatit.utils.LoadingDialog;
 import com.google.android.material.navigation.NavigationView;
 import java.util.Objects;
@@ -117,7 +118,7 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
                 break;
             case R.id.nav_recetas3:
                 fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-                Toast.makeText(this, "Ver Recetas", Toast.LENGTH_SHORT).show();
+                fragmentTransaction.replace(R.id.frame_inicio, new FragmentMisRecetas());
                 break;
             case R.id.nav_ajustes:
                 fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);

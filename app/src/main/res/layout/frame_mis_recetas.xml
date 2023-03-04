@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Layout principal que contiene la lista de ingrdientes -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_fragment_mis_recetas"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- RecyclerView con la Lista de Recetas -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragment_recetas"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/list_mis_recetas" />
+</FrameLayout>

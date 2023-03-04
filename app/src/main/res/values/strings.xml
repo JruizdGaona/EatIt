@@ -52,6 +52,7 @@
 
     <!-- Cadenas de Texto Fragment Recomendador -->
     <!-- Cadenas de Texto Fragmment Mis Recetas -->
+    <string name="mis_recetas">MIS RECETAS</string>
 
     <!-- Cadenas de Texto Fragment Ajustes -->
     <string name="ajustes_activity">AJUSTES</string>
