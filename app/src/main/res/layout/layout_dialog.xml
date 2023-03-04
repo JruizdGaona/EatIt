@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Layout para los Dialogs -->
+<!-- Layout principal para los ProgressDialogs -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_dialog">
 
-    <!-- CradView del Dialog -->
+    <!-- CradView del ProgressDialog -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cradView_dialog"
         android:layout_width="wrap_content"
@@ -25,7 +24,7 @@
            android:layout_height="match_parent"
            android:id="@+id/cardView">
 
-           <!-- ProgressBar -->
+           <!-- ProgressBar del Dialog -->
            <ProgressBar
                android:id="@+id/circularProgressIndicator"
                android:layout_width="wrap_content"
@@ -39,7 +38,7 @@
                app:layout_constraintTop_toTopOf="parent"
                app:trackColor="@color/doradoClaro" />
 
-           <!-- Texto a mostrar con el ProgressBar -->
+           <!-- Texto a mostrar con el ProgressDialog -->
            <TextView
                android:id="@+id/textViewDialog"
                android:layout_width="wrap_content"

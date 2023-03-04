@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Layout principal del fragment de Inicio -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_inicio"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/negroClaro">
 
+    <!-- Logo de la aplicación -->
     <ImageView
         android:id="@+id/login_logo"
         android:layout_width="match_parent"
@@ -15,7 +18,7 @@
         android:contentDescription="@string/logo"
         android:src="@drawable/logo" />
 
-    <!-- Título de recetas de la aplicación -->
+    <!-- Título del fragment (Recetas más populares) -->
     <TextView
         android:id="@+id/recetas"
         android:layout_width="wrap_content"
@@ -28,6 +31,7 @@
         android:textColor="@color/doradoClaro"
         android:textSize="25sp" />
 
+    <!-- FrameLayout en el que aparecerán las recetas -->
     <FrameLayout
         android:id="@+id/frame_recetas"
         android:layout_marginTop="15dp"

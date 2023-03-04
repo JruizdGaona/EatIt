@@ -19,7 +19,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
-
 import com.example.eatit.utils.LoadingDialog;
 import com.example.eatit.R;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -285,10 +284,10 @@ public class LoginActivity extends Activity {
 
     /**
      * Método que cambia el estado del checkbox de inicio de sesión automático.
-     * @param c - Interfaz a la información global sobre un entorno de aplicación.
-     * @param b - Boolean que recibe el valor del checkbox.
+     * @param c Interfaz a la información global sobre un entorno de aplicación.
+     * @param b Boolean que recibe el valor del checkbox.
      */
-    public static void cambiarEstadoCheckbox(Context c, boolean b) {
+    public static void cambiarEstadoCheckbox(@NonNull Context c, boolean b) {
         SharedPreferences sharedPreferences = c.getSharedPreferences("Correo", MODE_PRIVATE);
         sharedPreferences.edit().putBoolean("BotonChecked", b).apply();
     }
@@ -311,9 +310,9 @@ public class LoginActivity extends Activity {
 
     /**
      * Método usado para cerrar el teclado al pulsar sobre otro lado de la pantalla.
-     * @param event - Objeto utilizado para informar eventos de movimiento.
+     * @param event Objeto utilizado para informar eventos de movimiento.
      *
-     * @return - True, si la vista es distinta de null, False si la View es null.
+     * @return True, si la vista es distinta de null, False si la View es null.
      */
     @Override
     public boolean onTouchEvent(MotionEvent event) {

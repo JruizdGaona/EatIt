@@ -15,7 +15,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
-
 import com.example.eatit.utils.LoadingDialog;
 import com.example.eatit.R;
 import com.example.eatit.entities.Usuario;
@@ -271,7 +270,6 @@ public class RegistroActivity extends Activity {
 
     /**
      * Método que crea el usuario en la Base de Datos al registrarse.
-     *
      * @param correo Correo electrónico del nuevo Usuario.
      */
     private void crearUsuario(String correo) {
@@ -322,8 +320,9 @@ public class RegistroActivity extends Activity {
 
     /**
      * Método usado para cerrar el teclado al pulsar sobre otro lado de la pantalla.
-     * @param event - Objeto utilizado para informar eventos de movimiento.
-     * @return - True, si la vista es distinta de null, False si la View es null.
+     * @param event Objeto utilizado para informar eventos de movimiento.
+     *
+     * @return True, si la vista es distinta de null, False si la View es null.
      */
     @Override
     public boolean onTouchEvent(MotionEvent event) {

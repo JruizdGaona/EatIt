@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Layout principal del frgament de añadir ingredientes -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/ajustes"
+    android:id="@+id/add_ingredientes"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/negroClaro"
@@ -9,7 +10,7 @@
 
     <!-- Logo de la aplicación -->
     <ImageView
-        android:id="@+id/ajustes_logo"
+        android:id="@+id/add_ingredientes_logo"
         android:layout_width="match_parent"
         android:layout_height="73dp"
         android:layout_marginLeft="75dp"
@@ -18,9 +19,9 @@
         android:contentDescription="@string/logo"
         android:src="@drawable/logo" />
 
-    <!-- Título de añadir ingrediente de la aplicación -->
+    <!-- Título del fragment (Añadir ingrediente) -->
     <TextView
-        android:id="@+id/ajustes_titulo"
+        android:id="@+id/add_ingredientes_titulo"
         android:layout_width="296dp"
         android:layout_height="60dp"
         android:layout_gravity="center_horizontal|center"
@@ -31,11 +32,15 @@
         android:textColor="@color/doradoClaro"
         android:textSize="25sp" />
 
+    <!-- Layout en el que meteremos el scanner de Código de Barras y el Floating Button -->
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_scanner_button"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- Imagen que indica el escáner del Código de Barras -->
         <ImageView
+            android:id="@+id/imagen_codigo_barras"
             android:layout_width="350dp"
             android:layout_height="450dp"
             android:layout_marginTop="30dp"
@@ -46,6 +51,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- FloatingButton para añadir ingrdientes sin escanear su Código de Barras -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_flotante"
             android:layout_width="wrap_content"

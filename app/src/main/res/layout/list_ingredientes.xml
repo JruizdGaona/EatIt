@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Layout de los CardViews que componen la lista de Ingredientes -->
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_list_ingredientes"
@@ -12,17 +13,22 @@
     app:strokeColor="@color/doradoClaro"
     app:strokeWidth="2dp">
 
+    <!-- Layout del CardView -->
     <LinearLayout
+        android:id="@+id/layout_cardview_ingredientes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
         android:layout_margin="10dp"
         android:orientation="vertical">
 
+        <!-- ConstraintLayout de los componentes del CardView -->
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_componentes_cardView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
+            <!-- Imagen del ingrediente -->
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/ilm_foto"
                 android:layout_width="60dp"
@@ -36,6 +42,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:shapeAppearanceOverlay="@style/RoundCorner" />
 
+            <!-- Nombre del ingrdiente -->
             <TextView
                 android:id="@+id/ingrediente_nombre"
                 android:layout_width="wrap_content"

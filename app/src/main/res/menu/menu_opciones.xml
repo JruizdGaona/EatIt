@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Menú de la aplicación -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- Grupo con el Item de Inicio -->
     <group android:checkableBehavior="single">
         <item android:id="@+id/inicio"
             android:icon="@drawable/inicio"
             android:title="@string/inicio" />
     </group>
 
+    <!-- Grupo conlos Items relacionados con los Ingredientes -->
     <group android:checkableBehavior="single">
         <item android:title="@string/ingredientes">
             <menu>
@@ -23,6 +26,7 @@
             </menu>
         </item>
 
+        <!-- Grupo con los Items relacionados con las Recetas -->
         <item android:title="@string/recetas">
             <menu>
                 <group android:checkableBehavior="single">
@@ -38,20 +42,21 @@
             </menu>
         </item>
     </group>
+
+    <!-- Grupo con el Item de Ajustes -->
     <group
         android:id="@+id/grupoGestionUsuario"
         android:checkableBehavior="single">
-
         <item
             android:id="@+id/nav_ajustes"
             android:icon="@drawable/ajustes"
             android:title="@string/tools" />
     </group>
 
+    <!-- Grupo con el Item de Cerrar Sesión -->
     <group
         android:id="@+id/grupoGestionUsuario2"
         android:checkableBehavior="single">
-
         <item
             android:id="@+id/nav_sesion"
             android:icon="@drawable/sesion"

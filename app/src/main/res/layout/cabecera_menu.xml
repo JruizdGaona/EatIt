@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Layout principal de la cabecera del menú -->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,6 +8,7 @@
     android:fitsSystemWindows="true"
     android:background="@color/doradoClaro">
 
+    <!-- Imagen que aparece en la cabecera del menú -->
     <ImageView
         android:id="@+id/imagen"
         android:layout_width="45dp"
@@ -18,6 +20,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:contentDescription="@string/logo" />
 
+    <!-- Texto de Bienvenida al usuario -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
