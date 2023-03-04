@@ -13,8 +13,12 @@ import com.example.eatit.entities.Receta;
 import com.google.android.material.card.MaterialCardView;
 import java.util.List;
 
+/**
+ * @author Javier Ruiz de Gaona Tre.
+ */
 public class AdapterReceta extends RecyclerView.Adapter<AdapterReceta.MyViewHolder> {
 
+    // Declaración de variables.
     private final List<Receta> recetas;
     private final Context context;
     TextView nombre, dificultad, duracion;

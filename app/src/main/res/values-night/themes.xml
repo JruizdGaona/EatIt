@@ -1,24 +1,35 @@
 <resources>
     <!-- Base application theme. -->
     <style name="Theme.EatIt" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
+        <!-- Color Primario -->
         <item name="colorPrimary">@color/doradoClaro</item>
-        <item name="colorPrimaryVariant">@color/doradoClaro</item>
-        <item name="colorOnPrimary">@color/doradoClaro</item>
-        <!-- Secondary brand color. -->
+        <item name="colorPrimaryVariant">@color/negroClaro</item>
+        <item name="colorOnPrimary">@color/grisClaro</item>
+
+        <!-- Color Secundario -->
         <item name="colorSecondary">@color/doradoClaro</item>
-        <item name="colorSecondaryVariant">@color/doradoClaro</item>
-        <item name="colorOnSecondary">@color/doradoClaro</item>
+        <item name="colorSecondaryVariant">@color/doradoClaro4</item>
+        <item name="colorOnSecondary">@color/doradoClaro2</item>
+
+        <!-- Color barra de estado -->
+        <item name="android:statusBarColor">@color/doradoClaro</item>
         <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.PrimarySurface</item>
         <item name="drawerArrowStyle">@style/AppTheme.DrawerArrowStyle</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+
+        <!-- Atributos del Tema -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
+    <!-- Estilo para el botón de la ToolBar -->
     <style name="AppTheme.DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/doradoClaro</item>
+    </style>
+
+    <!-- Estilo para redondear esquinas -->
+    <style name="RoundCorner" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">30dp</item>
         <item name="color">@color/doradoClaro</item>
     </style>
 </resources>

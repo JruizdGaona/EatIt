@@ -1,4 +1,4 @@
-package com.example.eatit.fragments;
+package com.example.eatit.fragments.recetas;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * @author Javier Ruiz de Gaona Tre.
  */
-public class FragmentRecetas extends Fragment {
+public class FrameRecetas extends Fragment {
 
     // Declaración de Variables.
     List<Receta> recetas = new ArrayList<>();
@@ -37,7 +37,7 @@ public class FragmentRecetas extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_recetas,container,false);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.frame_recetas,container,false);
         recyclerView = view.findViewById(R.id.fragment_recetas);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
@@ -55,7 +55,7 @@ public class FragmentRecetas extends Fragment {
 
             recetas.add(new Receta(nombre, dificultad, null, (float) i, 0));
         }
-        adapter = new AdapterReceta(recetas, FragmentRecetas.this.getContext());
+        adapter = new AdapterReceta(recetas, FrameRecetas.this.getContext());
         recyclerView.setAdapter(adapter);
     }
 }

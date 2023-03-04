@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Layout principal del fragment de mis ingredientes -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_mis_ingredientes"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/negroClaro">
 
+    <!-- Logo de la aplicación -->
     <ImageView
-        android:id="@+id/login_logo"
+        android:id="@+id/mis_ingredientes_logo"
         android:layout_width="match_parent"
         android:layout_height="73dp"
         android:layout_marginLeft="75dp"
@@ -15,7 +18,7 @@
         android:contentDescription="@string/logo"
         android:src="@drawable/logo" />
 
-    <!-- Título de recetas de la aplicación -->
+    <!-- Título del fragment (Mis Ingredientes) -->
     <TextView
         android:id="@+id/ingredientes"
         android:layout_width="wrap_content"
@@ -28,6 +31,7 @@
         android:textColor="@color/doradoClaro"
         android:textSize="25sp" />
 
+    <!-- FrameLayout en el que aparecerán los ingredientes del Usuario -->
     <FrameLayout
         android:id="@+id/frame_ingredientes"
         android:layout_marginTop="15dp"

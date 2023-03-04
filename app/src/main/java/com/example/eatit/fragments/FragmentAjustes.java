@@ -3,7 +3,6 @@ package com.example.eatit.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -21,8 +20,12 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import java.util.Objects;
 
+/**
+ * @author Javier Ruiz de Gaona Tre.
+ */
 public class FragmentAjustes extends Fragment {
 
+    // Declaración de variables.
     ImageView logoApp;
     TextView textoNombreUsuario, textoCambiarContraseña, textoAjustes;
     AppCompatButton btnGuardar;
@@ -30,12 +33,25 @@ public class FragmentAjustes extends Fragment {
     TextInputLayout nombreUsuario, cambiarContraseña, nuevaContrasñea, repetirContraseña;
     LoadingDialog loadingDialog;
 
+    /**
+     * Método onCreate del fragment de Ajustes.
+     * @param inflater Variable que inlfa el Layout en la actividad.
+     * @param container Contenedor invisible que define la estructura de diseño de View
+     * @param savedInstanceState Estado de la instancia de la aplicación.
+     *
+     * @return Vista creada.
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return LayoutInflater.from(getContext()).inflate(R.layout.fragment_ajustes, container, false);
     }
 
+    /**
+     * Método que se ejecuta una vez se ha creado el nuevo Fragment.
+     * @param view Vista del nuevo fragment ya creada.
+     * @param savedInstanceState Estado de la instancia de la aplicación.
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         inicializarVariables(view);
@@ -46,7 +62,7 @@ public class FragmentAjustes extends Fragment {
     /**
      * Método que inicializa todos los componentes de la Actividad.
      */
-    private void inicializarVariables(View view) {
+    private void inicializarVariables(@NonNull View view) {
         logoApp = view.findViewById(R.id.login_logo);
         textoAjustes = view.findViewById(R.id.ajustes_titulo);
         textoCambiarContraseña = view.findViewById(R.id.ajustes_texto_contraseña_vieja);
@@ -149,10 +165,10 @@ public class FragmentAjustes extends Fragment {
      * @return - True, si la vista es distinta de null, False si la View es null.
      */
     public boolean ocultar() {
-        View view = this.getActivity().getCurrentFocus();
+        View view = this.requireActivity().getCurrentFocus();
 
         if (view != null) {
-            InputMethodManager input = (InputMethodManager) (getActivity().getSystemService(Context.INPUT_METHOD_SERVICE));
+            InputMethodManager input = (InputMethodManager) (requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE));
             input.hideSoftInputFromWindow(view.getWindowToken(), 0);
             return true;
         } else {

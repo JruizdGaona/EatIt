@@ -1,39 +1,60 @@
 <resources>
-    <!-- Cadenas de Texto del Login -->
+    <!-- Cadenas de Texto Generales -->
     <string name="nombreApp">EatIt</string>
     <string name="logo">Logo App</string>
+
+    <!-- Cadenas de Texto del Login -->
     <string name="login_texto">INICIAR SESIÓN</string>
     <string name="login_correo">CORREO ELECTRÓNICO</string>
-    <string name="login_contraseña">CONTRASEÑA</string>
     <string name="login_correo_hint">Escribe tu correo electrónico</string>
+    <string name="login_contraseña">CONTRASEÑA</string>
     <string name="login_contraseña_hint">Escribe tu contraseña</string>
-    <string name="login_btn">Iniciar Sesión</string>
-    <string name="sesion_iniciada">Mantener la sesión iniciada</string>
     <string name="contraseña_olvidada">He olvidado la contraseña</string>
+    <string name="sesion_iniciada">Mantener la sesión iniciada</string>
+    <string name="login_btn">Iniciar Sesión</string>
     <string name="registrarse">Registrarse</string>
+
+    <!-- Cadenas de Texto Recuperar Contraseña -->
+    <string name="aceptar">Enviar</string>
+    <string name="cancelar">Cancelar</string>
 
     <!-- Cadenas de Texto del Registro -->
     <string name="registro_texto">CREAR CUENTA</string>
-    <string name="boton_registro">Crear Cuenta</string>
     <string name="nombre">NOMBRE</string>
-    <string name="apellido">APELLIDO</string>
     <string name="nombre_hint">Escribe tu nombre</string>
+    <string name="apellido">APELLIDO</string>
     <string name="apellido_hint">Escribe tu apellido</string>
+    <string name="boton_registro">Crear Cuenta</string>
     <string name="registro_login">¿Ya tienes cuenta? Iniciar Sesión</string>
 
-    <!-- Cadenas de Texto Actividad Principal -->
-    <string name="actividad_principal">TUS RECETAS</string>
-    <string name="mis_ingredientes">MIS INGREDIENTES</string>
+    <!-- Cadenas de Texto del Menú Lateral  -->
+    <string name="bienvenida">¡Hola de nuevo, Javier!</string>
+    <string name="inicio">INICIO</string>
+    <string name="ingredientes">INGREDIENTES</string>
+    <string name="addIngredientes">AÑADIR INGREDIENTES</string>
+    <string name="verIngredientes">MIS INGREDIENTES</string>
+    <string name="recetas">RECETAS</string>
+    <string name="recomendador">RECOMENDADOR</string>
+    <string name="verRecetas">MIS RECETAS</string>
+    <string name="tools">AJUSTES</string>
+    <string name="sesion">CERRAR SESIÓN</string>
+    <string name="abierto">Abierto</string>
+    <string name="cerrado">Cerrado</string>
 
-    <!-- Cadenas de texto auxiliares -->
-    <string name="toast_fail1">Correo o contraseña no válidos</string>
-    <string name="ajustes">Ajustes</string>
-    <string name="menu">Menú</string>
-    <string name="aceptar">Enviar</string>
-    <string name="cancelar">Cancelar</string>
-    <string name="receta">Receta</string>
+    <!-- Cadenas de Texto Fragment de Inicio -->
+    <string name="actividad_principal">MEJORES RECETAS</string>
+
+    <!-- Cadenas de Texto Fragment de Añadir Ingredientes y Fragment de Mis Ingredientes-->
+    <string name="mis_ingredientes">MIS INGREDIENTES</string>
+    <string name="add_ingrediente">AÑADIR INGREDIENTE</string>
+    <string name="scanner">Imagen Scanner</string>
+    <string name="btn_float">Botón Flotante</string>
+
+    <!-- Cadenas de Texto Fragment Recomendador -->
+    <!-- Cadenas de Texto Fragmment Mis Recetas -->
+
+    <!-- Cadenas de Texto Fragment Ajustes -->
     <string name="ajustes_activity">AJUSTES</string>
-    <string name="retroceso">Flecha Retroceso</string>
     <string name="nombre_usuario">CAMBIAR NOMBRE DE USUARIO</string>
     <string name="ajustes_nombre_usuario_hint">Nuevo nombre de usuario</string>
     <string name="ajustes_contraseña_vieja">CAMBIAR CONTRASEÑA</string>
@@ -41,23 +62,13 @@
     <string name="ajustes_contraseña_nueva_hint">Nueva Contraseña</string>
     <string name="ajustes_contraseña_nueva_hint_bis">Repetir Nueva Contraseña</string>
     <string name="guardar_ajustes">GUARDAR</string>
+
+    <!-- Cadenas de Texto Confirmar Cambios Ajustes -->
     <string name="confirmar_cambios">¿Desea guardar los cambios?</string>
 
-    <!-- Cadenas de Texto para el menú lateral -->
-    <string name="ingredientes">INGREDIENTES</string>
-    <string name="recetas">RECETAS</string>
-    <string name="recomendador">RECOMENDADOR</string>
-    <string name="tools">AJUSTES</string>
-    <string name="sesion">CERRAR SESIÓN</string>
-    <string name="addIngredientes">AÑADIR INGREDIENTES</string>
-    <string name="verIngredientes">MIS INGREDIENTES</string>
-    <string name="verRecetas">MIS RECETAS</string>
-    <string name="copyright">EatIt - All Rights Reserved</string>
-    <string name="bienvenida">¡Hola de nuevo, Javier!</string>
-    <string name="inicio">INICIO</string>
+    <!-- Cadenas de Texto de list_receta -->
+    <string name="receta">Receta</string>
 
-    <string name="add_ingrediente">AÑADIR INGREDIENTE</string>
-    <string name="scanner">Imagen Scanner</string>
-    <string name="btn_float">Botón Flotante</string>
+    <!-- Cadenas de Texto de list_ingredientes -->
     <string name="ingrediente">Ingredientes</string>
 </resources>

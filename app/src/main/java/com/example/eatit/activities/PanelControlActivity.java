@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,15 +12,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
-
 import com.example.eatit.R;
 import com.example.eatit.fragments.FragmentAjustes;
 import com.example.eatit.fragments.FragmentInicio;
-import com.example.eatit.fragments.FragmentInicioIngredientes;
-import com.example.eatit.fragments.FragmentScanner;
+import com.example.eatit.fragments.ingredientes.FragmentMisIngredientes;
+import com.example.eatit.fragments.ingredientes.FragmentAddIngredientes;
 import com.example.eatit.utils.LoadingDialog;
 import com.google.android.material.navigation.NavigationView;
-
 import java.util.Objects;
 
 /**
@@ -64,11 +60,14 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
      * Método que abre el menú lateral al pulsar sobre el botón de menú.
      */
     private void clickMenuLateral() {
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.ajustes, R.string.menu);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.abierto, R.string.cerrado);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
     }
 
+    /**
+     * Método que cierra el menú lateral al pulsar el botón de retroceso del dispositivo.
+     */
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -78,13 +77,23 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
         }
     }
 
+    /**
+     * Método que obtiene el Item que se selecciona del menú.
+     * @param item Item seleccionado por el Usuario.
+     *
+     * @return true
+     */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         mostrarOpcion(item);
         return true;
     }
 
-    private int mostrarOpcion(@NonNull MenuItem item) {
+    /**
+     * Método que cambia el Fragmento dependiendo del Item seleccionado por el usuario.
+     * @param item Item que ha seleccionado el Usuario.
+     */
+    private void mostrarOpcion(@NonNull MenuItem item) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         LoadingDialog loadingDialog = new LoadingDialog(this);
         loadingDialog.showDialog("Cargando...");
@@ -96,11 +105,11 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
                 break;
             case R.id.nav_ingredientes2:
                 fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-                fragmentTransaction.replace(R.id.frame_inicio, new FragmentScanner());
+                fragmentTransaction.replace(R.id.frame_inicio, new FragmentAddIngredientes());
                 break;
             case R.id.nav_ingredientes3:
                 fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-                fragmentTransaction.replace(R.id.frame_inicio, new FragmentInicioIngredientes());
+                fragmentTransaction.replace(R.id.frame_inicio, new FragmentMisIngredientes());
                 break;
             case R.id.nav_recetas2:
                 fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
@@ -131,7 +140,5 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
                 loadingDialog.closeDialog();
             }, 700);
         }
-
-        return 0;
     }
 }
