@@ -1,5 +1,8 @@
 package com.example.eatit.fragments.ingredientes;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +42,10 @@ public class FragmentAddIngredientes extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         FloatingActionButton floatingActionButton = view.findViewById(R.id.btn_flotante);
 
-        floatingActionButton.setOnClickListener((View) -> Toast.makeText(this.getContext(), "Añadir Ingrediente", Toast.LENGTH_SHORT).show());
+        floatingActionButton.setOnClickListener((View) -> {
+            CardAddIngrediente cardAddIngrediente = new CardAddIngrediente(getContext());
+
+            cardAddIngrediente.operacionesCardView();
+        });
     }
 }
