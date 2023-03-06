@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Layout principal para el card de Añadir Ingredientes -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_card_add_ingredientes">
+
+    <!-- CradView de Añadir Ingredientes -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cradView_add_ingredientes"
+        android:layout_width="355dp"
+        android:layout_height="680dp"
+        app:cardCornerRadius="20dp"
+        android:foreground="@color/negroClaro"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="@color/negroClaro"
+        app:cardBackgroundColor="@color/negroClaro"
+        android:focusable="true">
+
+        <!-- Layout para el CardView -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/cardViewIng">
+
+            <ImageView
+                android:id="@+id/cerrar"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/cerrar_bis"
+                android:contentDescription="@string/description_cerrar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- TextView del CardView -->
+            <TextView
+                android:id="@+id/text_add_ingrediente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
+                android:fontFamily="@font/montserrat_medio"
+                android:text="@string/card_add_ingredientes"
+                android:textColor="@color/doradoClaro"
+                android:textSize="25sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Layout Nombre del ingrediente -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_nombre_ingrediente"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/text_add_ingrediente">
+
+                <!-- Texto Nombre del Ingrediente -->
+                <TextView
+                    android:id="@+id/texto_nombre_ingrediente"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/montserrat_light"
+                    android:text="@string/card_nombre_ingrediente"
+                    android:textColor="@color/doradoClaro"
+                    android:textSize="17sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!-- Layout TextInputEditText  -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/login_layoutTextInput_nombre_ingrediente"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="7dp"
+                    android:fontFamily="@font/montserrat_light"
+                    android:textColorHint="@color/doradoClaro"
+                    android:textSize="16sp"
+                    app:endIconMode="clear_text"
+                    app:endIconTint="@color/doradoClaro"
+                    app:errorEnabled="true"
+                    app:helperTextEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/texto_nombre_ingrediente">
+
+                    <!-- TextInput nombre ingrediente -->
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/login_textInput_nombreIngrediente"
+                        android:layout_width="330dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_light"
+                        android:hint="@string/nombre_ingrediente_hint"
+                        android:textColor="@color/doradoClaro"
+                        android:textSize="14sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Layout cantidad del ingrediente -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_cantidad_ingrediente"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/layout_nombre_ingrediente">
+
+                <!-- Texto cantidad del Ingrediente -->
+                <TextView
+                    android:id="@+id/texto_cantidad_ingrediente"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/montserrat_light"
+                    android:text="@string/card_cantidad_ingrediente"
+                    android:textColor="@color/doradoClaro"
+                    android:textSize="17sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!-- Layout TextInputEditText  -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/login_layoutTextInput_cantidad_ingrediente"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="7dp"
+                    android:fontFamily="@font/montserrat_light"
+                    android:textColorHint="@color/doradoClaro"
+                    android:textSize="16sp"
+                    app:endIconMode="clear_text"
+                    app:endIconTint="@color/doradoClaro"
+                    app:errorEnabled="true"
+                    app:helperTextEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/texto_cantidad_ingrediente">
+
+                    <!-- TextInput cantidad ingrediente -->
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/login_textInput_cantidadIngrediente"
+                        android:layout_width="330dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_light"
+                        android:hint="@string/cantidad_ingrediente_hint"
+                        android:textColor="@color/doradoClaro"
+                        android:textSize="14sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Layout fecha de caducidad del ingrediente -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_caducidad_ingrediente"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/layout_cantidad_ingrediente">
+
+                <!-- Texto caducidad del Ingrediente -->
+                <TextView
+                    android:id="@+id/texto_caducidad_ingrediente"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/montserrat_light"
+                    android:text="@string/card_caducidad"
+                    android:textColor="@color/doradoClaro"
+                    android:textSize="17sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!-- Layout TextInputEditText  -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/login_layoutTextInput_caducidad_ingrediente"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="7dp"
+                    android:fontFamily="@font/montserrat_light"
+                    android:textColorHint="@color/doradoClaro"
+                    android:textSize="16sp"
+                    app:endIconMode="clear_text"
+                    app:endIconTint="@color/doradoClaro"
+                    app:errorEnabled="true"
+                    app:helperTextEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/texto_caducidad_ingrediente">
+
+                    <!-- TextInput caducidad ingrediente -->
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/login_textInput_caducidadIngrediente"
+                        android:layout_width="330dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_light"
+                        android:hint="@string/caducidad_ingrediente_hint"
+                        android:textColor="@color/doradoClaro"
+                        android:textSize="14sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Botón de Inicio de Sesión -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_guardar_ingrediente"
+                android:layout_width="296dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_horizontal|center"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/btn_login"
+                android:fontFamily="@font/montserrat_medio"
+                android:gravity="center"
+                android:text="@string/guardar_ingrediente"
+                android:textColor="@color/negroClaro"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout_caducidad_ingrediente" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
