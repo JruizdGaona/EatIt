@@ -58,6 +58,7 @@
         <string name="card_caducidad">FECHA DE CADUCIDAD</string>
         <string name="caducidad_ingrediente_hint">Escribe la fecha de caducidad</string>
         <string name="guardar_ingrediente">GUARDAR</string>
+        <string name="description_cerrar">Botón de cerrar</string>
 
     <!-- Cadenas de Texto Fragment Recomendador -->
     <!-- Cadenas de Texto Fragmment Mis Recetas -->
