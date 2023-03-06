@@ -31,6 +31,7 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
     NavigationView navigationView;
     Toolbar toolbar;
     DrawerLayout drawerLayout;
+    int status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
      * Método que inicializa todos los componenetes de la Actividad.
      */
     private void inicializarVariables() {
+        status = 0;
         drawerLayout = findViewById(R.id.drawer_layout);
         toolbar = findViewById(R.id.toolBar);
         navigationView = findViewById(R.id.menu_lateral);
@@ -97,39 +99,53 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
     private void mostrarOpcion(@NonNull MenuItem item) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         LoadingDialog loadingDialog = new LoadingDialog(this);
-        loadingDialog.showDialog("Cargando...");
 
         switch (item.getItemId()) {
             case R.id.inicio:
+                mostrarMensajesCarga(status, loadingDialog);
                 fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
                 fragmentTransaction.replace(R.id.frame_inicio, new FragmentInicio());
                 break;
             case R.id.nav_ingredientes2:
+                mostrarMensajesCarga(1, loadingDialog);
+                status = 1;
                 fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
                 fragmentTransaction.replace(R.id.frame_inicio, new FragmentAddIngredientes());
                 break;
             case R.id.nav_ingredientes3:
+                mostrarMensajesCarga(1, loadingDialog);
+                status = 1;
                 fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
                 fragmentTransaction.replace(R.id.frame_inicio, new FragmentMisIngredientes());
                 break;
             case R.id.nav_recetas2:
+                mostrarMensajesCarga(1, loadingDialog);
+                status = 1;
                 fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
                 Toast.makeText(this, "Recomendador", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_recetas3:
+                mostrarMensajesCarga(1, loadingDialog);
+                status = 1;
                 fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
                 fragmentTransaction.replace(R.id.frame_inicio, new FragmentMisRecetas());
                 break;
             case R.id.nav_ajustes:
+                mostrarMensajesCarga(1, loadingDialog);
+                status = 1;
                 fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
                 fragmentTransaction.replace(R.id.frame_inicio, new FragmentAjustes());
                 break;
             case R.id.nav_sesion:
+                mostrarMensajesCarga(1, loadingDialog);
+                status = 1;
                 LoginActivity.cambiarEstadoCheckbox(PanelControlActivity.this, false);
                 this.finish();
                 startActivity(new Intent(PanelControlActivity.this, LoginActivity.class));
                 break;
             default:
+                mostrarMensajesCarga(1, loadingDialog);
+                status = 1;
                 Toast.makeText(this, "Opción no Implementada aún", Toast.LENGTH_SHORT).show();
         }
 
@@ -138,8 +154,29 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
         if (!isFinishing()) {
             new Handler().postDelayed(() -> {
                 fragmentTransaction.commit();
-                loadingDialog.closeDialog();
+                cerrarMensajeCarga(status, loadingDialog);
             }, 700);
         }
+    }
+
+    /**
+     * Método que muestra el loadingDialog al cargar los fragments, evitará mostrarlo en la primera
+     * carga del fragment de inicio.
+     *
+     * @param status Estado de la actividad para mostrar la carga.
+     * @param loadingDialog loadingDialog que queremos mostrar.
+     */
+    private void mostrarMensajesCarga(int status, LoadingDialog loadingDialog) {
+        if (status != 0) loadingDialog.showDialog("Cargando...");
+    }
+
+    /**
+     * Método que cierra el loadingDialog en todos los casos en los que se ha creado.
+     *
+     * @param status Estado de la actividad para cerrar la carga.
+     * @param loadingDialog loadingDialog que queremos cerrar.
+     */
+    private void cerrarMensajeCarga(int status, LoadingDialog loadingDialog) {
+        if (status != 0) loadingDialog.closeDialog();
     }
 }
