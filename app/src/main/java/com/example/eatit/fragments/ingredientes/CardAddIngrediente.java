@@ -29,15 +29,15 @@ public class CardAddIngrediente {
     /**
      * Método usado para cerrar el teclado al pulsar sobre otro lado de la pantalla.
      *
-     * @return - True, si la vista es distinta de null, False si la View es null.
      */
-    private boolean cerrarTeclado(@NonNull Dialog dialog) {
+    private void cerrarTeclado(@NonNull Dialog dialog) {
         CardView cardView = dialog.findViewById(R.id.cradView_add_ingredientes);
-        cardView.setOnClickListener(view -> {
+
+        cardView.setOnTouchListener((view, motionEvent) -> {
             InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            return false;
         });
 
-        return true;
     }
 }
