@@ -4,9 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -14,12 +12,23 @@ import androidx.cardview.widget.CardView;
 
 import com.example.eatit.R;
 
+/**
+ * @author Javier Ruiz de Gaona Tre.
+ */
 public class CardAddIngrediente {
 
+    // Declaramos las Variables
     Context context;
 
+    /**
+     * Constructor de la Clase.
+     * @param context Contexto del CardView nuevo.
+     */
     public CardAddIngrediente (Context context) {this.context = context;}
 
+    /**
+     * Método que ejecuta las operaciones del CardView.
+     */
     public void operacionesCardView() {
         Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.card_add_ingredientes);
@@ -36,7 +45,7 @@ public class CardAddIngrediente {
      */
     private void cerrarTeclado(@NonNull Dialog dialog) {
         CardView cardView = dialog.findViewById(R.id.cradView_add_ingredientes);
-        
+
         cardView.setOnTouchListener((view, motionEvent) -> {
             InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
@@ -50,7 +59,6 @@ public class CardAddIngrediente {
      */
     private void cerrarCardView(@NonNull Dialog dialog) {
         ImageView imageView = dialog.findViewById(R.id.cerrar);
-
         imageView.setOnClickListener((View) -> dialog.dismiss());
     }
 }

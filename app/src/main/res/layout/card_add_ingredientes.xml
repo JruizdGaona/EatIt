@@ -13,14 +13,14 @@
         android:layout_height="680dp"
         app:cardCornerRadius="20dp"
         android:foreground="@color/negroClaro"
-        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:backgroundTint="@color/negroClaro"
         app:cardBackgroundColor="@color/negroClaro"
-        android:focusable="true">
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/doradoClaro">
 
         <!-- Layout para el CardView -->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,13 +28,14 @@
             android:layout_height="match_parent"
             android:id="@+id/cardViewIng">
 
+            <!-- Imagen con el botón de Cerrar -->
             <ImageView
                 android:id="@+id/cerrar"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                android:src="@drawable/cerrar_bis"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_close"
                 android:contentDescription="@string/description_cerrar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -209,7 +210,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- Botón de Inicio de Sesión -->
+            <!-- Botón de Guardar -->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_guardar_ingrediente"
                 android:layout_width="296dp"
@@ -225,7 +226,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/layout_caducidad_ingrediente" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
