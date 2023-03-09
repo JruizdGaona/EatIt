@@ -2,15 +2,19 @@ package com.example.eatit.fragments.recetas;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 
 import com.example.eatit.R;
+import com.example.eatit.activities.LoginActivity;
+import com.example.eatit.activities.RegistroActivity;
 
 public class CardAddRecetas {
 
@@ -42,8 +46,15 @@ public class CardAddRecetas {
      */
     private void cerrarTeclado(@NonNull Dialog dialog) {
         CardView cardView = dialog.findViewById(R.id.cradView_add_recetas);
+        ScrollView scrollView = cardView.findViewById(R.id.scrollView);
 
         cardView.setOnTouchListener((view, motionEvent) -> {
+            InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            return false;
+        });
+
+        scrollView.setOnTouchListener((view, motionEvent) -> {
             InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             return false;
