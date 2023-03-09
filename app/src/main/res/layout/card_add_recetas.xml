@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Layout principal para el card de Añadir Recetas -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -57,8 +56,8 @@
                 android:id="@+id/scrollView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constrainedHeight="true"
+                app:layout_constraintHeight_max="475dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_add_receta">
 
@@ -127,7 +126,7 @@
                         android:layout_marginTop="20dp"
                         app:layout_constraintTop_toBottomOf="@+id/layout_nombre_receta">
 
-                        <!-- Texto Nombre de la receta -->
+                        <!-- Texto número de personas de la receta -->
                         <TextView
                             android:id="@+id/texto_personas_receta"
                             android:layout_width="wrap_content"
@@ -141,9 +140,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <!-- Layout TextInputEditText  -->
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/login_layoutTextInput_personas_receta"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -162,31 +159,40 @@
                             <!-- TextInput nombre ingrediente -->
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/login_textInput_personasReceta"
-                                android:layout_width="150dp"
+                                android:layout_width="330dp"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/montserrat_light"
+                                android:digits="0,1,2,3,4,5,6,7,8,9"
+                                android:inputType="number"
                                 android:hint="@string/personas_hint"
                                 android:textColor="@color/doradoClaro"
                                 android:textSize="14sp" />
                         </com.google.android.material.textfield.TextInputLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <!-- Texto Nombre de la receta -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/nivelRecetas"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        app:layout_constraintTop_toBottomOf="@+id/numeroPersonas">
+
+                        <!-- Texto número de personas de la receta -->
                         <TextView
-                            android:id="@+id/texto_dificultad_receta"
+                            android:id="@+id/texto_nivel_receta"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintStart_toEndOf="@+id/texto_personas_receta"
+                            android:layout_marginStart="32dp"
                             android:layout_marginTop="30dp"
-                            android:layout_marginStart="40dp"
                             android:fontFamily="@font/montserrat_light"
                             android:text="@string/nivel"
                             android:textColor="@color/doradoClaro"
                             android:textSize="17sp"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <!-- Layout TextInputEditText  -->
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/login_layoutTextInput_dificultad_receta"
+                            android:id="@+id/nivelReceta_layout"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -200,15 +206,66 @@
                             app:errorEnabled="true"
                             app:helperTextEnabled="true"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/texto_dificultad_receta">
+                            app:layout_constraintTop_toBottomOf="@+id/texto_nivel_receta">
 
                             <!-- TextInput nombre ingrediente -->
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/login_textInput_dificultadReceta"
-                                android:layout_width="150dp"
+                                android:id="@+id/login_textInput_nivelReceta"
+                                android:layout_width="330dp"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/montserrat_light"
-                                android:hint="@string/personas_hint"
+                                android:hint="@string/dificultad_hint"
+                                android:textColor="@color/doradoClaro"
+                                android:textSize="14sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/duracionRecetas"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        app:layout_constraintTop_toBottomOf="@+id/nivelRecetas">
+
+                        <!-- Texto número de personas de la receta -->
+                        <TextView
+                            android:id="@+id/texto_duracion_receta"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="32dp"
+                            android:layout_marginTop="30dp"
+                            android:fontFamily="@font/montserrat_light"
+                            android:text="@string/duración"
+                            android:textColor="@color/doradoClaro"
+                            android:textSize="17sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/duracionReceta_layout"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="7dp"
+                            android:fontFamily="@font/montserrat_light"
+                            android:textColorHint="@color/doradoClaro"
+                            android:textSize="16sp"
+                            app:endIconMode="clear_text"
+                            app:endIconTint="@color/doradoClaro"
+                            app:errorEnabled="true"
+                            app:helperTextEnabled="true"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/texto_duracion_receta">
+
+                            <!-- TextInput nombre ingrediente -->
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/login_textInput_duracionReceta"
+                                android:layout_width="330dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/montserrat_light"
+                                android:inputType="time"
+                                android:hint="@string/duracion_hint"
                                 android:textColor="@color/doradoClaro"
                                 android:textSize="14sp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -220,7 +277,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        app:layout_constraintTop_toBottomOf="@+id/numeroPersonas">
+                        app:layout_constraintTop_toBottomOf="@+id/duracionRecetas">
 
                         <TextView
                             android:id="@+id/texto_detalles_receta"
@@ -258,6 +315,7 @@
                                 android:layout_width="330dp"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/montserrat_light"
+                                android:inputType="textAutoCorrect"
                                 android:hint="@string/detalle_receta_hint"
                                 android:textColor="@color/doradoClaro"
                                 android:textSize="14sp" />
@@ -282,7 +340,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/scrollView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

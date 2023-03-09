@@ -204,6 +204,7 @@
                         android:layout_width="330dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/montserrat_light"
+                        android:inputType="date"
                         android:hint="@string/caducidad_ingrediente_hint"
                         android:textColor="@color/doradoClaro"
                         android:textSize="14sp" />

@@ -71,6 +71,9 @@
         <string name="personas">RECETA PARA:</string>
         <string name="personas_hint">Nº de personas</string>
         <string name="nivel">DIFICULTAD</string>
+        <string name="dificultad_hint">Establecer dificultad</string>
+        <string name="duración">TIEMPO DE COCINADO</string>
+        <string name="duracion_hint">Establecer tiempo de cocinado</string>
 
     <!-- Cadenas de Texto Fragment Ajustes -->
     <string name="ajustes_activity">AJUSTES</string>
