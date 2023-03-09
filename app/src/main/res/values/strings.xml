@@ -43,6 +43,19 @@
 
     <!-- Cadenas de Texto Fragment de Inicio -->
     <string name="actividad_principal">MEJORES RECETAS</string>
+        <!-- Cadenas de Texto Ver Recetas de la comunidad -->
+        <string name="nombre_receta">NOMBRE RECETA</string>
+        <string name="ingredientes_receta">INGREDIENTES</string>
+        <string name="ingredientes_receta_detalles">Ingrediente</string>
+        <string name="personas_raciones">RACIONES:</string>
+        <string name="personas_numero">10 personas</string>
+        <string name="dificultad">DIFICULTAD:</string>
+        <string name="nivel_receta">Media</string>
+        <string name="duracion_estimada">TIEMPO ESTIMADO:</string>
+        <string name="tiempo">2:30 h</string>
+        <string name="elaboracion">ELABORACIÓN</string>
+        <string name="pasos_elab">Receta</string>
+        <string name="guardar_favoritos">GUARDAR EN FAVORITOS</string>
 
     <!-- Cadenas de Texto Fragment de Añadir Ingredientes y Fragment de Mis Ingredientes-->
     <string name="mis_ingredientes">MIS INGREDIENTES</string>
@@ -61,6 +74,7 @@
         <string name="description_cerrar">Botón de cerrar</string>
 
     <!-- Cadenas de Texto Fragment Recomendador -->
+
     <!-- Cadenas de Texto Fragmment Mis Recetas -->
     <string name="mis_recetas">MIS RECETAS</string>
         <!-- Cadenas de Texto para el CardView de añadir recetas -->
