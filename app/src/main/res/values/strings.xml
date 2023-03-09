@@ -63,6 +63,17 @@
     <!-- Cadenas de Texto Fragment Recomendador -->
     <!-- Cadenas de Texto Fragmment Mis Recetas -->
     <string name="mis_recetas">MIS RECETAS</string>
+        <!-- Cadenas de Texto para el CardView de añadir recetas -->
+        <string name="card_add_recetas">NUEVA RECETA</string>
+        <string name="nombre_receta_hint">Nombre de la receta</string>
+        <string name="pasos">DESCRIPCIÓN *</string>
+        <string name="detalle_receta_hint">Pasos a seguir de la receta</string>
+        <string name="personas">RECETA PARA:</string>
+        <string name="personas_hint">Nº de personas</string>
+        <string name="nivel">DIFICULTAD</string>
+        <string name="dificultad_hint">Establecer dificultad</string>
+        <string name="duración">TIEMPO DE COCINADO</string>
+        <string name="duracion_hint">Establecer tiempo de cocinado</string>
 
     <!-- Cadenas de Texto Fragment Ajustes -->
     <string name="ajustes_activity">AJUSTES</string>

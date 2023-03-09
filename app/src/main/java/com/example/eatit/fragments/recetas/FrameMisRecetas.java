@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.eatit.R;
 import com.example.eatit.entities.Receta;
 import com.example.eatit.fragments.adapters.AdapterMisRecetas;
+import com.example.eatit.fragments.ingredientes.CardAddIngrediente;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -53,9 +54,13 @@ public class FrameMisRecetas extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         mostrarRecetas();
-
         FloatingActionButton floatingActionButton = view.findViewById(R.id.floatingActionButtonMisRecetas);
-        floatingActionButton.setOnClickListener((View) -> Toast.makeText(this.getContext(), "Añadir Receta", Toast.LENGTH_SHORT).show());
+
+        floatingActionButton.setOnClickListener((View) -> {
+            CardAddRecetas cardAddRecetas = new CardAddRecetas(getContext());
+
+            cardAddRecetas.operacionesCardView();
+        });
     }
 
     /**
