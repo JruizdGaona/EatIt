@@ -6,7 +6,7 @@ import java.io.Serializable;
  * @author Javier Ruiz de Gaona Tre.
  */
 public class Receta implements Serializable {
-    private String nombre, dificultad, descripcion;
+    private String nombre, dificultad, descripcion, ingredientes;
     private float duracion;
     private int kcal;
 
@@ -62,5 +62,13 @@ public class Receta implements Serializable {
 
     public void setKcal(int kcal) {
         this.kcal = kcal;
+    }
+
+    public String getIngredientes() {
+        return ingredientes;
+    }
+
+    public void setIngredientes(String ingredientes) {
+        this.ingredientes = ingredientes;
     }
 }
