@@ -1,9 +1,11 @@
 package com.example.eatit.fragments.recetas;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -44,27 +46,46 @@ public class FragmentBuscador extends Fragment {
      */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        cargarFragmentRecetas();
+        buscar(view);
+        cerrar(view);
+    }
+
+    /**
+     * Método que carga el frgament de las recetas inicialmente.
+     */
+    private void cargarFragmentRecetas() {
         Fragment fragmentRecetas = new FrameRecetas();
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
 
         fragmentTransaction.replace(R.id.frame_recetas, fragmentRecetas).commit();
-
-        searchView = view.findViewById(R.id.search_view);
-        searchView.clearFocus();
-         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-             @Override
-             public boolean onQueryTextSubmit(String query) {
-                 return false;
-             }
-
-             @Override
-             public boolean onQueryTextChange(String newText) {
-                 filtro(newText);
-                 return true;
-             }
-         });
     }
 
+    /**
+     * Método que añade el Listener al escribir sobre el SearchView.
+     * @param view View del fragment actual.
+     */
+    private void buscar(@NonNull View view) {
+        searchView = view.findViewById(R.id.search_view);
+        searchView.clearFocus();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filtro(newText);
+                return true;
+            }
+        });
+    }
+
+    /**
+     * Método que filtra las recetas según ha escrito el usuario en el buscador.
+     * @param newText Nombre de la receta que quiere buscar.
+     */
     private void filtro(String newText) {
         List<Receta> listRecetasFiltradas = new ArrayList<>();
         List<Receta> recetas = new ArrayList<>();
@@ -85,5 +106,18 @@ public class FragmentBuscador extends Fragment {
             FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame_recetas, fragmentRecetas).commit();
         }
+    }
+
+    /**
+     * Método que cierra el teclado al pulsar sobre cualquier parte del fragment
+     * @param view Vista del fragment actual.
+     */
+    private void cerrar(@NonNull View view) {
+        view.setOnTouchListener((v, event) -> {
+            // Cerrar el teclado
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            return false;
+        });
     }
 }
