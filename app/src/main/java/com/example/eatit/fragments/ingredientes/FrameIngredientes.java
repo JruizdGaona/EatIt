@@ -12,7 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.eatit.R;
 import com.example.eatit.entities.Ingrediente;
 import com.example.eatit.fragments.adapters.AdapterIngrediente;
+import com.google.type.DateTime;
+
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -49,9 +54,13 @@ public class FrameIngredientes extends Fragment {
      */
     private void mostrarIngredientes() {
         for (int i = 0; i < 20; i++) {
-            String nombre = "Ingrediente" +i;
+            String nombre = "Ingrediente" + i;
+            String fecha = "12/02/202" + i;
+            String tipo = "Carne";
+            float kcal = i;
+            float cantidad = i;
 
-            ingredientes.add(new Ingrediente(nombre));
+            ingredientes.add(new Ingrediente(nombre, fecha, tipo, kcal, cantidad));
         }
         adapterIngrediente = new AdapterIngrediente(ingredientes, FrameIngredientes.this.getContext());
         recyclerView.setAdapter(adapterIngrediente);
