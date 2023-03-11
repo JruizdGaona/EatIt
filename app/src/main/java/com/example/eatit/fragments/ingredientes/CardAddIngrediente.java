@@ -6,11 +6,15 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 
 import com.example.eatit.R;
+import com.example.eatit.entities.Ingrediente;
+import com.example.eatit.entities.Receta;
+import com.google.android.material.textfield.TextInputEditText;
 
 /**
  * @author Javier Ruiz de Gaona Tre.
@@ -19,12 +23,22 @@ public class CardAddIngrediente {
 
     // Declaramos las Variables
     Context context;
+    int status;
+    TextView nombre;
+    TextInputEditText name, cantidad, fecha;
+    Ingrediente ingrediente;
 
     /**
      * Constructor de la Clase.
      * @param context Contexto del CardView nuevo.
      */
     public CardAddIngrediente (Context context) {this.context = context;}
+
+    public CardAddIngrediente (Context context, int status, Ingrediente i) {
+        this.context = context;
+        this.status = status;
+        ingrediente = i;
+    }
 
     /**
      * Método que ejecuta las operaciones del CardView.
@@ -34,9 +48,24 @@ public class CardAddIngrediente {
         dialog.setContentView(R.layout.card_add_ingredientes);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
+        inicializarVariables(dialog);
         cerrarTeclado(dialog);
         cerrarCardView(dialog);
         dialog.show();
+    }
+
+    private void inicializarVariables(@NonNull Dialog dialog) {
+        nombre = dialog.findViewById(R.id.text_add_ingrediente);
+        name = dialog.findViewById(R.id.login_textInput_nombreIngrediente);
+        cantidad = dialog.findViewById(R.id.login_textInput_cantidadIngrediente);
+        fecha = dialog.findViewById(R.id.login_textInput_caducidadIngrediente);
+
+        if (status == 1) {
+            nombre.setText(ingrediente.getNombre());
+            name.setText(ingrediente.getNombre());
+            cantidad.setText(String.valueOf(ingrediente.getCantidad()));
+            fecha.setText(ingrediente.getFechaCaducidad());
+        }
     }
 
     /**
