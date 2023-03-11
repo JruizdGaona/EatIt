@@ -26,4 +26,11 @@
     <style name="Style_TextView">
         <item name="fontFamily">@font/montserrat_medio</item>
     </style>
+
+    <style name="SearchViewStyle" parent="android:Widget.Material.SearchView">
+        <item name="android:editTextColor">@color/doradoClaro</item>
+        <item name="android:textColorHint">@color/doradoClaro</item>
+        <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/montserrat_light</item>
+    </style>
 </resources>

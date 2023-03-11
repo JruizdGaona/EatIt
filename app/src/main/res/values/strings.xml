@@ -34,7 +34,7 @@
     <string name="addIngredientes">AÑADIR INGREDIENTES</string>
     <string name="verIngredientes">MIS INGREDIENTES</string>
     <string name="recetas">RECETAS</string>
-    <string name="recomendador">RECOMENDADOR</string>
+    <string name="recomendador">BUSCADOR</string>
     <string name="verRecetas">MIS RECETAS</string>
     <string name="tools">AJUSTES</string>
     <string name="sesion">CERRAR SESIÓN</string>
@@ -87,6 +87,7 @@
         <string name="description_cerrar">Botón de cerrar</string>
 
     <!-- Cadenas de Texto Fragment Recomendador -->
+    <string name="busqueda_hint">Escribe la receta que quieres buscar</string>
 
     <!-- Cadenas de Texto Fragmment Mis Recetas -->
     <string name="mis_recetas">MIS RECETAS</string>

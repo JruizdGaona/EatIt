@@ -25,6 +25,14 @@ public class FrameRecetas extends Fragment {
     List<Receta> recetas = new ArrayList<>();
     RecyclerView recyclerView;
     AdapterReceta adapter;
+    boolean filtro = false;
+
+    public FrameRecetas() {}
+
+    public FrameRecetas (List<Receta> filtradas) {
+        this.recetas = filtradas;
+        filtro = true;
+    }
 
     /**
      * Método onCreate del fragment de Recetas.
@@ -41,7 +49,8 @@ public class FrameRecetas extends Fragment {
         recyclerView = view.findViewById(R.id.fragment_recetas);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
-        mostrarRecetas();
+        if (!filtro) mostrarRecetas();
+        else mostrarRecetasFiltradas();
         return view;
     }
 
@@ -55,6 +64,11 @@ public class FrameRecetas extends Fragment {
 
             recetas.add(new Receta(nombre, dificultad, null, (float) i, 0));
         }
+        adapter = new AdapterReceta(recetas, FrameRecetas.this.getContext());
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void mostrarRecetasFiltradas() {
         adapter = new AdapterReceta(recetas, FrameRecetas.this.getContext());
         recyclerView.setAdapter(adapter);
     }

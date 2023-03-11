@@ -21,9 +21,14 @@ import java.util.List;
 public class AdapterReceta extends RecyclerView.Adapter<AdapterReceta.MyViewHolder> {
 
     // Declaración de variables.
-    private final List<Receta> recetas;
+    private List<Receta> recetas;
     private final Context context;
     TextView nombre, dificultad, duracion;
+
+    public void setRecetasFiltradas(List<Receta> filtros) {
+        this.recetas = filtros;
+        notifyDataSetChanged();
+    }
 
     /**
      * Constructor del Adapter de Recetas.

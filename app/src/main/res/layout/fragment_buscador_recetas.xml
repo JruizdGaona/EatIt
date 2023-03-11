@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Layout principal del fragment de Inicio -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_inicio"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/negroClaro">
+
+    <!-- Logo de la aplicación -->
+    <ImageView
+        android:id="@+id/login_logo"
+        android:layout_width="match_parent"
+        android:layout_height="73dp"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="75dp"
+        android:contentDescription="@string/logo"
+        android:src="@drawable/logo" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.473"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:queryHint="@string/busqueda_hint"
+            android:background="@drawable/search_view"
+            app:searchIcon="@drawable/ic_search"
+            android:theme="@style/SearchViewStyle"
+            app:closeIcon="@drawable/ic_close"
+            app:iconifiedByDefault="false"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/frame_recetas"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp">
+    </FrameLayout>
+</LinearLayout>
