@@ -102,6 +102,10 @@
         <string name="duración">TIEMPO DE COCINADO</string>
         <string name="duracion_hint">Establecer tiempo de cocinado</string>
 
+        <!-- Cadenas de texto para el cardview de ver mis recetas -->
+        <string name="btn_eliminar">ELIMINAR RECETA</string>
+        <string name="btn_editar">EDITAR RECETA</string>
+
     <!-- Cadenas de Texto Fragment Ajustes -->
     <string name="ajustes_activity">AJUSTES</string>
     <string name="nombre_usuario">CAMBIAR NOMBRE DE USUARIO</string>

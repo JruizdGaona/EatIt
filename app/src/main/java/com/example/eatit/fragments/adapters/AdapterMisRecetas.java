@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.eatit.R;
 import com.example.eatit.entities.Receta;
+import com.example.eatit.fragments.recetas.CardVerMisRecetas;
 import com.google.android.material.card.MaterialCardView;
 import java.util.List;
 
@@ -52,6 +53,12 @@ public class AdapterMisRecetas extends RecyclerView.Adapter<AdapterMisRecetas.My
     public void onBindViewHolder(AdapterMisRecetas.MyViewHolder holder, int position) {
         holder.cv.setAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_transition));
         holder.bindData(recetas.get(position));
+
+        holder.cv.setOnClickListener((view) -> {
+            CardVerMisRecetas misRecetas = new CardVerMisRecetas(context);
+
+            misRecetas.operacionesCardView(recetas.get(position));
+        });
     }
 
     /**
