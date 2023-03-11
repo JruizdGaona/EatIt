@@ -4,10 +4,12 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Handler;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 
 import com.example.eatit.R;
 import com.example.eatit.entities.Receta;
@@ -20,6 +22,7 @@ public class CardVerMisRecetas {
     String nombre, ing, dif, desc;
     int racion;
     float time;
+    AppCompatButton eliminar, editar;
 
 
     /**
@@ -58,6 +61,7 @@ public class CardVerMisRecetas {
         tiempo = dialog.findViewById(R.id.tiempo);
         descripcion = dialog.findViewById(R.id.desc);
         name = dialog.findViewById(R.id.text_nombre_receta);
+        editar = dialog.findViewById(R.id.btn_editar_receta);
 
         nombre = receta.getNombre();
         dif = receta.getDificultad();
@@ -75,5 +79,16 @@ public class CardVerMisRecetas {
         tiempo.setText(String.valueOf(time));
         if (desc == null || desc.isBlank()) descripcion.setText("Sin Descripcion");
         else descripcion.setText(ing);
+
+        editarReceta(dialog, receta);
+    }
+
+    private void editarReceta(Dialog dialog, Receta r) {
+        editar.setOnClickListener((view) -> {
+            CardAddRecetas addReceta = new CardAddRecetas(dialog.getContext(), 1, r);
+            addReceta.operacionesCardView();
+
+            new Handler().postDelayed(dialog::dismiss, 250);
+        });
     }
 }
