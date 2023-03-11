@@ -315,7 +315,6 @@
                                 android:layout_width="330dp"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/montserrat_light"
-                                android:inputType="textAutoCorrect"
                                 android:hint="@string/detalle_receta_hint"
                                 android:textColor="@color/doradoClaro"
                                 android:textSize="14sp" />
