@@ -59,6 +59,19 @@
 
     <!-- Cadenas de Texto Fragment de Añadir Ingredientes y Fragment de Mis Ingredientes-->
     <string name="mis_ingredientes">MIS INGREDIENTES</string>
+        <!-- Cadenas de texto para la pantalla de ver Mis Ingredientes -->
+        <string name="ver_ingrediente">INGREDIENTE</string>
+        <string name="cantidad">CANTIDAD:</string>
+        <string name="gramos">120 gr.</string>
+        <string name="fecha">FECHA DE CADUCIDAD</string>
+        <string name="fecha_ejemplo">12/03/2023</string>
+        <string name="kcal">KCAL:</string>
+        <string name="kcal_ejemplo">120 kcal.</string>
+        <string name="tipo">TIPO:</string>
+        <string name="tipo_ejemplo">Carne</string>
+        <string name="modificar">EDITAR</string>
+        <string name="eliminar">ELIMINAR</string>
+
     <string name="add_ingrediente">AÑADIR INGREDIENTE</string>
     <string name="scanner">Imagen Scanner</string>
     <string name="btn_float">Botón Flotante</string>
