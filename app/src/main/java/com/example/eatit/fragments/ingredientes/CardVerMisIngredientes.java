@@ -4,13 +4,16 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Handler;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 
 import com.example.eatit.R;
 import com.example.eatit.entities.Ingrediente;
+import com.example.eatit.fragments.recetas.CardAddRecetas;
 
 public class CardVerMisIngredientes {
 
@@ -18,6 +21,7 @@ public class CardVerMisIngredientes {
     TextView cantidad, nombre, fecha_caducidad, kcal, tipo;
     String name, fecha, tipo_ingredinte;
     float cant, calorias;
+    AppCompatButton eliminar, editar;
 
     /**
      * Constructor de la Clase.
@@ -54,6 +58,7 @@ public class CardVerMisIngredientes {
         cantidad = dialog.findViewById(R.id.cantidad);
         kcal = dialog.findViewById(R.id.kcal_ejemplo);
         tipo = dialog.findViewById(R.id.tipo_ejemplo);
+        editar = dialog.findViewById(R.id.btn_editar_ingrediente);
 
         name = ingrediente.getNombre();
         fecha = ingrediente.getFechaCaducidad();
@@ -70,5 +75,16 @@ public class CardVerMisIngredientes {
 
         if (calorias == 0.0) kcal.setText("Sin especificar");
         else kcal.setText(String.valueOf(calorias));
+
+        editarIngrediente(dialog, ingrediente);
+    }
+
+    private void editarIngrediente(Dialog dialog, Ingrediente ingrediente) {
+        editar.setOnClickListener((view) -> {
+            CardAddIngrediente addIngrediente = new CardAddIngrediente(dialog.getContext(), 1, ingrediente);
+            addIngrediente.operacionesCardView();
+
+            new Handler().postDelayed(dialog::dismiss, 250);
+        });
     }
 }
