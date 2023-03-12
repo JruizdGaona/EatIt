@@ -14,7 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import com.example.eatit.R;
-import com.example.eatit.activities.PanelControlActivity;
 import com.example.eatit.utils.LoadingDialog;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
@@ -35,10 +34,13 @@ public class FragmentAjustes extends Fragment {
     AppCompatButton btnGuardar;
     TextInputEditText nombreUsuarioET, contraseñaActualET, nuevaContraseñaET, repetirContraseñaET;
     TextInputLayout nombreUsuario, cambiarContraseña, nuevaContrasñea, repetirContraseña;
-    LoadingDialog loadingDialog;
     FirebaseUser user;
-    FirebaseAuth auth = FirebaseAuth.getInstance();
+    FirebaseAuth auth;
 
+    /**
+     * Constructor para el Fragment de Ajustes.
+     * @param user Usuario actual de la aplicación.
+     */
     public FragmentAjustes (FirebaseUser user) {
         this.user = user;
     }
@@ -118,7 +120,7 @@ public class FragmentAjustes extends Fragment {
      */
     private void crearAlertDialog(View v, String nombreUsario, String contraseñaActual, String nuevaContraseña, String repetirContraseña) {
         if (nombreUsario.length() == 0 && contraseñaActual.length() == 0 && nuevaContraseña.length() == 0 && repetirContraseña.length() == 0 ) {
-            Toast.makeText(this.getContext(), "No se ha cambiado ningún dato", Toast.LENGTH_SHORT).show();
+            Toast.makeText(FragmentAjustes.this.getContext(), "No se ha cambiado ningún dato", Toast.LENGTH_SHORT).show();
         } else {
             new MaterialAlertDialogBuilder(this.requireContext(), R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog)
                     .setTitle("Confirmar Cambios")
@@ -146,7 +148,7 @@ public class FragmentAjustes extends Fragment {
         }
 
         if (nuevaContraseña.length() != 0) {
-            auth.signInWithEmailAndPassword(user.getEmail(), contraseñaActual).addOnCompleteListener((task) -> {
+            auth.signInWithEmailAndPassword(Objects.requireNonNull(user.getEmail()), contraseñaActual).addOnCompleteListener((task) -> {
                 if (task.isSuccessful()) {
                     if (repetirContraseña.matches(nuevaContraseña)) {
                         if (nuevaContraseña.length() < 6) {
