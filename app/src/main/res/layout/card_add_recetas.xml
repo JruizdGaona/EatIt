@@ -52,6 +52,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <!-- ScrollView con los EditText para crear la receta -->
             <ScrollView
                 android:id="@+id/scrollView"
                 android:layout_width="match_parent"
@@ -119,6 +120,7 @@
                         </com.google.android.material.textfield.TextInputLayout>
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
+                    <!-- Layout para el número de Raciones -->
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/numeroPersonas"
                         android:layout_width="match_parent"
@@ -170,6 +172,7 @@
                         </com.google.android.material.textfield.TextInputLayout>
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
+                    <!-- Layout para el nivel de la receta -->
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/nivelRecetas"
                         android:layout_width="match_parent"
@@ -220,6 +223,7 @@
                         </com.google.android.material.textfield.TextInputLayout>
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
+                    <!-- Layout para la duración de la receta -->
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/duracionRecetas"
                         android:layout_width="match_parent"

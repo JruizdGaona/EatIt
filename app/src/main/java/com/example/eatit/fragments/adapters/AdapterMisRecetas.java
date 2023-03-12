@@ -14,7 +14,11 @@ import com.example.eatit.fragments.recetas.CardVerMisRecetas;
 import com.google.android.material.card.MaterialCardView;
 import java.util.List;
 
+/**
+ * @author Javier Ruiz de Gaona Tre.
+ */
 public class AdapterMisRecetas extends RecyclerView.Adapter<AdapterMisRecetas.MyViewHolder> {
+
     // Declaración de variables.
     private final List<Receta> recetas;
     private final Context context;

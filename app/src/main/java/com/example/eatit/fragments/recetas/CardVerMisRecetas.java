@@ -7,23 +7,23 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
-
 import com.example.eatit.R;
 import com.example.eatit.entities.Receta;
 
+/**
+ * @author Javier Ruiz de Gaona Tre.
+ */
 public class CardVerMisRecetas {
 
-    // Declaramos las Variables
+    // Declaramos las Variables.
     Context context;
     TextView ingredientes, raciones, dificultad, tiempo, descripcion, name;
     String nombre, ing, dif, desc;
     int racion;
     float time;
     AppCompatButton eliminar, editar;
-
 
     /**
      * Constructor de la Clase.
@@ -54,6 +54,11 @@ public class CardVerMisRecetas {
         imageView.setOnClickListener((View) -> dialog.dismiss());
     }
 
+    /**
+     * Método que carga los datos de la receta que estamos viendo en el CardView.
+     * @param receta Rcetea que hemos seleccionado.
+     * @param dialog Dialog que contiene el CardView.
+     */
     private void cargarDatos(@NonNull Receta receta, @NonNull Dialog dialog) {
         ingredientes = dialog.findViewById(R.id.ingredientes_receta);
         raciones = dialog.findViewById(R.id.raciones);
@@ -70,7 +75,6 @@ public class CardVerMisRecetas {
         ing = receta.getIngredientes();
         time = receta.getDuracion();
 
-
         name.setText(nombre);
         if (ing == null || ing.isBlank()) ingredientes.setText("Sin Ingredientes");
         else ingredientes.setText(ing);
@@ -83,6 +87,11 @@ public class CardVerMisRecetas {
         editarReceta(dialog, receta);
     }
 
+    /**
+     * Método que carga el CardView de CrearReceta al pulsar el botón de editar.
+     * @param dialog Dialog que contiene el CardView.
+     * @param r Receta que queremos editar.
+     */
     private void editarReceta(Dialog dialog, Receta r) {
         editar.setOnClickListener((view) -> {
             CardAddRecetas addReceta = new CardAddRecetas(dialog.getContext(), 1, r);

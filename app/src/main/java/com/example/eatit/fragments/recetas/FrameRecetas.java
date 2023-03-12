@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.eatit.R;
 import com.example.eatit.entities.Receta;
 import com.example.eatit.fragments.adapters.AdapterReceta;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,14 +20,21 @@ import java.util.List;
  */
 public class FrameRecetas extends Fragment {
 
-    // Declaración de Variables.
+    // Declaramos las Variables.
     List<Receta> recetas = new ArrayList<>();
     RecyclerView recyclerView;
     AdapterReceta adapter;
     boolean filtro = false;
 
+    /**
+     * Construcotr por defecto del Frame.
+     */
     public FrameRecetas() {}
 
+    /**
+     * Constructor que usamos para cargar las Recetas según la búsqueda del usuario.
+     * @param filtradas Lista con las recetas ya Filtradas según la búsqueda.
+     */
     public FrameRecetas (List<Receta> filtradas) {
         this.recetas = filtradas;
         filtro = true;
@@ -68,6 +74,9 @@ public class FrameRecetas extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
+    /**
+     * Método que muestra las recetas Filtradas por la búsqueda del Usuario.
+     */
     private void mostrarRecetasFiltradas() {
         adapter = new AdapterReceta(recetas, FrameRecetas.this.getContext());
         recyclerView.setAdapter(adapter);

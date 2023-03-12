@@ -25,8 +25,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
 import java.util.Objects;
 
 /**
@@ -45,6 +43,10 @@ public class LoginActivity extends Activity {
     LoadingDialog loadingDialog;
     boolean estaActivado;
 
+    /**
+     * Método que se ejecuta ak crear la actividad de Login.
+     * @param savedInstanceState Estado de la instancia de la aplicación.
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,7 +103,7 @@ public class LoginActivity extends Activity {
             @Override
             public void afterTextChanged(Editable editable) {
                 if(!editable.toString().isEmpty()) {
-                    if(correoET.getText().toString().isEmpty() || contraseñaET.getText().toString().isEmpty()){
+                    if(Objects.requireNonNull(correoET.getText()).toString().isEmpty() || Objects.requireNonNull(contraseñaET.getText()).toString().isEmpty()){
                         correo.setError(null);
                         cambiarEstadoBoton(false);
                     } else {
@@ -133,7 +135,7 @@ public class LoginActivity extends Activity {
             @Override
             public void afterTextChanged(Editable editable) {
                 if(!editable.toString().isEmpty()) {
-                    if(contraseñaET.getText().toString().isEmpty() || correoET.getText().toString().isEmpty()){
+                    if(Objects.requireNonNull(contraseñaET.getText()).toString().isEmpty() || Objects.requireNonNull(correoET.getText()).toString().isEmpty()){
                         contraseña.setError(null);
                         cambiarEstadoBoton(false);
                     }
@@ -231,8 +233,8 @@ public class LoginActivity extends Activity {
     private void clickBotonLogin() {
         botonLogin.setOnClickListener((View) -> {
             loadingDialog.showDialog("Iniciando sesión...");
-            String correo = correoET.getText().toString();
-            String contraseña = contraseñaET.getText().toString();
+            String correo = Objects.requireNonNull(correoET.getText()).toString();
+            String contraseña = Objects.requireNonNull(contraseñaET.getText()).toString();
 
             inicioSesionFirebase(correo, contraseña);
         });

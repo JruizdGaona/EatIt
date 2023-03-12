@@ -245,7 +245,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </ScrollView>
 
-            <!-- Botón de Guardar -->
+            <!-- Botón de editar -->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_editar_receta"
                 android:layout_width="296dp"
@@ -262,7 +262,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
 
-            <!-- Botón de Guardar -->
+            <!-- Botón de de eliminar -->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_borrar_receta"
                 android:layout_width="296dp"

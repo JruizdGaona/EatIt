@@ -86,7 +86,7 @@
         <string name="guardar_ingrediente">GUARDAR</string>
         <string name="description_cerrar">Botón de cerrar</string>
 
-    <!-- Cadenas de Texto Fragment Recomendador -->
+    <!-- Cadenas de Texto Fragment de Bucador -->
     <string name="busqueda_hint">Escribe la receta que quieres buscar</string>
 
     <!-- Cadenas de Texto Fragmment Mis Recetas -->

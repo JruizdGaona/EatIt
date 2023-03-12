@@ -23,6 +23,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import java.util.Objects;
 
 /**
  * @author Javier Ruiz de Gaona Tre.
@@ -40,6 +41,10 @@ public class RegistroActivity extends Activity {
     CollectionReference coleccion;
     LoadingDialog loadingDialog;
 
+    /**
+     * Método que se ejucata al crear la activity de Registro.
+     * @param savedInstanceState Estado de la instancia de la aplicación.
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,7 +111,7 @@ public class RegistroActivity extends Activity {
             @Override
             public void afterTextChanged(Editable editable) {
                 if(!editable.toString().isEmpty() && editable.toString().matches("[a-zA-ZáéíóúÁÉÍÓÚS\\s]{1,25}")) {
-                    if(correoET.getText().toString().isEmpty() || contraseñaET.getText().toString().isEmpty()){
+                    if(Objects.requireNonNull(correoET.getText()).toString().isEmpty() || Objects.requireNonNull(contraseñaET.getText()).toString().isEmpty()){
                         nombre.setError(null);
                         cambiarEstadoBoton(false);
                     } else {
@@ -141,7 +146,7 @@ public class RegistroActivity extends Activity {
             @Override
             public void afterTextChanged(Editable editable) {
                 if(!editable.toString().isEmpty() && editable.toString().matches("[a-zA-ZáéíóúÁÉÍÓÚS\\s]{1,25}")) {
-                    if(apellidoET.getText().toString().isEmpty() || contraseñaET.getText().toString().isEmpty()){
+                    if(Objects.requireNonNull(apellidoET.getText()).toString().isEmpty() || Objects.requireNonNull(contraseñaET.getText()).toString().isEmpty()){
                         apellido.setError(null);
                         cambiarEstadoBoton(false);
                     } else {
@@ -177,7 +182,7 @@ public class RegistroActivity extends Activity {
             @Override
             public void afterTextChanged(Editable editable) {
                 if(!editable.toString().isEmpty() && editable.toString().matches("^[A-Za-z0-9.]+@[a-z]+\\.[a-z]+$")) {
-                    if(nombreET.getText().toString().isEmpty() || contraseñaET.getText().toString().isEmpty()){
+                    if(Objects.requireNonNull(nombreET.getText()).toString().isEmpty() || Objects.requireNonNull(contraseñaET.getText()).toString().isEmpty()){
                         correo.setError(null);
                         cambiarEstadoBoton(false);
                     } else {
@@ -197,8 +202,8 @@ public class RegistroActivity extends Activity {
      */
     private void comprobarContraseña() {
         contraseñaET.addTextChangedListener(new TextWatcher() {
-            final boolean condEmail = correoET.getText().toString().matches("^[A-Za-z0-9.]+@[a-z]+\\.[a-z]+$");
-            final boolean condContraseña = contraseñaET.getText().toString().matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,15}$");
+            final boolean condEmail = Objects.requireNonNull(correoET.getText()).toString().matches("^[A-Za-z0-9.]+@[a-z]+\\.[a-z]+$");
+            final boolean condContraseña = Objects.requireNonNull(contraseñaET.getText()).toString().matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,15}$");
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 cambiarEstadoBoton(!charSequence.toString().isEmpty());
@@ -211,7 +216,7 @@ public class RegistroActivity extends Activity {
             @Override
             public void afterTextChanged(Editable editable) {
                 if(!editable.toString().isEmpty() && editable.toString().matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,15}$")) {
-                    if(nombreET.getText().toString().isEmpty() || correoET.getText().toString().isEmpty()){
+                    if(Objects.requireNonNull(nombreET.getText()).toString().isEmpty() || Objects.requireNonNull(correoET.getText()).toString().isEmpty()){
                         contraseña.setError(null);
                         cambiarEstadoBoton(false);
                     }
@@ -241,8 +246,8 @@ public class RegistroActivity extends Activity {
     private void clickBotonRegistro() {
         botonRegistro.setOnClickListener((View) -> {
             loadingDialog.showDialog("Registrando Usuario...");
-            String correo = correoET.getText().toString();
-            String contraseña = contraseñaET.getText().toString();
+            String correo = Objects.requireNonNull(correoET.getText()).toString();
+            String contraseña = Objects.requireNonNull(contraseñaET.getText()).toString();
 
             registroFirebase(correo, contraseña);
         });
@@ -273,7 +278,7 @@ public class RegistroActivity extends Activity {
      * @param correo Correo electrónico del nuevo Usuario.
      */
     private void crearUsuario(String correo) {
-        Usuario usuarioNuevo = new Usuario(correo, nombreET.getText().toString(), apellidoET.getText().toString());
+        Usuario usuarioNuevo = new Usuario(correo, Objects.requireNonNull(nombreET.getText()).toString(), Objects.requireNonNull(apellidoET.getText()).toString());
         coleccion.add(usuarioNuevo);
     }
 
@@ -281,7 +286,7 @@ public class RegistroActivity extends Activity {
      * Método que envía al usuario un correo de validación de la cuenta.
      */
     private void enviarCorreoValidacion() {
-        firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(task -> {
+        Objects.requireNonNull(firebaseAuth.getCurrentUser()).sendEmailVerification().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Toast.makeText(RegistroActivity.this, "Usuario registrado, verifique su correo", Toast.LENGTH_LONG).show();
                 correoET.setText("");

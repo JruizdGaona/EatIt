@@ -19,11 +19,13 @@
         android:contentDescription="@string/logo"
         android:src="@drawable/logo" />
 
+    <!-- Layout de la pantalla -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp">
 
+        <!-- SearchView de la búsqueda de recetas -->
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search_view"
             android:layout_width="match_parent"
@@ -42,6 +44,7 @@
             app:iconifiedByDefault="false"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- Frame que muestra las recetas -->
     <FrameLayout
         android:id="@+id/frame_recetas"
         android:layout_marginTop="15dp"

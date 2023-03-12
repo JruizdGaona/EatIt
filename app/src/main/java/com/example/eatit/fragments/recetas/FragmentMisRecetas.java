@@ -11,7 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.eatit.R;
 
 /**
- * @author Javier Ruiz de Gaona tre.
+ * @author Javier Ruiz de Gaona Tre.
  */
 public class FragmentMisRecetas extends Fragment {
     /**
