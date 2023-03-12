@@ -25,6 +25,9 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Objects;
 
 /**
  * @author Javier Ruiz de Gaona Tre.
@@ -243,9 +246,9 @@ public class LoginActivity extends Activity {
     private void inicioSesionFirebase(@NonNull String correo, @NonNull String contraseña) {
         firebaseAuth.signInWithEmailAndPassword(correo, contraseña).addOnCompleteListener((task) -> {
             if (task.isSuccessful()) {
-                if (firebaseAuth.getCurrentUser().isEmailVerified()) {
+                if (Objects.requireNonNull(firebaseAuth.getCurrentUser()).isEmailVerified()) {
                     this.finish();
-                    startActivity(new Intent(LoginActivity.this, PanelControlActivity.class));
+                    startActivity(new Intent(LoginActivity.this, PanelControlActivity.class).putExtra("firebaseUser", firebaseAuth.getCurrentUser()));
                     loadingDialog.closeDialog();
                 } else {
                     loadingDialog.closeDialog();
@@ -265,7 +268,7 @@ public class LoginActivity extends Activity {
     private void inicioAuto() {
         if (obtenerEstadoCheckBox()) {
             this.finish();
-            startActivity(new Intent(LoginActivity.this, PanelControlActivity.class));
+            startActivity(new Intent(LoginActivity.this, PanelControlActivity.class).putExtra("firebaseUser", firebaseAuth.getCurrentUser()));
         }
     }
 

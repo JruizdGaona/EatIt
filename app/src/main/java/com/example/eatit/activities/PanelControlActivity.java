@@ -1,13 +1,9 @@
 package com.example.eatit.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -25,6 +21,9 @@ import com.example.eatit.fragments.recetas.FragmentBuscador;
 import com.example.eatit.fragments.recetas.FragmentMisRecetas;
 import com.example.eatit.utils.LoadingDialog;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.Objects;
 
 /**
@@ -37,6 +36,7 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     int status;
+    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +62,7 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
         navigationView.setNavigationItemSelectedListener(this);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
+        user = getIntent().getParcelableExtra("firebaseUser");
     }
 
     /**
@@ -139,7 +140,7 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
                 mostrarMensajesCarga(1, loadingDialog);
                 status = 1;
                 fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-                fragmentTransaction.replace(R.id.frame_inicio, new FragmentAjustes());
+                fragmentTransaction.replace(R.id.frame_inicio, new FragmentAjustes(user));
                 break;
             case R.id.nav_sesion:
                 mostrarMensajesCarga(1, loadingDialog);
