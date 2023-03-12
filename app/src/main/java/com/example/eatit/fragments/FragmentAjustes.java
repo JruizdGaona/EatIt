@@ -14,13 +14,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import com.example.eatit.R;
-import com.example.eatit.utils.LoadingDialog;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 import java.util.Objects;
 
 /**
@@ -28,7 +26,7 @@ import java.util.Objects;
  */
 public class FragmentAjustes extends Fragment {
 
-    // Declaración de variables.
+    // Declaramos las variables.
     ImageView logoApp;
     TextView textoNombreUsuario, textoCambiarContraseña, textoAjustes;
     AppCompatButton btnGuardar;
@@ -125,9 +123,7 @@ public class FragmentAjustes extends Fragment {
             new MaterialAlertDialogBuilder(this.requireContext(), R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog)
                     .setTitle("Confirmar Cambios")
                     .setView(v)
-                    .setPositiveButton("Confirmar", (dialogInterface, i) -> {
-                                guardarCambios(nombreUsario, contraseñaActual, nuevaContraseña, repetirContraseña);
-                            }
+                    .setPositiveButton("Confirmar", (dialogInterface, i) -> guardarCambios(nombreUsario, contraseñaActual, nuevaContraseña, repetirContraseña)
                     ).setNegativeButton("Cancelar", (dialogInterface, i) ->
                             dialogInterface.cancel())
                     .show();

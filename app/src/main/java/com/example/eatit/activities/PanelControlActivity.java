@@ -21,9 +21,7 @@ import com.example.eatit.fragments.recetas.FragmentBuscador;
 import com.example.eatit.fragments.recetas.FragmentMisRecetas;
 import com.example.eatit.utils.LoadingDialog;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 import java.util.Objects;
 
 /**
@@ -37,7 +35,12 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
     DrawerLayout drawerLayout;
     int status;
     FirebaseUser user;
+    MenuItem menuItem;
 
+    /**
+     * Método que se ejecuta al crear la activity de panel de control.
+     * @param savedInstanceState Estado de la instancia de la aplicación.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +49,6 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
         inicializarVariables();
         clickMenuLateral();
 
-        MenuItem menuItem = navigationView.getMenu().getItem(0);
         onNavigationItemSelected(menuItem);
         menuItem.setChecked(true);
     }
@@ -63,6 +65,7 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         user = getIntent().getParcelableExtra("firebaseUser");
+        menuItem = navigationView.getMenu().getItem(0);
     }
 
     /**

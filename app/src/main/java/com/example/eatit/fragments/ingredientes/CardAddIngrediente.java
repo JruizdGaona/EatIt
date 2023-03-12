@@ -7,13 +7,10 @@ import android.graphics.drawable.ColorDrawable;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-
 import com.example.eatit.R;
 import com.example.eatit.entities.Ingrediente;
-import com.example.eatit.entities.Receta;
 import com.google.android.material.textfield.TextInputEditText;
 
 /**
@@ -21,7 +18,7 @@ import com.google.android.material.textfield.TextInputEditText;
  */
 public class CardAddIngrediente {
 
-    // Declaramos las Variables
+    // Declaramos las Variables.
     Context context;
     int status;
     TextView nombre;
@@ -34,6 +31,12 @@ public class CardAddIngrediente {
      */
     public CardAddIngrediente (Context context) {this.context = context;}
 
+    /**
+     * Constructor de la Clase cuando venimos del Fragment de Ver Ingrediente.
+     * @param context Contexto del CardView nuevo.
+     * @param status Estado desde el que se llama, 1 al venir del frgament de Ver Ingrediente.
+     * @param i Ingrediente que estaqmos viendo.
+     */
     public CardAddIngrediente (Context context, int status, Ingrediente i) {
         this.context = context;
         this.status = status;
@@ -54,6 +57,10 @@ public class CardAddIngrediente {
         dialog.show();
     }
 
+    /**
+     * Método que inicializa las variables del CardView.
+     * @param dialog Dialog en el que se encuentra el cardView.
+     */
     private void inicializarVariables(@NonNull Dialog dialog) {
         nombre = dialog.findViewById(R.id.text_add_ingrediente);
         name = dialog.findViewById(R.id.login_textInput_nombreIngrediente);

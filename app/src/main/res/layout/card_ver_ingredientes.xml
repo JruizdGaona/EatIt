@@ -198,7 +198,7 @@
                     app:layout_constraintTop_toTopOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- Botón de Guardar -->
+            <!-- Botón de editar -->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_editar_ingrediente"
                 android:layout_width="296dp"
@@ -215,7 +215,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/layout_tipo_ingrediente" />
 
-            <!-- Botón de Guardar -->
+            <!-- Botón de eliminar -->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_borrar_ingrediente"
                 android:layout_width="296dp"

@@ -6,20 +6,21 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-
 import com.example.eatit.R;
 import com.example.eatit.entities.Receta;
 
+/**
+ * @author Javier Ruiz de Gaona Tre.
+ */
 public class CardVerRecetasComunidad {
-    // Declaramos las Variables
+
+    // Declaramos las Variables.
     Context context;
     TextView ingredientes, raciones, dificultad, tiempo, descripcion, name;
     String nombre, ing, dif, desc;
     int racion;
     float time;
-
 
     /**
      * Constructor de la Clase.
@@ -50,6 +51,11 @@ public class CardVerRecetasComunidad {
         imageView.setOnClickListener((View) -> dialog.dismiss());
     }
 
+    /**
+     * Método que carga los datos de la Receta en el CardView.
+     * @param receta Receta que queremos ver.
+     * @param dialog Dialog que contiene el CardView.
+     */
     private void cargarDatos(@NonNull Receta receta, @NonNull Dialog dialog) {
         ingredientes = dialog.findViewById(R.id.ingredientes_receta);
         raciones = dialog.findViewById(R.id.raciones);
@@ -64,7 +70,6 @@ public class CardVerRecetasComunidad {
         racion = receta.getKcal();
         ing = receta.getIngredientes();
         time = receta.getDuracion();
-
 
         name.setText(nombre);
         if (ing == null || ing.isBlank()) ingredientes.setText("Sin Ingredientes");

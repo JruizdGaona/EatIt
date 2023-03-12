@@ -14,7 +14,6 @@ import com.example.eatit.fragments.ingredientes.CardVerMisIngredientes;
 import com.google.android.material.card.MaterialCardView;
 import java.util.List;
 
-
 /**
  * @author Javier Ruiz de Gaona Tre.
  */

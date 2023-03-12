@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.eatit.R;
 import com.example.eatit.entities.Receta;
-import com.example.eatit.fragments.recetas.CardAddRecetas;
 import com.example.eatit.fragments.recetas.CardVerRecetasComunidad;
 import com.google.android.material.card.MaterialCardView;
 import java.util.List;
@@ -25,6 +24,10 @@ public class AdapterReceta extends RecyclerView.Adapter<AdapterReceta.MyViewHold
     private final Context context;
     TextView nombre, dificultad, duracion;
 
+    /**
+     * Método que cambia las recetas a mostrar por el adapter según lo que busque el usuario.
+     * @param filtros Lista de recetas filtrada por el usuario.
+     */
     public void setRecetasFiltradas(List<Receta> filtros) {
         this.recetas = filtros;
         notifyDataSetChanged();
@@ -49,7 +52,7 @@ public class AdapterReceta extends RecyclerView.Adapter<AdapterReceta.MyViewHold
      */
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_receta,parent,false);
         return new MyViewHolder(itemView);
     }
@@ -60,7 +63,7 @@ public class AdapterReceta extends RecyclerView.Adapter<AdapterReceta.MyViewHold
      * @param position Posicion de la nueva Receta.
      */
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.cv.setAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_transition));
         holder.bindData(recetas.get(position));
 
@@ -95,7 +98,7 @@ public class AdapterReceta extends RecyclerView.Adapter<AdapterReceta.MyViewHold
             cv = view.findViewById(R.id.layout_list_receta);
         }
 
-        void bindData(final Receta item) {
+        void bindData(@NonNull final Receta item) {
             nombre.setText((item.getNombre()));
             duracion.setText(String.valueOf(item.getDuracion()).concat(" h"));
             dificultad.setText(item.getDificultad());

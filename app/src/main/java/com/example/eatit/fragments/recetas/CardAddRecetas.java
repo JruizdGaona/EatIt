@@ -8,17 +8,18 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-
 import com.example.eatit.R;
 import com.example.eatit.entities.Receta;
 import com.google.android.material.textfield.TextInputEditText;
 
+/**
+ * @author Javier Ruiz de Gaona Tre.
+ */
 public class CardAddRecetas {
 
-    // Declaramos las Variables
+    // Declaramos las Variables.
     Context context;
     int status;
     TextView nombre;
@@ -32,9 +33,10 @@ public class CardAddRecetas {
     public CardAddRecetas (Context context) {this.context = context;}
 
     /**
-     * Constructor de la Clase.
+     * Constructor de la Clase cuando venimos del Fragment de Ver Receta.
      * @param context Contexto del CardView nuevo.
      * @param status Estado para saber si venimos desde la pestaña de editar.
+     * @param r Receta que estamos viendo.
      */
     public CardAddRecetas (Context context, int status, Receta r) {
         this.context = context;
@@ -56,6 +58,10 @@ public class CardAddRecetas {
         dialog.show();
     }
 
+    /**
+     * Método que inicializa las variables del CardView.
+     * @param dialog Dialog que contiene el CardView.
+     */
     private void inicializarVariables(@NonNull Dialog dialog) {
         nombre = dialog.findViewById(R.id.text_add_receta);
         name = dialog.findViewById(R.id.login_textInput_nombreReceta);

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.widget.TextView;
-
 import com.example.eatit.R;
 
 /**
@@ -13,7 +12,7 @@ import com.example.eatit.R;
  */
 public class LoadingDialog {
 
-    // Declaración de variables.
+    // Declaramos las Variables.
     Context context;
     Dialog dialog;
 

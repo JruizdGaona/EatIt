@@ -7,21 +7,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
 import com.example.eatit.R;
 import com.example.eatit.entities.Receta;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+/**
+ * @author Javier Ruiz de Gaona Tre.
+ */
 public class FragmentBuscador extends Fragment {
 
+    // Declaramos las Variables.
     SearchView searchView;
 
     /**
@@ -115,7 +117,7 @@ public class FragmentBuscador extends Fragment {
     private void cerrar(@NonNull View view) {
         view.setOnTouchListener((v, event) -> {
             // Cerrar el teclado
-            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
             return false;
         });

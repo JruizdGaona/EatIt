@@ -245,7 +245,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </ScrollView>
 
-            <!-- Botón de Guardar -->
+            <!-- Botón de Guardar en favoritos -->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_guardar_ingrediente"
                 android:layout_width="296dp"
