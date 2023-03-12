@@ -14,10 +14,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import com.example.eatit.R;
+import com.example.eatit.activities.PanelControlActivity;
 import com.example.eatit.utils.LoadingDialog;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.Objects;
 
 /**
@@ -32,6 +36,12 @@ public class FragmentAjustes extends Fragment {
     TextInputEditText nombreUsuarioET, contraseñaActualET, nuevaContraseñaET, repetirContraseñaET;
     TextInputLayout nombreUsuario, cambiarContraseña, nuevaContrasñea, repetirContraseña;
     LoadingDialog loadingDialog;
+    FirebaseUser user;
+    FirebaseAuth auth = FirebaseAuth.getInstance();
+
+    public FragmentAjustes (FirebaseUser user) {
+        this.user = user;
+    }
 
     /**
      * Método onCreate del fragment de Ajustes.
@@ -69,6 +79,7 @@ public class FragmentAjustes extends Fragment {
         textoNombreUsuario = view.findViewById(R.id.ajustes_texto_nombre_usuario);
         btnGuardar = view.findViewById(R.id.btn_guardar);
         nombreUsuarioET = view.findViewById(R.id.ajustes_textInput_nombre_usuario);
+        nombreUsuarioET.setText(user.getEmail());
         contraseñaActualET = view.findViewById(R.id.registro_textInput_contraseña);
         nuevaContraseñaET = view.findViewById(R.id.registro_textInput_contraseña_nueva);
         repetirContraseñaET = view.findViewById(R.id.registro_textInput_contraseña_nueva_repetir);
@@ -76,7 +87,7 @@ public class FragmentAjustes extends Fragment {
         cambiarContraseña = view.findViewById(R.id.ajustes_layoutTextInput_contraseña_vieja);
         nuevaContrasñea = view.findViewById(R.id.ajustes_layoutTextInput_contraseña_Nueva);
         repetirContraseña = view.findViewById(R.id.ajustes_layoutTextInput_contraseña_Nueva_repetir);
-        loadingDialog = new LoadingDialog(this.getContext());
+        auth = FirebaseAuth.getInstance();
     }
 
     /**
@@ -113,11 +124,10 @@ public class FragmentAjustes extends Fragment {
                     .setTitle("Confirmar Cambios")
                     .setView(v)
                     .setPositiveButton("Confirmar", (dialogInterface, i) -> {
-                                loadingDialog.showDialog("Guardando Cambios...");
-
                                 guardarCambios(nombreUsario, contraseñaActual, nuevaContraseña, repetirContraseña);
                             }
-                    ).setNegativeButton("Cancelar", (dialogInterface, i) -> dialogInterface.cancel())
+                    ).setNegativeButton("Cancelar", (dialogInterface, i) ->
+                            dialogInterface.cancel())
                     .show();
         }
     }
@@ -131,31 +141,31 @@ public class FragmentAjustes extends Fragment {
      * @param repetirContraseña Nueva Contraseña del Usuario Repetida.
      */
     private void guardarCambios(String nombreUsario, String contraseñaActual, String nuevaContraseña, String repetirContraseña) {
-        boolean cambiar = false;
-
         if (nombreUsario.length() != 0) {
-            cambiar = true;
-            loadingDialog.closeDialog();
             // Lógica
         }
-        if (nuevaContraseña.length() != 0) {
-            if (contraseñaActual.matches("Hola")) {
-                if (repetirContraseña.matches(nuevaContraseña)) {
-                    loadingDialog.closeDialog();
-                    cambiar = true;
-                    // Lógica
-                } else {
-                    loadingDialog.closeDialog();
-                    Toast.makeText(this.getContext(), "Las contraseñas nuevas deben coincidir", Toast.LENGTH_LONG).show();
-                }
-            } else {
-                loadingDialog.closeDialog();
-                Toast.makeText(this.getContext(), "La contraseña Actual no es válida", Toast.LENGTH_SHORT).show();
-            }
-        }
 
-        if (cambiar) {
-            Toast.makeText(this.getContext(), "Cambios Guardados Correctamente", Toast.LENGTH_LONG).show();
+        if (nuevaContraseña.length() != 0) {
+            auth.signInWithEmailAndPassword(user.getEmail(), contraseñaActual).addOnCompleteListener((task) -> {
+                if (task.isSuccessful()) {
+                    if (repetirContraseña.matches(nuevaContraseña)) {
+                        if (nuevaContraseña.length() < 6) {
+                            Toast.makeText(FragmentAjustes.this.getContext(), "La contraseña debe tener como mínmo 6 caracteres", Toast.LENGTH_LONG).show();
+                        } else {
+                            user.updatePassword(nuevaContraseña);
+                            Toast.makeText(FragmentAjustes.this.getContext(), "Cambios guardados correctamente", Toast.LENGTH_SHORT).show();
+                            nombreUsuarioET.setText("");
+                            contraseñaActualET.setText("");
+                            nuevaContraseñaET.setText("");
+                            repetirContraseñaET.setText("");
+                        }
+                    } else {
+                        Toast.makeText(FragmentAjustes.this.getContext(), "La nueva contraseña debe coincidir", Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Toast.makeText(FragmentAjustes.this.getContext(), "No se ha podido actualizar la contraseña", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 
