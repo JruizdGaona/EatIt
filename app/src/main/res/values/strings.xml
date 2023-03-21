@@ -28,7 +28,7 @@
     <string name="registro_login">¿Ya tienes cuenta? Iniciar Sesión</string>
 
     <!-- Cadenas de Texto del Menú Lateral  -->
-    <string name="bienvenida">¡Hola de nuevo, Javier!</string>
+    <string name="bienvenida">¡Bienvenid@, !</string>
     <string name="inicio">INICIO</string>
     <string name="ingredientes">INGREDIENTES</string>
     <string name="addIngredientes">AÑADIR INGREDIENTES</string>
