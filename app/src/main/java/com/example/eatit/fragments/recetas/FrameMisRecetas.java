@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.eatit.R;
 import com.example.eatit.entities.Receta;
+import com.example.eatit.entities.Usuario;
 import com.example.eatit.fragments.adapters.AdapterMisRecetas;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
@@ -25,6 +26,11 @@ public class FrameMisRecetas extends Fragment {
     List<Receta> recetas = new ArrayList<>();
     RecyclerView recyclerView;
     AdapterMisRecetas adapterMisRecetas;
+    Usuario usuario;
+
+    public FrameMisRecetas(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
     /**
      * Método onCreate del fragment de Ingredientes.
@@ -56,7 +62,7 @@ public class FrameMisRecetas extends Fragment {
         FloatingActionButton floatingActionButton = view.findViewById(R.id.floatingActionButtonMisRecetas);
 
         floatingActionButton.setOnClickListener((View) -> {
-            CardAddRecetas cardAddRecetas = new CardAddRecetas(getContext());
+            CardAddRecetas cardAddRecetas = new CardAddRecetas(getContext(), usuario);
 
             cardAddRecetas.operacionesCardView();
         });
@@ -66,11 +72,7 @@ public class FrameMisRecetas extends Fragment {
      * Método que crea los ingredientes y los carga en el adapter de ingredientes.
      */
     private void mostrarRecetas() {
-        for (int i = 0; i < 20; i++) {
-            String nombre = "Mis Recetas " +i;
-
-            recetas.add(new Receta(nombre));
-        }
+        recetas = usuario.getRecetasCreadas();
         adapterMisRecetas = new AdapterMisRecetas(recetas, FrameMisRecetas.this.getContext());
         recyclerView.setAdapter(adapterMisRecetas);
     }

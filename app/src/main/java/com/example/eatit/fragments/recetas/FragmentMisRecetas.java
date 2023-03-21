@@ -9,11 +9,19 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.example.eatit.R;
+import com.example.eatit.entities.Usuario;
 
 /**
  * @author Javier Ruiz de Gaona Tre.
  */
 public class FragmentMisRecetas extends Fragment {
+
+    private Usuario usuario;
+
+    public FragmentMisRecetas (Usuario usuario) {
+        this.usuario = usuario;
+    }
+
     /**
      * Método onCreate del fragment de Mis Recetas.
      * @param inflater Variable que inlfa el Layout en la actividad.
@@ -36,7 +44,7 @@ public class FragmentMisRecetas extends Fragment {
      */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        Fragment fragmentMisRecetas = new FrameMisRecetas();
+        Fragment fragmentMisRecetas = new FrameMisRecetas(usuario);
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
 
         fragmentTransaction.replace(R.id.frame_mis_recetas, fragmentMisRecetas).commit();
