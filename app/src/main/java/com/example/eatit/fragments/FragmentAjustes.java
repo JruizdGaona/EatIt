@@ -14,11 +14,18 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import com.example.eatit.R;
+import com.example.eatit.entities.Usuario;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.Objects;
 
 /**
@@ -28,19 +35,23 @@ public class FragmentAjustes extends Fragment {
 
     // Declaramos las variables.
     ImageView logoApp;
-    TextView textoNombreUsuario, textoCambiarContraseña, textoAjustes;
+    TextView textoNombreUsuario, textoCambiarContraseña, textoAjustes, nombreUsu;
     AppCompatButton btnGuardar;
     TextInputEditText nombreUsuarioET, contraseñaActualET, nuevaContraseñaET, repetirContraseñaET;
     TextInputLayout nombreUsuario, cambiarContraseña, nuevaContrasñea, repetirContraseña;
-    FirebaseUser user;
+    FirebaseUser firebaseUser;
     FirebaseAuth auth;
+    Usuario usuario;
+    FirebaseFirestore database;
 
     /**
      * Constructor para el Fragment de Ajustes.
-     * @param user Usuario actual de la aplicación.
+     * @param firebaseUser Usuario actual de la aplicación.
      */
-    public FragmentAjustes (FirebaseUser user) {
-        this.user = user;
+    public FragmentAjustes (FirebaseUser firebaseUser, Usuario usuario, TextView nombreUsu) {
+        this.firebaseUser = firebaseUser;
+        this.usuario = usuario;
+        this.nombreUsu = nombreUsu;
     }
 
     /**
@@ -79,7 +90,6 @@ public class FragmentAjustes extends Fragment {
         textoNombreUsuario = view.findViewById(R.id.ajustes_texto_nombre_usuario);
         btnGuardar = view.findViewById(R.id.btn_guardar);
         nombreUsuarioET = view.findViewById(R.id.ajustes_textInput_nombre_usuario);
-        nombreUsuarioET.setText(user.getEmail());
         contraseñaActualET = view.findViewById(R.id.registro_textInput_contraseña);
         nuevaContraseñaET = view.findViewById(R.id.registro_textInput_contraseña_nueva);
         repetirContraseñaET = view.findViewById(R.id.registro_textInput_contraseña_nueva_repetir);
@@ -88,6 +98,7 @@ public class FragmentAjustes extends Fragment {
         nuevaContrasñea = view.findViewById(R.id.ajustes_layoutTextInput_contraseña_Nueva);
         repetirContraseña = view.findViewById(R.id.ajustes_layoutTextInput_contraseña_Nueva_repetir);
         auth = FirebaseAuth.getInstance();
+        database = FirebaseFirestore.getInstance();
     }
 
     /**
@@ -124,8 +135,7 @@ public class FragmentAjustes extends Fragment {
                     .setTitle("Confirmar Cambios")
                     .setView(v)
                     .setPositiveButton("Confirmar", (dialogInterface, i) -> guardarCambios(nombreUsario, contraseñaActual, nuevaContraseña, repetirContraseña)
-                    ).setNegativeButton("Cancelar", (dialogInterface, i) ->
-                            dialogInterface.cancel())
+                    ).setNegativeButton("Cancelar", (dialogInterface, i) -> dialogInterface.cancel())
                     .show();
         }
     }
@@ -140,17 +150,36 @@ public class FragmentAjustes extends Fragment {
      */
     private void guardarCambios(String nombreUsario, String contraseñaActual, String nuevaContraseña, String repetirContraseña) {
         if (nombreUsario.length() != 0) {
-            // Lógica
+            usuario.setNombreUsuario(nombreUsario);
+            Task<QuerySnapshot> consulta = database.collection("usuarios").whereEqualTo("correo", usuario.getCorreo()).get();
+            consulta.addOnSuccessListener(documentSnapshots -> {
+                if (!documentSnapshots.isEmpty()) {
+                    DocumentSnapshot documentSnapshot = documentSnapshots.getDocuments().get(0);
+                    String id = documentSnapshot.getId();
+                    DocumentReference userRef = database.collection("usuarios").document(id);
+                    userRef.update("nombreUsuario", nombreUsario);
+
+                    String text = (String) nombreUsu.getText();
+                    String[] textInicio = text.split(", ");
+                    String finalText = textInicio[0].concat(", ").concat(usuario.getNombreUsuario()).concat("!");
+                    if (finalText.length() > 20) {
+                        finalText = textInicio[0].concat(", ").concat("\n")
+                                .concat(usuario.getNombreUsuario()).concat("!");
+                    }
+                    nombreUsu.setText(finalText);
+                }
+            });
+            Toast.makeText(FragmentAjustes.this.getContext(), "Nombre de Usuario actualizado", Toast.LENGTH_LONG).show();
         }
 
         if (nuevaContraseña.length() != 0) {
-            auth.signInWithEmailAndPassword(Objects.requireNonNull(user.getEmail()), contraseñaActual).addOnCompleteListener((task) -> {
+            auth.signInWithEmailAndPassword(Objects.requireNonNull(firebaseUser.getEmail()), contraseñaActual).addOnCompleteListener((task) -> {
                 if (task.isSuccessful()) {
                     if (repetirContraseña.matches(nuevaContraseña)) {
                         if (nuevaContraseña.length() < 6) {
                             Toast.makeText(FragmentAjustes.this.getContext(), "La contraseña debe tener como mínmo 6 caracteres", Toast.LENGTH_LONG).show();
                         } else {
-                            user.updatePassword(nuevaContraseña);
+                            firebaseUser.updatePassword(nuevaContraseña);
                             Toast.makeText(FragmentAjustes.this.getContext(), "Cambios guardados correctamente", Toast.LENGTH_SHORT).show();
                             nombreUsuarioET.setText("");
                             contraseñaActualET.setText("");

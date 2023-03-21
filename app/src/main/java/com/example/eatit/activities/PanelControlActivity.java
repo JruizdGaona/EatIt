@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -13,6 +15,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 import com.example.eatit.R;
+import com.example.eatit.entities.Usuario;
 import com.example.eatit.fragments.FragmentAjustes;
 import com.example.eatit.fragments.FragmentInicio;
 import com.example.eatit.fragments.ingredientes.FragmentMisIngredientes;
@@ -20,8 +23,14 @@ import com.example.eatit.fragments.ingredientes.FragmentAddIngredientes;
 import com.example.eatit.fragments.recetas.FragmentBuscador;
 import com.example.eatit.fragments.recetas.FragmentMisRecetas;
 import com.example.eatit.utils.LoadingDialog;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.Objects;
 
 /**
@@ -34,8 +43,12 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     int status;
+    TextView nombreUsu;
     FirebaseUser user;
+    FirebaseFirestore database;
+    CollectionReference coleccionUsuarios;
     MenuItem menuItem;
+    Usuario usuario;
 
     /**
      * Método que se ejecuta al crear la activity de panel de control.
@@ -65,7 +78,36 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         user = getIntent().getParcelableExtra("firebaseUser");
+        database = FirebaseFirestore.getInstance();
+        coleccionUsuarios = database.collection("usuarios");
         menuItem = navigationView.getMenu().getItem(0);
+        View headerView = navigationView.getHeaderView(0);
+        nombreUsu = headerView.findViewById(R.id.msg_bienvenida);
+    }
+
+    /**
+     * Método que obtiene el Usuario con el que se ha iniciado Sesión
+     */
+    private Usuario obtenerUsuarioActual() {
+        Task<QuerySnapshot> consulta = database.collection("usuarios").whereEqualTo("correo", user.getEmail()).get();
+        consulta.addOnSuccessListener(documentSnapshots -> {
+            if (!documentSnapshots.isEmpty()) {
+                DocumentSnapshot documentSnapshot = documentSnapshots.getDocuments().get(0);
+                usuario = documentSnapshot.toObject(Usuario.class);
+                if (usuario != null) {
+                    String text = (String) nombreUsu.getText();
+                    String[] textInicio = text.split(", ");
+                    String finalText = textInicio[0].concat(", ").concat(usuario.getNombreUsuario()).concat("!");
+                    if (finalText.length() > 20) {
+                        finalText = textInicio[0].concat(", ").concat("\n")
+                                .concat(usuario.getNombreUsuario()).concat("!");
+                    }
+                    nombreUsu.setText(finalText);
+                }
+            }
+        });
+
+        return usuario;
     }
 
     /**
@@ -75,6 +117,7 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.abierto, R.string.cerrado);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
+        this.usuario = obtenerUsuarioActual();
     }
 
     /**
@@ -143,7 +186,7 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
                 mostrarMensajesCarga(1, loadingDialog);
                 status = 1;
                 fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-                fragmentTransaction.replace(R.id.frame_inicio, new FragmentAjustes(user));
+                fragmentTransaction.replace(R.id.frame_inicio, new FragmentAjustes(user, usuario, nombreUsu));
                 break;
             case R.id.nav_sesion:
                 mostrarMensajesCarga(1, loadingDialog);

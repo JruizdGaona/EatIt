@@ -7,8 +7,10 @@ import java.util.List;
  * @author Javier Ruiz de Gaona Tre.
  */
 public class Usuario implements Serializable {
-    String correo, nombre, apellido;
-    List<Receta> recetas;
+    String correo, nombre, apellido, nombreUsuario;
+    List<Receta> recetasCreadas;
+    List<Receta> recetasGuardadas;
+    List<Ingrediente> ingredientes;
 
     public Usuario() {}
 
@@ -16,37 +18,42 @@ public class Usuario implements Serializable {
         this.correo = correo;
         this.nombre = nombre;
         this.apellido = apellido;
+        this.nombreUsuario = this.nombre.concat(" ").concat(this.apellido);
     }
 
     public String getCorreo() {
         return correo;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public String getNombreUsuario() {
+        return nombreUsuario;
     }
 
-    public String getNombre() {
-        return nombre;
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public List<Receta> getRecetasCreadas() {
+        return recetasCreadas;
     }
 
-    public String getApellido() {
-        return apellido;
+    public void setRecetasCreadas(List<Receta> recetasCreadas) {
+        this.recetasCreadas = recetasCreadas;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public List<Receta> getRecetasGuardadas() {
+        return recetasGuardadas;
     }
 
-    public List<Receta> getRecetas() {
-        return recetas;
+    public void setRecetasGuardadas(List<Receta> recetasGuardadas) {
+        this.recetasGuardadas = recetasGuardadas;
     }
 
-    public void setRecetas(List<Receta> recetas) {
-        this.recetas = recetas;
+    public List<Ingrediente> getIngredientes() {
+        return ingredientes;
+    }
+
+    public void setIngredientes(List<Ingrediente> ingredientes) {
+        this.ingredientes = ingredientes;
     }
 }
