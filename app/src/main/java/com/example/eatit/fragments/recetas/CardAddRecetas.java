@@ -8,11 +8,24 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.cardview.widget.CardView;
 import com.example.eatit.R;
 import com.example.eatit.entities.Receta;
+import com.example.eatit.entities.Usuario;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Javier Ruiz de Gaona Tre.
@@ -25,12 +38,21 @@ public class CardAddRecetas {
     TextView nombre;
     TextInputEditText name, numPersonas, dificultad, tiempo, descripcion;
     Receta receta;
+    Usuario usuario;
+    AppCompatButton guardar;
+    FirebaseFirestore database;
+    CollectionReference coleccion;
 
     /**
      * Constructor de la Clase.
      * @param context Contexto del CardView nuevo.
      */
-    public CardAddRecetas (Context context) {this.context = context;}
+    public CardAddRecetas (Context context, Usuario usuario) {
+        this.context = context;
+        this.usuario = usuario;
+        database = FirebaseFirestore.getInstance();
+        coleccion = database.collection("recetas");
+    }
 
     /**
      * Constructor de la Clase cuando venimos del Fragment de Ver Receta.
@@ -54,6 +76,7 @@ public class CardAddRecetas {
 
         inicializarVariables(dialog);
         cerrarTeclado(dialog);
+        guardarReceta(dialog, name, numPersonas, dificultad, tiempo, descripcion);
         cerrarCardView(dialog);
         dialog.show();
     }
@@ -69,6 +92,7 @@ public class CardAddRecetas {
         dificultad = dialog.findViewById(R.id.login_textInput_nivelReceta);
         tiempo = dialog.findViewById(R.id.login_textInput_duracionReceta);
         descripcion = dialog.findViewById(R.id.login_textInput_detalleReceta);
+        guardar = dialog.findViewById(R.id.btn_guardar_ingrediente);
 
         if (status == 1) {
             nombre.setText(receta.getNombre());
@@ -96,6 +120,51 @@ public class CardAddRecetas {
             InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             return false;
+        });
+    }
+
+    private void guardarReceta(Dialog dialog, TextInputEditText name, TextInputEditText numPersonas, TextInputEditText dificultad, TextInputEditText tiempo, TextInputEditText descripcion) {
+        guardar.setOnClickListener((View) -> {
+            if (name.getText() != null && !name.getText().toString().isBlank()) {
+                if (numPersonas.getText() != null && !numPersonas.getText().toString().isBlank()) {
+                    if (dificultad.getText() != null && !dificultad.getText().toString().isBlank()) {
+                        if (tiempo.getText() != null && !tiempo.getText().toString().isBlank()) {
+                            if (descripcion.getText() != null && !descripcion.getText().toString().isBlank()) {
+                                insertarReceta(dialog);
+                                Toast.makeText(context, "Receta creada correctamente", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    private void insertarReceta(Dialog dialog) {
+        String nombre = name.getText().toString();
+        String desc = descripcion.getText().toString();
+        String dif = dificultad.getText().toString();
+        int personas = Integer.parseInt(numPersonas.getText().toString());
+        float time = Float.parseFloat(tiempo.getText().toString());
+
+        Task<QuerySnapshot> consulta = database.collection("usuarios").whereEqualTo("correo", usuario.getCorreo()).get();
+        consulta.addOnSuccessListener(documentSnapshots -> {
+            if (!documentSnapshots.isEmpty()) {
+                DocumentSnapshot documentSnapshot = documentSnapshots.getDocuments().get(0);
+                String id = documentSnapshot.getId();
+                DocumentReference userRef = database.collection("usuarios").document(id);
+                Receta receta = new Receta(nombre, dif, desc, time, 0, personas, id);
+                List<Receta> recetas = usuario.getRecetasCreadas();
+
+                if (recetas == null) recetas = new ArrayList<>();
+
+                recetas.add(receta);
+                usuario.setRecetasCreadas(recetas);
+
+                userRef.update("recetasCreadas", usuario.getRecetasCreadas());
+                coleccion.add(receta);
+                dialog.dismiss();
+            }
         });
     }
 
