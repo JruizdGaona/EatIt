@@ -1,6 +1,8 @@
 <resources>
     <!-- Cadenas de Texto Generales -->
     <string name="nombreApp">EatIt</string>
+    <string name="nombreSplash">EATIT</string>
+    <string name="cargando">Cargando...</string>
     <string name="logo">Logo App</string>
 
     <!-- Cadenas de Texto del Login -->
@@ -125,4 +127,7 @@
 
     <!-- Cadenas de Texto de list_ingredientes -->
     <string name="ingrediente">Ingredientes</string>
+
+    <!-- String para el content descriprion del fondo de la SplashScreen -->
+    <string name="fondo_splashscreen">Fondo SplashScreen</string>
 </resources>
