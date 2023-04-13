@@ -44,7 +44,7 @@ public class SplashScreen extends Activity {
             handler.postDelayed(() -> {
                 startActivity(new Intent(SplashScreen.this, LoginActivity.class));
                 finish();
-            }, 2000);
+            }, 4000);
 
             SharedPreferences.Editor editor = prefs.edit();
             editor.putBoolean(KEY_FIRST_RUN, true);
