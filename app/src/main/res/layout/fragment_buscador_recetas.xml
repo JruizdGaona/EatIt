@@ -1,55 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Layout principal del fragment de Inicio -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/layout_inicio"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/negroClaro">
 
-    <!-- Logo de la aplicación -->
-    <ImageView
-        android:id="@+id/login_logo"
-        android:layout_width="match_parent"
-        android:layout_height="73dp"
-        android:layout_marginLeft="75dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginRight="75dp"
-        android:contentDescription="@string/logo"
-        android:src="@drawable/logo" />
+    <TextView
+        android:id="@+id/recetas"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal|center"
+        android:fontFamily="@font/montserrat_medio"
+        android:gravity="center"
+        android:text="@string/busqueda_titulo"
+        android:textColor="@color/doradoClaro"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Layout de la pantalla -->
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="350dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/doradoClaro"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recetas" />
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/search_view"
+        app:closeIcon="@drawable/ic_close"
+        app:searchIcon="@drawable/ic_search"
+        app:iconifiedByDefault="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:queryHint="@string/busqueda_hint"
+        android:theme="@style/SearchViewStyle"/>
 
-        <!-- SearchView de la búsqueda de recetas -->
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/search_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.473"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:queryHint="@string/busqueda_hint"
-            android:background="@drawable/search_view"
-            app:searchIcon="@drawable/ic_search"
-            android:theme="@style/SearchViewStyle"
-            app:closeIcon="@drawable/ic_close"
-            app:iconifiedByDefault="false"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!-- Frame que muestra las recetas -->
-    <FrameLayout
-        android:id="@+id/frame_recetas"
-        android:layout_marginTop="15dp"
+    <LinearLayout
+        android:id="@+id/layout_inicio"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="20dp">
-    </FrameLayout>
-</LinearLayout>
+        android:layout_height="585dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_view">
+
+        <!-- FrameLayout en el que aparecerán las recetas -->
+        <FrameLayout
+            android:id="@+id/frame_recetas"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:layout_marginTop="20dp" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
