@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.eatit.R;
 import com.example.eatit.entities.Ingrediente;
 import com.example.eatit.fragments.adapters.AdapterIngrediente;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +41,14 @@ public class FrameIngredientes extends Fragment {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.frame_ingredientes,container,false);
         recyclerView = view.findViewById(R.id.fragment_ingredientes);
         recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
+
+        FloatingActionButton floatingActionButton = view.findViewById(R.id.btn_flotante);
+
+        floatingActionButton.setOnClickListener((View) -> {
+            CardAddIngrediente cardAddIngrediente = new CardAddIngrediente(getContext());
+
+            cardAddIngrediente.operacionesCardView();
+        });
 
         mostrarIngredientes();
         return view;

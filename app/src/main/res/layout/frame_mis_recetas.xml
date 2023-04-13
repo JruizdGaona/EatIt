@@ -25,15 +25,15 @@
             android:id="@+id/floatingActionButtonMisRecetas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:layout_marginEnd="40dp"
+            android:layout_marginEnd="25dp"
             android:layout_marginBottom="40dp"
+            android:clickable="true"
+            android:contentDescription="@string/btn_float"
+            android:focusable="true"
+            app:elevation="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/ic_add"
-            android:contentDescription="@string/btn_float"
-            app:tint="@null"
-            app:elevation="4dp"
-            android:focusable="true" />
+            app:tint="@null" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
