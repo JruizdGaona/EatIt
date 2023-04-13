@@ -33,8 +33,6 @@ import java.util.Objects;
  */
 public class FragmentAjustes extends Fragment {
 
-    // Declaramos las variables.
-    ImageView logoApp;
     TextView textoNombreUsuario, textoCambiarContraseña, textoAjustes, nombreUsu;
     AppCompatButton btnGuardar;
     TextInputEditText nombreUsuarioET, contraseñaActualET, nuevaContraseñaET, repetirContraseñaET;
@@ -84,7 +82,6 @@ public class FragmentAjustes extends Fragment {
      * Método que inicializa todos los componentes de la Actividad.
      */
     private void inicializarVariables(@NonNull View view) {
-        logoApp = view.findViewById(R.id.login_logo);
         textoAjustes = view.findViewById(R.id.ajustes_titulo);
         textoCambiarContraseña = view.findViewById(R.id.ajustes_texto_contraseña_vieja);
         textoNombreUsuario = view.findViewById(R.id.ajustes_texto_nombre_usuario);
