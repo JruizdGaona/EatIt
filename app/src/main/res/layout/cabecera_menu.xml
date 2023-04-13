@@ -8,24 +8,22 @@
     android:fitsSystemWindows="true"
     android:background="@color/doradoClaro">
 
-    <!-- Imagen que aparece en la cabecera del menú -->
-    <ImageView
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/imagen"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/book"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        app:lottie_rawRes="@raw/user"
+        app:lottie_loop="true"
+        app:lottie_autoPlay="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/logo" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <!-- Texto de Bienvenida al usuario -->
     <TextView
         android:id="@+id/msg_bienvenida"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginStart="20dp"
         android:fontFamily="@font/montserrat_medio"
         android:text="@string/bienvenida"
         android:textColor="@color/negroClaro"
