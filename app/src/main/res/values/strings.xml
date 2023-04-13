@@ -44,7 +44,7 @@
     <string name="cerrado">Cerrado</string>
 
     <!-- Cadenas de Texto Fragment de Inicio -->
-    <string name="actividad_principal">MEJORES RECETAS</string>
+        <string name="actividad_principal">RECETAS POPULARES</string>
         <!-- Cadenas de Texto Ver Recetas de la comunidad -->
         <string name="nombre_receta">NOMBRE RECETA</string>
         <string name="ingredientes_receta">INGREDIENTES</string>

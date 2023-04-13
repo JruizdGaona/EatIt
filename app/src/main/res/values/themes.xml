@@ -29,7 +29,7 @@
     <!-- Estilo para redondear esquinas -->
     <style name="RoundCorner" parent="">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">30dp</item>
+        <item name="cornerSize">20dp</item>
         <item name="color">@color/doradoClaro</item>
     </style>
 </resources>

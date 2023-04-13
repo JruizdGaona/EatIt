@@ -1,42 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Layout principal del fragment de Inicio -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/layout_inicio"
-    android:orientation="vertical"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/negroClaro">
 
-    <!-- Logo de la aplicación -->
-    <ImageView
-        android:id="@+id/login_logo"
-        android:layout_width="match_parent"
-        android:layout_height="73dp"
-        android:layout_marginLeft="75dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginRight="75dp"
-        android:contentDescription="@string/logo"
-        android:src="@drawable/logo" />
-
-    <!-- Título del fragment (Recetas más populares) -->
     <TextView
         android:id="@+id/recetas"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_gravity="center_horizontal|center"
-        android:layout_marginTop="15dp"
         android:fontFamily="@font/montserrat_medio"
         android:gravity="center"
         android:text="@string/actividad_principal"
         android:textColor="@color/doradoClaro"
-        android:textSize="25sp" />
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- FrameLayout en el que aparecerán las recetas -->
-    <FrameLayout
-        android:id="@+id/frame_recetas"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="350dp"
+        android:layout_height="2dp"
         android:layout_marginTop="15dp"
+        android:background="@color/doradoClaro"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recetas" />
+
+    <LinearLayout
+        android:id="@+id/layout_recetas_populares"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="20dp">
-    </FrameLayout>
-</LinearLayout>
+        android:layout_height="645dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <!-- FrameLayout en el que aparecerán las recetas -->
+        <FrameLayout
+            android:id="@+id/frame_recetas"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:layout_marginTop="20dp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
