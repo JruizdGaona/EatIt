@@ -3,7 +3,7 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_list_mis_recetas"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
     app:cardBackgroundColor="@color/negroClaro"
@@ -25,7 +25,7 @@
         <!-- ConstraintLayout de los componentes del CardView -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_componentes_cardView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <!-- Imagen de la receta -->
