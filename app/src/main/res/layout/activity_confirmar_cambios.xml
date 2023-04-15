@@ -4,18 +4,42 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="15dp"
-    android:id="@+id/layout_confirmar_cambios">
+    android:id="@+id/layout_confirmar_cambios"
+    android:background="@color/negroClaro">
+
+    <!-- Borde para el inicio del Alert -->
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="2dp"
+        android:layout_height="40dp"
+        android:background="@color/doradoClaro"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <!-- TextView con el mensaje de confirmación -->
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/appCompatTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="5dp"
+        android:padding="10dp"
+        android:fontFamily="@font/montserrat_light"
+        android:text="@string/confirmar_cambios"
+        android:textColor="@color/doradoClaro"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textColor="@color/doradoClaro"
-        android:textSize="14sp"
-        android:fontFamily="@font/montserrat_light"
-        android:text="@string/confirmar_cambios"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Borde para el final del Alert -->
+    <LinearLayout
+        android:id="@+id/linearLayoutbis"
+        android:layout_width="2dp"
+        android:layout_height="40dp"
+        android:background="@color/doradoClaro"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

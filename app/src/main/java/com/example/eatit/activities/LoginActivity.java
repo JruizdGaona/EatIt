@@ -192,7 +192,7 @@ public class LoginActivity extends Activity {
      * @param v View sobre la que vamos a crear el MaterialAlert.
      */
     private void crearMaterialAlert(View v) {
-        new MaterialAlertDialogBuilder(LoginActivity.this, R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog)
+        new MaterialAlertDialogBuilder(LoginActivity.this, R.style.alert)
                 .setTitle("Recuperar Contraseña")
                 .setView(v)
                 .setPositiveButton("Enviar", (dialogInterface, i) -> {

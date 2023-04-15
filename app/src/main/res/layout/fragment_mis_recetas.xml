@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Layout principal para el fragment -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/negroClaro">
 
-    <!-- Título del fragment (Mis Recetas) -->
+    <!-- Título del fragment -->
     <TextView
         android:id="@+id/recetas"
         android:layout_width="wrap_content"
@@ -20,6 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Barra separatoria entre el título y el Frame que carga las Recetas -->
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="350dp"
@@ -31,6 +33,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recetas" />
 
+    <!-- Frame que carga las recetas del Usuario -->
     <FrameLayout
         android:id="@+id/frame_mis_recetas"
         android:layout_width="match_parent"
