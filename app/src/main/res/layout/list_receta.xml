@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_list_receta"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="225dp"
     android:animateLayoutChanges="true"
     app:cardBackgroundColor="@color/negroClaro"
     app:cardCornerRadius="20dp"
@@ -16,76 +16,73 @@
     <!-- Layout externo para el CardView -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:animateLayoutChanges="true"
         android:orientation="vertical"
         android:id="@+id/layout_external_card">
 
         <!-- Laoyut interno para el CardView -->
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_card"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/layout_card">
+            android:layout_height="match_parent">
 
             <!-- Imagen de la receta -->
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/img_receta"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"
+                android:layout_width="305dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/btn_login_disabled"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:shapeAppearanceOverlay="@style/RoundCorner" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <!-- Texto con el Nombre de la receta -->
+
+            <!-- Texto con la dificultad de la Receta -->
+
+            <!-- Texto con la duración de la Receta -->
+
             <TextView
                 android:id="@+id/receta_nombre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:fontFamily="@font/montserrat_light"
                 android:text="@string/receta"
                 android:textColor="@color/doradoClaro"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/img_receta"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="@+id/img_receta"
+                app:layout_constraintTop_toBottomOf="@+id/img_receta" />
 
-            <!-- Texto con la dificultad de la Receta -->
             <TextView
                 android:id="@+id/receta_dificultad"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="25dp"
+                android:layout_marginTop="15dp"
                 android:fontFamily="@font/montserrat_light"
                 android:text="@string/receta"
                 android:textColor="@color/doradoClaro"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintEnd_toEndOf="@+id/img_receta"
+                app:layout_constraintTop_toBottomOf="@+id/img_receta" />
 
-            <!-- Texto con la duración de la Receta -->
             <TextView
                 android:id="@+id/receta_duracion"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                android:layout_marginEnd="25dp"
+                android:layout_height="21dp"
+                android:layout_marginTop="15dp"
                 android:fontFamily="@font/montserrat_light"
                 android:text="@string/receta"
                 android:textColor="@color/doradoClaro"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/receta_dificultad"
                 app:layout_constraintTop_toBottomOf="@+id/receta_dificultad" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>

@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!-- Layout de los CardViews que componen la lista de Ingredientes -->
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_list_ingredientes"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
     app:cardBackgroundColor="@color/negroClaro"
@@ -25,7 +24,7 @@
         <!-- ConstraintLayout de los componentes del CardView -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_componentes_cardView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <!-- Imagen del ingrediente -->
@@ -57,7 +56,6 @@
                 app:layout_constraintEnd_toEndOf="@+id/ilm_foto"
                 app:layout_constraintStart_toStartOf="@+id/ilm_foto"
                 app:layout_constraintTop_toBottomOf="@+id/ilm_foto" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

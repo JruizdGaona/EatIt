@@ -1,6 +1,8 @@
 <resources>
     <!-- Cadenas de Texto Generales -->
     <string name="nombreApp">EatIt</string>
+    <string name="nombreSplash">EATIT</string>
+    <string name="cargando">Cargando...</string>
     <string name="logo">Logo App</string>
 
     <!-- Cadenas de Texto del Login -->
@@ -42,7 +44,7 @@
     <string name="cerrado">Cerrado</string>
 
     <!-- Cadenas de Texto Fragment de Inicio -->
-    <string name="actividad_principal">MEJORES RECETAS</string>
+        <string name="actividad_principal">RECETAS POPULARES</string>
         <!-- Cadenas de Texto Ver Recetas de la comunidad -->
         <string name="nombre_receta">NOMBRE RECETA</string>
         <string name="ingredientes_receta">INGREDIENTES</string>
@@ -88,6 +90,7 @@
 
     <!-- Cadenas de Texto Fragment de Bucador -->
     <string name="busqueda_hint">Escribe la receta que quieres buscar</string>
+    <string name="busqueda_titulo">¿QUÉ COCINAR HOY?</string>
 
     <!-- Cadenas de Texto Fragmment Mis Recetas -->
     <string name="mis_recetas">MIS RECETAS</string>
@@ -125,4 +128,7 @@
 
     <!-- Cadenas de Texto de list_ingredientes -->
     <string name="ingrediente">Ingredientes</string>
+
+    <!-- String para el content descriprion del fondo de la SplashScreen -->
+    <string name="fondo_splashscreen">Fondo SplashScreen</string>
 </resources>

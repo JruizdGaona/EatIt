@@ -15,10 +15,6 @@
             <menu>
                 <group android:checkableBehavior="single">
                     <item
-                        android:id="@+id/nav_ingredientes2"
-                        android:icon="@drawable/barcode"
-                        android:title="@string/addIngredientes"/>
-                    <item
                         android:id="@+id/nav_ingredientes3"
                         android:icon="@drawable/ingredientes"
                         android:title="@string/verIngredientes"/>
