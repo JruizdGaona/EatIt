@@ -8,6 +8,7 @@
     android:fitsSystemWindows="true"
     android:background="@color/doradoClaro">
 
+    <!-- Animación del perfil de Usuario -->
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/imagen"
         android:layout_width="65dp"

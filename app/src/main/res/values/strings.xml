@@ -5,6 +5,11 @@
     <string name="cargando">Cargando...</string>
     <string name="logo">Logo App</string>
 
+    <!-- Cadenas de Texto SplashScreen -->
+    <string name="circulo_exterior">Círculo exterior</string>
+    <string name="circulo_medio">Círculo medio</string>
+    <string name="circulo_interior">Círculo interior</string>
+
     <!-- Cadenas de Texto del Login -->
     <string name="login_texto">INICIAR SESIÓN</string>
     <string name="login_correo">CORREO ELECTRÓNICO</string>
@@ -30,7 +35,7 @@
     <string name="registro_login">¿Ya tienes cuenta? Iniciar Sesión</string>
 
     <!-- Cadenas de Texto del Menú Lateral  -->
-    <string name="bienvenida">¡Bienvenid@, !</string>
+    <string name="bienvenida">¡Hola, !</string>
     <string name="inicio">INICIO</string>
     <string name="ingredientes">INGREDIENTES</string>
     <string name="addIngredientes">AÑADIR INGREDIENTES</string>

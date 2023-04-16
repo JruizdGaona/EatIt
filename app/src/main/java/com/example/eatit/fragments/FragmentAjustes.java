@@ -1,12 +1,12 @@
 package com.example.eatit.fragments;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -128,11 +128,13 @@ public class FragmentAjustes extends Fragment {
         if (nombreUsario.length() == 0 && contraseñaActual.length() == 0 && nuevaContraseña.length() == 0 && repetirContraseña.length() == 0 ) {
             Toast.makeText(FragmentAjustes.this.getContext(), "No se ha cambiado ningún dato", Toast.LENGTH_SHORT).show();
         } else {
-            new MaterialAlertDialogBuilder(this.requireContext(), R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog)
+            Drawable draw = getResources().getDrawable(R.drawable.background_alert);
+            new MaterialAlertDialogBuilder(this.requireContext(), R.style.alert)
                     .setTitle("Confirmar Cambios")
                     .setView(v)
-                    .setPositiveButton("Confirmar", (dialogInterface, i) -> guardarCambios(nombreUsario, contraseñaActual, nuevaContraseña, repetirContraseña)
-                    ).setNegativeButton("Cancelar", (dialogInterface, i) -> dialogInterface.cancel())
+                    .setBackground(draw)
+                    .setPositiveButton("Confirmar", (dialogInterface, i) -> guardarCambios(nombreUsario, contraseñaActual, nuevaContraseña, repetirContraseña))
+                    .setNegativeButton("Cancelar", (dialogInterface, i) -> dialogInterface.cancel())
                     .show();
         }
     }

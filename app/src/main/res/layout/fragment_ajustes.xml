@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Layout del Fragment -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/negroClaro">
 
+    <!-- Título del Fragment -->
     <TextView
         android:id="@+id/ajustes_titulo"
         android:layout_width="296dp"
@@ -19,6 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Barra separatoria entre el título y el resto del Fragment -->
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="350dp"
@@ -60,7 +63,7 @@
         app:layout_constraintStart_toStartOf="@+id/ajustes_texto_nombre_usuario"
         app:layout_constraintTop_toBottomOf="@+id/ajustes_texto_nombre_usuario">
 
-        <!-- TextInput Nombre Usuario Registro -->
+        <!-- TextInput Nombre Usuario -->
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/ajustes_textInput_nombre_usuario"
             android:layout_width="match_parent"
@@ -71,7 +74,7 @@
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Texto Contraseña Anterior-->
+    <!-- Texto cambiar Contraseña -->
     <TextView
         android:id="@+id/ajustes_texto_contraseña_vieja"
         android:layout_width="220dp"
@@ -84,7 +87,7 @@
         app:layout_constraintStart_toStartOf="@+id/ajustes_layoutTextInput_nombre_usuario"
         app:layout_constraintTop_toBottomOf="@+id/ajustes_layoutTextInput_nombre_usuario" />
 
-    <!-- Layout TextInputEditText Contraseña Vieja -->
+    <!-- Layout TextInputEditText Contraseña Actual -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ajustes_layoutTextInput_contraseña_vieja"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -101,7 +104,7 @@
         app:layout_constraintStart_toStartOf="@+id/ajustes_texto_contraseña_vieja"
         app:layout_constraintTop_toBottomOf="@+id/ajustes_texto_contraseña_vieja">
 
-        <!-- TextInput Contraseña Vieja Ajustes -->
+        <!-- TextInput Contraseña Actual -->
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/registro_textInput_contraseña"
             android:layout_width="match_parent"
@@ -130,7 +133,7 @@
         app:layout_constraintStart_toStartOf="@+id/ajustes_layoutTextInput_contraseña_vieja"
         app:layout_constraintTop_toBottomOf="@+id/ajustes_layoutTextInput_contraseña_vieja">
 
-        <!-- TextInput Contraseña nueva Ajustes -->
+        <!-- TextInput Contraseña Nueva -->
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/registro_textInput_contraseña_nueva"
             android:layout_width="match_parent"
@@ -142,7 +145,7 @@
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Layout TextInputEditText Contraseña Nueva repetir -->
+    <!-- Layout TextInputEditText repetir Contraseña Nueva -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ajustes_layoutTextInput_contraseña_Nueva_repetir"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -150,7 +153,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:fontFamily="@font/montserrat_light"
-
         android:textColorHint="@color/doradoClaro"
         android:textSize="16sp"
         app:endIconMode="password_toggle"
@@ -160,7 +162,7 @@
         app:layout_constraintStart_toStartOf="@+id/ajustes_layoutTextInput_contraseña_Nueva"
         app:layout_constraintTop_toBottomOf="@+id/ajustes_layoutTextInput_contraseña_Nueva">
 
-        <!-- TextInput Contraseña Nueva repetir Ajustes -->
+        <!-- TextInput repetir Contraseña Nueva -->
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/registro_textInput_contraseña_nueva_repetir"
             android:layout_width="match_parent"
@@ -188,5 +190,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ajustes_layoutTextInput_contraseña_Nueva_repetir" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
