@@ -64,13 +64,11 @@ public class CardAddIngrediente {
     private void inicializarVariables(@NonNull Dialog dialog) {
         nombre = dialog.findViewById(R.id.text_add_ingrediente);
         name = dialog.findViewById(R.id.login_textInput_nombreIngrediente);
-        cantidad = dialog.findViewById(R.id.login_textInput_cantidadIngrediente);
         fecha = dialog.findViewById(R.id.login_textInput_caducidadIngrediente);
 
         if (status == 1) {
             nombre.setText(ingrediente.getNombre());
             name.setText(ingrediente.getNombre());
-            cantidad.setText(String.valueOf(ingrediente.getCantidad()));
             fecha.setText(ingrediente.getFechaCaducidad());
         }
     }

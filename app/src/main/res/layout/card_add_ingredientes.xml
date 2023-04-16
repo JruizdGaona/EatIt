@@ -106,67 +106,15 @@
                 </com.google.android.material.textfield.TextInputLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- Layout cantidad del ingrediente -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layout_cantidad_ingrediente"
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/layout_nombre_ingrediente">
-
-                <!-- Texto cantidad del Ingrediente -->
-                <TextView
-                    android:id="@+id/texto_cantidad_ingrediente"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginTop="30dp"
-                    android:fontFamily="@font/montserrat_light"
-                    android:text="@string/card_cantidad_ingrediente"
-                    android:textColor="@color/doradoClaro"
-                    android:textSize="17sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <!-- Layout TextInputEditText  -->
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/login_layoutTextInput_cantidad_ingrediente"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="7dp"
-                    android:fontFamily="@font/montserrat_light"
-                    android:textColorHint="@color/doradoClaro"
-                    android:textSize="16sp"
-                    app:endIconMode="clear_text"
-                    app:endIconTint="@color/doradoClaro"
-                    app:errorEnabled="true"
-                    app:helperTextEnabled="true"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/texto_cantidad_ingrediente">
-
-                    <!-- TextInput cantidad ingrediente -->
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/login_textInput_cantidadIngrediente"
-                        android:layout_width="330dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_light"
-                        android:hint="@string/cantidad_ingrediente_hint"
-                        android:textColor="@color/doradoClaro"
-                        android:textSize="14sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
             <!-- Layout fecha de caducidad del ingrediente -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_caducidad_ingrediente"
                 android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/layout_cantidad_ingrediente">
+                app:layout_constraintTop_toBottomOf="@+id/layout_nombre_ingrediente">
 
-                <!-- Texto caducidad del Ingrediente -->
+                <!-- Texto fecha de caducidad del Ingrediente -->
                 <TextView
                     android:id="@+id/texto_caducidad_ingrediente"
                     android:layout_width="wrap_content"
@@ -198,18 +146,69 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/texto_caducidad_ingrediente">
 
-                    <!-- TextInput caducidad ingrediente -->
+                    <!-- TextInput fecha de caducidad ingrediente -->
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/login_textInput_caducidadIngrediente"
                         android:layout_width="330dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/montserrat_light"
-                        android:inputType="date"
                         android:hint="@string/caducidad_ingrediente_hint"
                         android:textColor="@color/doradoClaro"
                         android:textSize="14sp" />
                 </com.google.android.material.textfield.TextInputLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Layout tipo del ingrediente -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_tipo_ingrediente"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/layout_caducidad_ingrediente">
+
+            <!-- Texto tipo del Ingrediente -->
+            <TextView
+                android:id="@+id/texto_tipo_ingrediente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/montserrat_light"
+                android:text="@string/tipo"
+                android:textColor="@color/doradoClaro"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Layout TextInputEditText  -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/login_layoutTextInput_tipo_ingrediente"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="7dp"
+                android:fontFamily="@font/montserrat_light"
+                android:textColorHint="@color/doradoClaro"
+                android:textSize="16sp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/doradoClaro"
+                app:errorEnabled="true"
+                app:helperTextEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/texto_tipo_ingrediente">
+
+                <!-- TextInput tipo ingrediente -->
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/login_textInput_tipoIngrediente"
+                    android:layout_width="330dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_light"
+                    android:hint="@string/tipo_ingrediente_hint"
+                    android:textColor="@color/doradoClaro"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!-- Botón de Guardar -->
             <androidx.appcompat.widget.AppCompatButton
@@ -226,7 +225,7 @@
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layout_caducidad_ingrediente" />
+                app:layout_constraintTop_toBottomOf="@+id/layout_tipo_ingrediente" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

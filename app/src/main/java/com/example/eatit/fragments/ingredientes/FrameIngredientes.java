@@ -62,10 +62,8 @@ public class FrameIngredientes extends Fragment {
             String nombre = "Ingrediente" + i;
             String fecha = "12/02/202" + i;
             String tipo = "Carne";
-            float kcal = i;
-            float cantidad = i;
 
-            ingredientes.add(new Ingrediente(nombre, fecha, tipo, kcal, cantidad));
+            ingredientes.add(new Ingrediente(nombre, fecha, tipo));
         }
         adapterIngrediente = new AdapterIngrediente(ingredientes, FrameIngredientes.this.getContext());
         recyclerView.setAdapter(adapterIngrediente);

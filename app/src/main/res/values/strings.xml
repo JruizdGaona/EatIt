@@ -84,12 +84,12 @@
     <string name="btn_float">Botón Flotante</string>
         <!-- Cadenas de Texto para el CardView de añadir ingredientes -->
         <string name="card_add_ingredientes">NUEVO INGREDIENTE</string>
-        <string name="card_nombre_ingrediente">NOMBRE *</string>
+        <string name="card_nombre_ingrediente">NOMBRE: *</string>
         <string name="nombre_ingrediente_hint">Nombre del ingrediente</string>
-        <string name="card_cantidad_ingrediente">CANTIDAD *</string>
-        <string name="cantidad_ingrediente_hint">Escribe la cantidad</string>
-        <string name="card_caducidad">FECHA DE CADUCIDAD</string>
+        <string name="card_caducidad">FECHA DE CADUCIDAD: *</string>
         <string name="caducidad_ingrediente_hint">Escribe la fecha de caducidad</string>
+        <string name="tipo_ingrediente">TIPO</string>
+        <string name="tipo_ingrediente_hint">Elige el tipo del ingrediente</string>
         <string name="guardar_ingrediente">GUARDAR</string>
         <string name="description_cerrar">Botón de cerrar</string>
 

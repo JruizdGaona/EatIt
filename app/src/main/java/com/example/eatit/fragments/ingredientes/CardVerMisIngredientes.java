@@ -59,8 +59,6 @@ public class CardVerMisIngredientes {
         name = ingrediente.getNombre();
         fecha = ingrediente.getFechaCaducidad();
         tipo_ingredinte = ingrediente.getTipo();
-        cant = ingrediente.getCantidad();
-        calorias = ingrediente.getKcal();
 
         nombre.setText(name);
         cantidad.setText(String.valueOf(cant));
