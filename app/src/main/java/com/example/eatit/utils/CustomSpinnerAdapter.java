@@ -38,7 +38,7 @@ public class CustomSpinnerAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         view = inflter.inflate(R.layout.spinner_item, null);
-        TextView names = (TextView) view.findViewById(R.id.text);
+        TextView names = (TextView) view.findViewById(R.id.text_view);
         names.setText(tipos[i]);
         return view;
     }

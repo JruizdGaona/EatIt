@@ -8,12 +8,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.example.eatit.R;
+import com.example.eatit.entities.Usuario;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
  * @author Javier Ruiz de Gaona Tre.
  */
 public class FragmentAddIngredientes extends Fragment {
+
+    private Usuario usuario;
+
+    public FragmentAddIngredientes(Usuario usuario) {this.usuario = usuario;}
 
     /**
      * Método onCreate del fragment de AñadirIngrdientes.
@@ -39,7 +44,7 @@ public class FragmentAddIngredientes extends Fragment {
         FloatingActionButton floatingActionButton = view.findViewById(R.id.btn_flotante);
 
         floatingActionButton.setOnClickListener((View) -> {
-            CardAddIngrediente cardAddIngrediente = new CardAddIngrediente(getContext());
+            CardAddIngrediente cardAddIngrediente = new CardAddIngrediente(getContext(), usuario);
 
             cardAddIngrediente.operacionesCardView();
         });

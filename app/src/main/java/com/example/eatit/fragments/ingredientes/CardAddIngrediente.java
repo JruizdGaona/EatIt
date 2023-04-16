@@ -6,26 +6,39 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.DatePicker;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.cardview.widget.CardView;
 import com.example.eatit.R;
 import com.example.eatit.entities.Ingrediente;
+import com.example.eatit.entities.Usuario;
 import com.example.eatit.utils.CustomSpinnerAdapter;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * @author Javier Ruiz de Gaona Tre.
  */
-public class CardAddIngrediente implements AdapterView.OnItemSelectedListener {
+public class CardAddIngrediente  {
 
     // Declaramos las Variables.
     Context context;
@@ -34,14 +47,24 @@ public class CardAddIngrediente implements AdapterView.OnItemSelectedListener {
     TextView nombre;
     DatePickerDialog datePicker;
     TextInputEditText name, fecha;
+    String tipo;
     Ingrediente ingrediente;
     Spinner spinnerTipo;
+    AppCompatButton guardar;
+    Usuario usuario;
+    FirebaseFirestore database;
+    CollectionReference coleccion;
 
     /**
      * Constructor de la Clase.
      * @param context Contexto del CardView nuevo.
      */
-    public CardAddIngrediente (Context context) {this.context = context;}
+    public CardAddIngrediente (Context context, Usuario usuario) {
+        this.context = context;
+        this.usuario = usuario;
+        database = FirebaseFirestore.getInstance();
+        coleccion = database.collection("ingredientes");
+    }
 
     /**
      * Constructor de la Clase cuando venimos del Fragment de Ver Ingrediente.
@@ -67,6 +90,7 @@ public class CardAddIngrediente implements AdapterView.OnItemSelectedListener {
         cerrarTeclado(dialog);
         seleccionarFechaFocus();
         seleccionarFechaClick();
+        guardarIngrediente(dialog);
         cerrarCardView(dialog);
         dialog.show();
     }
@@ -76,15 +100,27 @@ public class CardAddIngrediente implements AdapterView.OnItemSelectedListener {
      * @param dialog Dialog en el que se encuentra el cardView.
      */
     private void inicializarVariables(@NonNull Dialog dialog) {
+        guardar = dialog.findViewById(R.id.btn_guardar_ingrediente);
         nombre = dialog.findViewById(R.id.text_add_ingrediente);
         name = dialog.findViewById(R.id.login_textInput_nombreIngrediente);
         fecha = dialog.findViewById(R.id.login_textInput_caducidadIngrediente);
         fecha.setInputType(InputType.TYPE_NULL);
         spinnerTipo = dialog.findViewById(R.id.login_spinner_tipo_ingrediente);
-        spinnerTipo.setOnItemSelectedListener(this);
 
-        CustomSpinnerAdapter customSpinnerAdapter = new CustomSpinnerAdapter(context, tipoIngrediente);
-        spinnerTipo.setAdapter(customSpinnerAdapter);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.spinner_item, tipoIngrediente);
+        spinnerTipo.setAdapter(adapter);
+
+        spinnerTipo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                tipo = (String) adapterView.getItemAtPosition(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         if (status == 1) {
             nombre.setText(ingrediente.getNombre());
@@ -149,6 +185,46 @@ public class CardAddIngrediente implements AdapterView.OnItemSelectedListener {
         });
     }
 
+    private void guardarIngrediente(Dialog dialog) {
+        guardar.setOnClickListener((View) -> {
+            if (name.getText() != null && !name.getText().toString().isBlank()) {
+                if (fecha.getText() != null && !fecha.getText().toString().isBlank()) {
+                    if (tipo != null && !tipo.isBlank()) {
+                        insertarIngrediente(dialog);
+                        Toast.makeText(context, "Ingrediente creado correctamente", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        });
+    }
+
+    private void insertarIngrediente(Dialog dialog) {
+        String nombre = name.getText().toString();
+        String fechaCad = fecha.getText().toString();
+        String tipo = this.tipo;
+
+        Task<QuerySnapshot> consulta = database.collection("usuarios").whereEqualTo("correo", usuario.getCorreo()).get();
+        consulta.addOnSuccessListener(documentSnapshots -> {
+            if (!documentSnapshots.isEmpty()) {
+                DocumentSnapshot documentSnapshot = documentSnapshots.getDocuments().get(0);
+                String id = documentSnapshot.getId();
+                DocumentReference userRef = database.collection("usuarios").document(id);
+
+                Ingrediente ingrediente = new Ingrediente(nombre, fechaCad, tipo, id);
+                List<Ingrediente> ingredientesUsuario = usuario.getIngredientes();
+
+                if (ingredientesUsuario == null) ingredientesUsuario = new ArrayList<>();
+
+                ingredientesUsuario.add(ingrediente);
+                usuario.setIngredientes(ingredientesUsuario);
+
+                userRef.update("ingredientes", usuario.getIngredientes());
+                coleccion.add(ingrediente);
+                dialog.dismiss();
+            }
+        });
+    }
+
     /**
      * Método que cierra el dialog al pulsar sobre el botón de cerrar.
      * @param dialog dialog del cardView.
@@ -156,15 +232,5 @@ public class CardAddIngrediente implements AdapterView.OnItemSelectedListener {
     private void cerrarCardView(@NonNull Dialog dialog) {
         ImageView imageView = dialog.findViewById(R.id.cerrar);
         imageView.setOnClickListener((View) -> dialog.dismiss());
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
     }
 }

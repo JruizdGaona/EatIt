@@ -168,7 +168,7 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
                 mostrarMensajesCarga(1, loadingDialog);
                 status = 1;
                 fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-                fragmentTransaction.replace(R.id.frame_inicio, new FragmentMisIngredientes());
+                fragmentTransaction.replace(R.id.frame_inicio, new FragmentMisIngredientes(usuario));
                 break;
             case R.id.nav_recetas2:
                 mostrarMensajesCarga(1, loadingDialog);

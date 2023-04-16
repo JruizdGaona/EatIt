@@ -1,12 +1,13 @@
 package com.example.eatit.entities;
 
 public class Ingrediente {
-    private String nombre, fechaCaducidad, tipo;
+    private String nombre, fechaCaducidad, tipo, usuarioId;;
 
-    public Ingrediente(String nombre, String fechaCaducidad, String tipo) {
+    public Ingrediente(String nombre, String fechaCaducidad, String tipo, String usuario) {
         this.nombre = nombre;
         this.fechaCaducidad = fechaCaducidad;
         this.tipo = tipo;
+        usuarioId = usuario;
     }
 
     public Ingrediente(){
@@ -39,4 +40,8 @@ public class Ingrediente {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+
+    public String getUsuarioId() {return usuarioId;}
+
+    public void setUsuarioId(String usuarioId) {this.usuarioId = usuarioId;}
 }

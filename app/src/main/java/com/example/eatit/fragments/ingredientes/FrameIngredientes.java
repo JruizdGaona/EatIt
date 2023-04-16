@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.eatit.R;
 import com.example.eatit.entities.Ingrediente;
+import com.example.eatit.entities.Usuario;
 import com.example.eatit.fragments.adapters.AdapterIngrediente;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -26,6 +27,9 @@ public class FrameIngredientes extends Fragment {
     List<Ingrediente> ingredientes = new ArrayList<>();
     RecyclerView recyclerView;
     AdapterIngrediente adapterIngrediente;
+    Usuario usuario;
+
+    public FrameIngredientes (Usuario usuario) {this.usuario = usuario;}
 
     /**
      * Método onCreate del fragment de Ingredientes.
@@ -45,7 +49,7 @@ public class FrameIngredientes extends Fragment {
         FloatingActionButton floatingActionButton = view.findViewById(R.id.btn_flotante);
 
         floatingActionButton.setOnClickListener((View) -> {
-            CardAddIngrediente cardAddIngrediente = new CardAddIngrediente(getContext());
+            CardAddIngrediente cardAddIngrediente = new CardAddIngrediente(getContext(), usuario);
 
             cardAddIngrediente.operacionesCardView();
         });
@@ -63,7 +67,7 @@ public class FrameIngredientes extends Fragment {
             String fecha = "12/02/202" + i;
             String tipo = "Carne";
 
-            ingredientes.add(new Ingrediente(nombre, fecha, tipo));
+            ingredientes.add(new Ingrediente(nombre, fecha, tipo, usuario.getCorreo()));
         }
         adapterIngrediente = new AdapterIngrediente(ingredientes, FrameIngredientes.this.getContext());
         recyclerView.setAdapter(adapterIngrediente);
