@@ -1,10 +1,13 @@
 package com.example.eatit.fragments.ingredientes;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.text.InputType;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -12,6 +15,8 @@ import androidx.cardview.widget.CardView;
 import com.example.eatit.R;
 import com.example.eatit.entities.Ingrediente;
 import com.google.android.material.textfield.TextInputEditText;
+
+import java.util.Calendar;
 
 /**
  * @author Javier Ruiz de Gaona Tre.
@@ -22,7 +27,8 @@ public class CardAddIngrediente {
     Context context;
     int status;
     TextView nombre;
-    TextInputEditText name, cantidad, fecha;
+    DatePickerDialog datePicker;
+    TextInputEditText name, fecha, tipo;
     Ingrediente ingrediente;
 
     /**
@@ -35,7 +41,7 @@ public class CardAddIngrediente {
      * Constructor de la Clase cuando venimos del Fragment de Ver Ingrediente.
      * @param context Contexto del CardView nuevo.
      * @param status Estado desde el que se llama, 1 al venir del frgament de Ver Ingrediente.
-     * @param i Ingrediente que estaqmos viendo.
+     * @param i Ingrediente que estamos viendo.
      */
     public CardAddIngrediente (Context context, int status, Ingrediente i) {
         this.context = context;
@@ -53,6 +59,8 @@ public class CardAddIngrediente {
 
         inicializarVariables(dialog);
         cerrarTeclado(dialog);
+        seleccionarFechaFocus();
+        seleccionarFechaClick();
         cerrarCardView(dialog);
         dialog.show();
     }
@@ -65,11 +73,14 @@ public class CardAddIngrediente {
         nombre = dialog.findViewById(R.id.text_add_ingrediente);
         name = dialog.findViewById(R.id.login_textInput_nombreIngrediente);
         fecha = dialog.findViewById(R.id.login_textInput_caducidadIngrediente);
+        fecha.setInputType(InputType.TYPE_NULL);
+        tipo = dialog.findViewById(R.id.login_textInput_tipoIngrediente);
 
         if (status == 1) {
             nombre.setText(ingrediente.getNombre());
             name.setText(ingrediente.getNombre());
             fecha.setText(ingrediente.getFechaCaducidad());
+            tipo.setText(ingrediente.getTipo());
         }
     }
 
@@ -84,6 +95,49 @@ public class CardAddIngrediente {
             InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             return false;
+        });
+    }
+
+    /**
+     * Método que abre un DatePicker cuando el Focus está sobre el EditText de la fecha de
+     * caducidad.
+     */
+    private void seleccionarFechaFocus() {
+        fecha.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                final Calendar calendario = Calendar.getInstance();
+                int dia = calendario.get(Calendar.DAY_OF_MONTH);
+                int mes = calendario.get(Calendar.MONTH);
+                int año = calendario.get(Calendar.YEAR);
+
+                DatePickerDialog datePicker = new DatePickerDialog(CardAddIngrediente.this.context, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        fecha.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                    }
+                }, año, mes, dia);
+
+                datePicker.show();
+            }
+        });
+    }
+
+    /**
+     * Método que abre un DatePicker cuando se pulsa sobre el EdiText de la fecha de caducidad.
+     */
+    private void seleccionarFechaClick() {
+        fecha.setOnClickListener(view -> {
+            final Calendar calendario = Calendar.getInstance();
+            int dia = calendario.get(Calendar.DAY_OF_MONTH);
+            int mes = calendario.get(Calendar.MONTH);
+            int año = calendario.get(Calendar.YEAR);
+
+            datePicker = new DatePickerDialog(CardAddIngrediente.this.context,
+                    (view1, year, monthOfYear, dayOfMonth) ->
+                            fecha.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year)
+                    , año, mes, dia);
+
+            datePicker.show();
         });
     }
 
