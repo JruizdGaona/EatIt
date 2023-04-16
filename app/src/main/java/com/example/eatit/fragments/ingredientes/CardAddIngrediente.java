@@ -6,14 +6,18 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.text.InputType;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import com.example.eatit.R;
 import com.example.eatit.entities.Ingrediente;
+import com.example.eatit.utils.CustomSpinnerAdapter;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Calendar;
@@ -21,15 +25,17 @@ import java.util.Calendar;
 /**
  * @author Javier Ruiz de Gaona Tre.
  */
-public class CardAddIngrediente {
+public class CardAddIngrediente implements AdapterView.OnItemSelectedListener {
 
     // Declaramos las Variables.
     Context context;
+    String[] tipoIngrediente = {"Carne", "Pescado", "Verdura", "Fruta", "Lácteos", "Cereales"};
     int status;
     TextView nombre;
     DatePickerDialog datePicker;
-    TextInputEditText name, fecha, tipo;
+    TextInputEditText name, fecha;
     Ingrediente ingrediente;
+    Spinner spinnerTipo;
 
     /**
      * Constructor de la Clase.
@@ -74,13 +80,17 @@ public class CardAddIngrediente {
         name = dialog.findViewById(R.id.login_textInput_nombreIngrediente);
         fecha = dialog.findViewById(R.id.login_textInput_caducidadIngrediente);
         fecha.setInputType(InputType.TYPE_NULL);
-        tipo = dialog.findViewById(R.id.login_textInput_tipoIngrediente);
+        spinnerTipo = dialog.findViewById(R.id.login_spinner_tipo_ingrediente);
+        spinnerTipo.setOnItemSelectedListener(this);
+
+        CustomSpinnerAdapter customSpinnerAdapter = new CustomSpinnerAdapter(context, tipoIngrediente);
+        spinnerTipo.setAdapter(customSpinnerAdapter);
 
         if (status == 1) {
             nombre.setText(ingrediente.getNombre());
             name.setText(ingrediente.getNombre());
             fecha.setText(ingrediente.getFechaCaducidad());
-            tipo.setText(ingrediente.getTipo());
+            //tipo.setText(ingrediente.getTipo());
         }
     }
 
@@ -110,12 +120,10 @@ public class CardAddIngrediente {
                 int mes = calendario.get(Calendar.MONTH);
                 int año = calendario.get(Calendar.YEAR);
 
-                DatePickerDialog datePicker = new DatePickerDialog(CardAddIngrediente.this.context, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        fecha.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-                    }
-                }, año, mes, dia);
+                DatePickerDialog datePicker = new DatePickerDialog(context,
+                        (view, year, monthOfYear, dayOfMonth) ->
+                                fecha.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year)
+                        , año, mes, dia);
 
                 datePicker.show();
             }
@@ -148,5 +156,15 @@ public class CardAddIngrediente {
     private void cerrarCardView(@NonNull Dialog dialog) {
         ImageView imageView = dialog.findViewById(R.id.cerrar);
         imageView.setOnClickListener((View) -> dialog.dismiss());
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

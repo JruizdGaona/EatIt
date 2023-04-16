@@ -180,34 +180,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- Layout TextInputEditText  -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/login_layoutTextInput_tipo_ingrediente"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
+            <Spinner
+                android:id="@+id/login_spinner_tipo_ingrediente"
+                android:layout_width="330dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="7dp"
-                android:fontFamily="@font/montserrat_light"
-                android:textColorHint="@color/doradoClaro"
-                android:textSize="16sp"
-                app:endIconMode="clear_text"
-                app:endIconTint="@color/doradoClaro"
-                app:errorEnabled="true"
-                app:helperTextEnabled="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/texto_tipo_ingrediente">
-
-                <!-- TextInput tipo ingrediente -->
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/login_textInput_tipoIngrediente"
-                    android:layout_width="330dp"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_light"
-                    android:hint="@string/tipo_ingrediente_hint"
-                    android:textColor="@color/doradoClaro"
-                    android:textSize="14sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:background="@drawable/spinner"
+                android:minHeight="35dp"
+                android:spinnerMode="dropdown"
+                android:contentDescription="@string/tipo_context"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/texto_tipo_ingrediente" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!-- Botón de Guardar -->
