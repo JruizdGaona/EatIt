@@ -19,9 +19,8 @@ public class CardVerMisIngredientes {
 
     // Declaramos las Variables.
     Context context;
-    TextView cantidad, nombre, fecha_caducidad, kcal, tipo;
+    TextView nombre, fecha_caducidad, tipo;
     String name, fecha, tipo_ingredinte;
-    float cant, calorias;
     AppCompatButton eliminar, editar;
 
     /**
@@ -51,8 +50,6 @@ public class CardVerMisIngredientes {
     private void cargarDatos(@NonNull Ingrediente ingrediente, @NonNull Dialog dialog) {
         nombre = dialog.findViewById(R.id.text_ver_ingrediente);
         fecha_caducidad = dialog.findViewById(R.id.fecha_ingredientes);
-        cantidad = dialog.findViewById(R.id.cantidad);
-        kcal = dialog.findViewById(R.id.kcal_ejemplo);
         tipo = dialog.findViewById(R.id.tipo_ejemplo);
         editar = dialog.findViewById(R.id.btn_editar_ingrediente);
 
@@ -61,14 +58,8 @@ public class CardVerMisIngredientes {
         tipo_ingredinte = ingrediente.getTipo();
 
         nombre.setText(name);
-        cantidad.setText(String.valueOf(cant));
+        fecha_caducidad.setText(fecha);
         tipo.setText(tipo_ingredinte);
-
-        if (fecha == null || fecha.isBlank()) fecha_caducidad.setText("Sin especificar");
-        else fecha_caducidad.setText(fecha);
-
-        if (calorias == 0.0) kcal.setText("Sin especificar");
-        else kcal.setText(String.valueOf(calorias));
 
         editarIngrediente(dialog, ingrediente);
     }

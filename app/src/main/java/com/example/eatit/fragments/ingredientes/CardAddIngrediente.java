@@ -29,7 +29,7 @@ public class CardAddIngrediente implements AdapterView.OnItemSelectedListener {
 
     // Declaramos las Variables.
     Context context;
-    String[] tipoIngrediente = {"Carne", "Pescado", "Verdura", "Fruta", "Lácteos", "Cereales"};
+    String[] tipoIngrediente = {"Sin especificar", "Carne", "Pescado", "Verdura", "Fruta", "Lácteos", "Cereales", "Otro"};
     int status;
     TextView nombre;
     DatePickerDialog datePicker;
