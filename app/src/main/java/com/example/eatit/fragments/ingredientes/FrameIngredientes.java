@@ -62,13 +62,7 @@ public class FrameIngredientes extends Fragment {
      * Método que crea los ingredientes y los carga en el adapter de ingredientes.
      */
     private void mostrarIngredientes() {
-        for (int i = 0; i < 20; i++) {
-            String nombre = "Ingrediente" + i;
-            String fecha = "12/02/202" + i;
-            String tipo = "Carne";
-
-            ingredientes.add(new Ingrediente(nombre, fecha, tipo, usuario.getCorreo()));
-        }
+        ingredientes = usuario.getIngredientes();
         adapterIngrediente = new AdapterIngrediente(ingredientes, FrameIngredientes.this.getContext());
         recyclerView.setAdapter(adapterIngrediente);
     }
