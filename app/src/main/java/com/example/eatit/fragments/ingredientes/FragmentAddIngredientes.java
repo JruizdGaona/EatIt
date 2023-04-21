@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import com.example.eatit.R;
 import com.example.eatit.entities.Usuario;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
  * @author Javier Ruiz de Gaona Tre.
@@ -17,6 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class FragmentAddIngredientes extends Fragment {
 
     private Usuario usuario;
+    private boolean paused = false;
 
     public FragmentAddIngredientes(Usuario usuario) {this.usuario = usuario;}
 

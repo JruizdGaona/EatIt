@@ -14,6 +14,11 @@ import com.example.eatit.entities.Ingrediente;
 import com.example.eatit.entities.Usuario;
 import com.example.eatit.fragments.adapters.AdapterIngrediente;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +33,9 @@ public class FrameIngredientes extends Fragment {
     RecyclerView recyclerView;
     AdapterIngrediente adapterIngrediente;
     Usuario usuario;
+    FirebaseFirestore database;
+    CollectionReference coleccion;
+    private boolean paused = false;
 
     public FrameIngredientes (Usuario usuario) {this.usuario = usuario;}
 
@@ -49,13 +57,39 @@ public class FrameIngredientes extends Fragment {
         FloatingActionButton floatingActionButton = view.findViewById(R.id.btn_flotante);
 
         floatingActionButton.setOnClickListener((View) -> {
-            CardAddIngrediente cardAddIngrediente = new CardAddIngrediente(getContext(), usuario);
-
-            cardAddIngrediente.operacionesCardView();
+            paused = true;
+            this.onPause();
         });
 
         mostrarIngredientes();
         return view;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if (paused) {
+            paused = false;
+            CardAddIngrediente cardAddIngrediente = new CardAddIngrediente(getContext(), usuario);
+
+            cardAddIngrediente.operacionesCardView();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        database = FirebaseFirestore.getInstance();
+        coleccion = database.collection("ingredientes");
+
+        coleccion.addSnapshotListener((snapshot, e) -> {
+            if (e != null) {
+                return;
+            }
+            mostrarIngredientes();
+        });
     }
 
     /**

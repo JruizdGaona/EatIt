@@ -36,7 +36,7 @@ import java.util.List;
 /**
  * @author Javier Ruiz de Gaona Tre.
  */
-public class CardAddIngrediente  {
+public class CardAddIngrediente {
 
     // Declaramos las Variables.
     Context context;
