@@ -124,8 +124,17 @@ public class CardAddIngrediente {
             nombre.setText(ingrediente.getNombre());
             name.setText(ingrediente.getNombre());
             fecha.setText(ingrediente.getFechaCaducidad());
-            //tipo.setText(ingrediente.getTipo());
+            spinnerTipo.setSelection(setTipo(ingrediente.getTipo()));
         }
+    }
+
+    private int setTipo(String tipo) {
+        for (int i = 0; i < tipoIngrediente.length; i++) {
+            if (tipoIngrediente[i].equalsIgnoreCase(tipo)) {
+                return i;
+            }
+        }
+        return 0;
     }
 
     /**
