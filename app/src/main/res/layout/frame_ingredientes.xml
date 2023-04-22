@@ -19,18 +19,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/list_ingredientes" />
-
-    <!-- FloatingButton para añadir ingredientes -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_flotante"
+    
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/floating_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="45dp"
-        android:contentDescription="@string/btn_float"
-        android:src="@drawable/ic_add"
-        app:elevation="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@null" />
+        app:fab_addButtonColorNormal="@color/doradoClaro"
+        app:fab_addButtonColorPressed="@color/doradoClaro"
+        app:fab_addButtonPlusIconColor="@color/negroClaro">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_barcode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/barcode"
+            app:fab_colorNormal="@color/doradoClaro"
+            app:fab_colorPressed="@color/doradoClaro"
+            app:fab_colorDisabled="@color/grisClaro"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_formulario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/ic_form"
+            app:fab_colorNormal="@color/doradoClaro"
+            app:fab_colorPressed="@color/doradoClaro"
+            app:fab_colorDisabled="@color/grisClaro"/>
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
 </androidx.constraintlayout.widget.ConstraintLayout>

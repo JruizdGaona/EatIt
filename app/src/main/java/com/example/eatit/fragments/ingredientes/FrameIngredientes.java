@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -13,12 +15,9 @@ import com.example.eatit.R;
 import com.example.eatit.entities.Ingrediente;
 import com.example.eatit.entities.Usuario;
 import com.example.eatit.fragments.adapters.AdapterIngrediente;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +34,7 @@ public class FrameIngredientes extends Fragment {
     Usuario usuario;
     FirebaseFirestore database;
     CollectionReference coleccion;
-    private boolean paused = false;
+    private boolean paused = false, form = false, barcode = false;
 
     public FrameIngredientes (Usuario usuario) {this.usuario = usuario;}
 
@@ -54,26 +53,44 @@ public class FrameIngredientes extends Fragment {
         recyclerView = view.findViewById(R.id.fragment_ingredientes);
         recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
 
-        FloatingActionButton floatingActionButton = view.findViewById(R.id.btn_flotante);
+        return view;
+    }
 
-        floatingActionButton.setOnClickListener((View) -> {
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mostrarIngredientes();
+
+        FloatingActionButton btn_barcode = view.findViewById(R.id.btn_barcode);
+        FloatingActionButton btn_formulario = view.findViewById(R.id.btn_formulario);
+
+        btn_barcode.setOnClickListener((View) -> {
             paused = true;
+            barcode = true;
             this.onPause();
         });
 
-        mostrarIngredientes();
-        return view;
+        btn_formulario.setOnClickListener((View) -> {
+            paused = true;
+            form = true;
+            this.onPause();
+        });
     }
 
     @Override
     public void onPause() {
         super.onPause();
 
-        if (paused) {
+        if (paused && form) {
             paused = false;
+            form = false;
             CardAddIngrediente cardAddIngrediente = new CardAddIngrediente(getContext(), usuario);
 
             cardAddIngrediente.operacionesCardView();
+        } else if (paused && barcode) {
+            paused = false;
+            barcode = false;
+            Toast.makeText(this.getContext(), "Escaneando codigo de barras...", Toast.LENGTH_SHORT).show();
         }
     }
 
