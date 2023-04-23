@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.eatit.R;
 import com.example.eatit.entities.Ingrediente;
+import com.example.eatit.entities.Usuario;
 import com.example.eatit.fragments.ingredientes.CardVerMisIngredientes;
 import com.google.android.material.card.MaterialCardView;
 import java.util.List;
@@ -23,15 +24,17 @@ public class AdapterIngrediente extends RecyclerView.Adapter<AdapterIngrediente.
     private final List<Ingrediente> ingredientes;
     private final Context context;
     TextView nombre;
+    Usuario usuario;
 
     /**
      * Constructor del Adapter de Ingredientes.
      * @param re Lista de ingredientes a añadir en el Fragment.
      * @param context Contexto en el que usamos el Adapter.
      */
-    public AdapterIngrediente(List<Ingrediente> re, Context context){
+    public AdapterIngrediente(List<Ingrediente> re, Context context, Usuario usuario){
         this.ingredientes = re;
         this.context = context;
+        this.usuario = usuario;
     }
 
     /**
@@ -59,7 +62,7 @@ public class AdapterIngrediente extends RecyclerView.Adapter<AdapterIngrediente.
         holder.bindData(ingredientes.get(position));
 
         holder.cv.setOnClickListener((view)-> {
-            CardVerMisIngredientes misIngredientes = new CardVerMisIngredientes(context);
+            CardVerMisIngredientes misIngredientes = new CardVerMisIngredientes(context, usuario);
 
             misIngredientes.operacionesCardView(ingredientes.get(position));
         });
