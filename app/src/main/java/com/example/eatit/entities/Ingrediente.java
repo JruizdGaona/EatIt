@@ -2,14 +2,13 @@ package com.example.eatit.entities;
 
 public class Ingrediente {
     private String nombre, fechaCaducidad, tipo, usuarioId;
-    private boolean caducado, desactivado;
+    private boolean desactivado;
 
     public Ingrediente(String nombre, String fechaCaducidad, String tipo, String usuario) {
         this.nombre = nombre;
         this.fechaCaducidad = fechaCaducidad;
         this.tipo = tipo;
         usuarioId = usuario;
-        caducado = false;
         desactivado = false;
     }
 
@@ -47,10 +46,6 @@ public class Ingrediente {
     public String getUsuarioId() {return usuarioId;}
 
     public void setUsuarioId(String usuarioId) {this.usuarioId = usuarioId;}
-
-    public boolean isCaducado() {return caducado;}
-
-    public void setCaducado(boolean caducado) {this.caducado = caducado;}
 
     public boolean isDesactivado() {return desactivado;}
 
