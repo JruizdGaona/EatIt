@@ -28,6 +28,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <ImageView
+                android:id="@+id/caducado_ic_card"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:visibility="invisible"
+                android:src="@drawable/warning"
+                android:contentDescription="@string/warn_caducado"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <!-- Imagen del ingrediente -->
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/ilm_foto"

@@ -28,6 +28,32 @@
             android:layout_height="match_parent"
             android:id="@+id/cardViewIng">
 
+            <ImageView
+                android:id="@+id/caducado_ic"
+                android:visibility="invisible"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/warning"
+                android:contentDescription="@string/warn_caducado"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/caducado_text"
+                android:visibility="invisible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_medio"
+                android:text="@string/warn_caducado_text"
+                android:textColor="@color/caducado"
+                android:layout_marginStart="10dp"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/caducado_ic"
+                app:layout_constraintStart_toEndOf="@+id/caducado_ic"
+                app:layout_constraintTop_toTopOf="@+id/caducado_ic" />
+
             <!-- Imagen con el botón de Cerrar -->
             <ImageView
                 android:id="@+id/cerrar"

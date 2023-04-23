@@ -5,21 +5,28 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.content.ContextCompat;
+
 import com.example.eatit.R;
 import com.example.eatit.entities.Ingrediente;
 import com.example.eatit.entities.Usuario;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,7 +36,8 @@ public class CardVerMisIngredientes {
 
     // Declaramos las Variables.
     Context context;
-    TextView nombre, fecha_caducidad, tipo;
+    TextView nombre, fecha_caducidad, tipo, warn_caducado;
+    ImageView warn;
     String name, fecha, tipo_ingredinte;
     AppCompatButton eliminar, editar;
     FirebaseFirestore database;
@@ -54,10 +62,34 @@ public class CardVerMisIngredientes {
         Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.card_ver_ingredientes);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        MaterialCardView cardView = dialog.findViewById(R.id.cradView_ver_ingredientes);
+        warn_caducado = dialog.findViewById(R.id.caducado_text);
+        warn = dialog.findViewById(R.id.caducado_ic);
+
+        if (comprobarFecha(ingrediente)) {
+            cardView.setStrokeColor(ContextCompat.getColor(context, R.color.caducado));
+            warn_caducado.setVisibility(View.VISIBLE);
+            warn.setVisibility(View.VISIBLE);
+        }
 
         cargarDatos(ingrediente, dialog);
         cerrarCardView(dialog);
         dialog.show();
+    }
+
+    private boolean comprobarFecha(Ingrediente ingrediente) {
+        String fechaCad = ingrediente.getFechaCaducidad();
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+
+        try {
+            Date fecha = formato.parse(fechaCad);
+
+            return fecha.before(new Date());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
     /**

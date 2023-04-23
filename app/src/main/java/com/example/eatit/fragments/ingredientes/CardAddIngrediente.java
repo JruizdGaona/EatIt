@@ -184,7 +184,7 @@ public class CardAddIngrediente {
                             "tipo", newIngrediente.getTipo())
                         .addOnSuccessListener(aVoid -> {
                             actualizarIngredienteDelUsuario(ingrediente, newIngrediente);
-                            Toast.makeText(context, "Ingrediente actualizad correctamente", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Ingrediente actualizado correctamente", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
                         }).addOnFailureListener(e -> {
                             Toast.makeText(context, "Error al actualizar el ingrediente", Toast.LENGTH_SHORT).show();
