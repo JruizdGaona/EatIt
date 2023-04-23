@@ -210,6 +210,23 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/layout_tipo_ingrediente" />
+
+            <!-- Botón de Guardar -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_actualizar_ingrediente"
+                android:layout_width="296dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_horizontal|center"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/btn_login"
+                android:fontFamily="@font/montserrat_medio"
+                android:gravity="center"
+                android:text="@string/actualizar_ingrediente"
+                android:textColor="@color/negroClaro"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout_tipo_ingrediente" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

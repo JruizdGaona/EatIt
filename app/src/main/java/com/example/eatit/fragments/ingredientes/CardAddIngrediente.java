@@ -48,7 +48,7 @@ public class CardAddIngrediente {
     String tipo;
     Ingrediente ingrediente;
     Spinner spinnerTipo;
-    AppCompatButton guardar;
+    AppCompatButton guardar, actualizar;
     Usuario usuario;
     FirebaseFirestore database;
     CollectionReference coleccion;
@@ -70,10 +70,13 @@ public class CardAddIngrediente {
      * @param status Estado desde el que se llama, 1 al venir del frgament de Ver Ingrediente.
      * @param i Ingrediente que estamos viendo.
      */
-    public CardAddIngrediente (Context context, int status, Ingrediente i) {
+    public CardAddIngrediente (Context context, int status, Ingrediente i, Usuario usuario) {
         this.context = context;
         this.status = status;
+        this.usuario = usuario;
         ingrediente = i;
+        database = FirebaseFirestore.getInstance();
+        coleccion = database.collection("ingredientes");
     }
 
     /**
@@ -99,11 +102,15 @@ public class CardAddIngrediente {
      */
     private void inicializarVariables(@NonNull Dialog dialog) {
         guardar = dialog.findViewById(R.id.btn_guardar_ingrediente);
+        actualizar = dialog.findViewById(R.id.btn_actualizar_ingrediente);
         nombre = dialog.findViewById(R.id.text_add_ingrediente);
         name = dialog.findViewById(R.id.login_textInput_nombreIngrediente);
         fecha = dialog.findViewById(R.id.login_textInput_caducidadIngrediente);
         fecha.setInputType(InputType.TYPE_NULL);
         spinnerTipo = dialog.findViewById(R.id.login_spinner_tipo_ingrediente);
+
+        actualizar.setVisibility(View.INVISIBLE);
+        guardar.setVisibility(View.VISIBLE);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.spinner_item, tipoIngrediente);
         spinnerTipo.setAdapter(adapter);
@@ -125,7 +132,93 @@ public class CardAddIngrediente {
             name.setText(ingrediente.getNombre());
             fecha.setText(ingrediente.getFechaCaducidad());
             spinnerTipo.setSelection(setTipo(ingrediente.getTipo()));
+
+            guardar.setVisibility(View.INVISIBLE);
+            actualizar.setVisibility(View.VISIBLE);
+
+            actualizar(dialog, ingrediente);
         }
+    }
+
+    private void actualizar(Dialog dialog, Ingrediente ingrediente) {
+        actualizar.setOnClickListener((view) -> {
+            Ingrediente newIngrediente = actualizarValoresIngrediente(ingrediente);
+
+            actualizarIngrediente(dialog, ingrediente, newIngrediente);
+
+        });
+    }
+
+    private Ingrediente actualizarValoresIngrediente(Ingrediente ingrediente) {
+        if (name.getText() == null || name.getText().toString().isBlank()) {
+            ingrediente.setNombre(ingrediente.getNombre());
+        } else {
+            ingrediente.setNombre(name.getText().toString());
+        }
+
+        if (fecha.getText() == null || fecha.getText().toString().isBlank()) {
+            ingrediente.setFechaCaducidad(ingrediente.getFechaCaducidad());
+        } else {
+            ingrediente.setFechaCaducidad(fecha.getText().toString());
+        }
+
+        if (tipo == null || tipo.isBlank()) {
+            ingrediente.setTipo(ingrediente.getTipo());
+        } else {
+            ingrediente.setTipo(tipo);
+        }
+
+        return ingrediente;
+    }
+
+    private void actualizarIngrediente(Dialog dialog, Ingrediente ingrediente, Ingrediente newIngrediente) {
+        Task<QuerySnapshot> consulta = coleccion.whereEqualTo("nombre", ingrediente.getNombre()).get();
+
+        consulta.addOnSuccessListener(documentSnapshots -> {
+            if (!documentSnapshots.isEmpty()) {
+                for (DocumentSnapshot documentSnapshot : documentSnapshots.getDocuments()) {
+                    if (documentSnapshot.getString("nombre").equalsIgnoreCase(ingrediente.getNombre())) {
+                        coleccion.document(documentSnapshot.getId())
+                        .update("nombre", newIngrediente.getNombre(),
+                            "fechaCaducidad", newIngrediente.getFechaCaducidad(),
+                            "tipo", newIngrediente.getTipo())
+                        .addOnSuccessListener(aVoid -> {
+                            actualizarIngredienteDelUsuario(ingrediente, newIngrediente);
+                            Toast.makeText(context, "Ingrediente actualizad correctamente", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        }).addOnFailureListener(e -> {
+                            Toast.makeText(context, "Error al actualizar el ingrediente", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        });
+                        return;
+                    }
+                }
+            }
+            Toast.makeText(context, "Error al actualizar el ingrediente", Toast.LENGTH_SHORT).show();
+            dialog.dismiss();
+        }).addOnFailureListener(e -> {
+            Toast.makeText(context, "Error al actualizar el ingrediente", Toast.LENGTH_SHORT).show();
+            dialog.dismiss();
+        });
+    }
+
+    private void actualizarIngredienteDelUsuario(Ingrediente ingrediente, Ingrediente newIngrediente) {
+        Task<QuerySnapshot> consultaUsuario = database.collection("usuarios").whereEqualTo("correo", usuario.getCorreo()).get();
+        consultaUsuario.addOnSuccessListener(documentSnapshotsUsuario -> {
+            if (!documentSnapshotsUsuario.isEmpty()) {
+                List<Ingrediente> ingredientesUsuario = usuario.getIngredientes();
+
+                for (int i = 0; i < ingredientesUsuario.size(); i++) {
+                    if (ingredientesUsuario.get(i).getNombre().equalsIgnoreCase(ingrediente.getNombre())) {
+                        ingredientesUsuario.set(i, newIngrediente);
+                        break;
+                    }
+                }
+
+                String usuarioId = documentSnapshotsUsuario.getDocuments().get(0).getId();
+                database.collection("usuarios").document(usuarioId).update("ingredientes", ingredientesUsuario);
+            }
+        });
     }
 
     private int setTipo(String tipo) {

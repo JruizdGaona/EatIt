@@ -144,7 +144,7 @@ public class CardVerMisIngredientes {
      */
     private void editarIngrediente(Dialog dialog, Ingrediente ingrediente) {
         editar.setOnClickListener((view) -> {
-            CardAddIngrediente addIngrediente = new CardAddIngrediente(dialog.getContext(), 1, ingrediente);
+            CardAddIngrediente addIngrediente = new CardAddIngrediente(dialog.getContext(), 1, ingrediente, usuario);
             addIngrediente.operacionesCardView();
 
             new Handler().postDelayed(dialog::dismiss, 250);

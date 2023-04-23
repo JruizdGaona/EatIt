@@ -92,6 +92,7 @@
         <string name="tipo_ingrediente">TIPO</string>
         <string name="tipo_ingrediente_hint">Elige el tipo del ingrediente</string>
         <string name="guardar_ingrediente">GUARDAR</string>
+        <string name="actualizar_ingrediente">ACTUALIZAR</string>
         <string name="description_cerrar">Botón de cerrar</string>
 
     <!-- Cadenas de Texto Fragment de Bucador -->
