@@ -63,7 +63,6 @@ public class AdapterIngrediente extends RecyclerView.Adapter<AdapterIngrediente.
 
         holder.cv.setOnClickListener((view)-> {
             CardVerMisIngredientes misIngredientes = new CardVerMisIngredientes(context, usuario);
-
             misIngredientes.operacionesCardView(ingredientes.get(position));
         });
     }

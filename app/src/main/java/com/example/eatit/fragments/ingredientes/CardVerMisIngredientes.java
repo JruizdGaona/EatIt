@@ -84,6 +84,11 @@ public class CardVerMisIngredientes {
         eliminarIngrediente(dialog, ingrediente);
     }
 
+    /**
+     * Método que elimina un ingrediente de la base de datos.
+     * @param dialog Dialog que contiene el CardView.
+     * @param ingrediente Ingrediente que quyeremos borrar.
+     */
     private void eliminarIngrediente(Dialog dialog, Ingrediente ingrediente) {
         eliminar.setOnClickListener((View) -> {
             Task<QuerySnapshot> consulta = coleccion.whereEqualTo("nombre", ingrediente.getNombre()).get();
@@ -113,6 +118,10 @@ public class CardVerMisIngredientes {
         });
     }
 
+    /**
+     * Método que al eliminar un ingrediente, lo elimina del usuario asociado a él.
+     * @param ingrediente Ingrediente a borrar del Usuario.
+     */
     private void eliminarIngredienteDelUsuario(Ingrediente ingrediente) {
         Task<QuerySnapshot> consultaUsuario = database.collection("usuarios").whereEqualTo("correo", usuario.getCorreo()).get();
         consultaUsuario.addOnSuccessListener(documentSnapshotsUsuario -> {
