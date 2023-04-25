@@ -13,7 +13,11 @@ import com.example.eatit.R;
 import com.example.eatit.entities.Receta;
 import com.example.eatit.entities.Usuario;
 import com.example.eatit.fragments.adapters.AdapterMisRecetas;
+import com.example.eatit.fragments.ingredientes.CardAddIngrediente;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +31,9 @@ public class FrameMisRecetas extends Fragment {
     RecyclerView recyclerView;
     AdapterMisRecetas adapterMisRecetas;
     Usuario usuario;
+    FirebaseFirestore database;
+    CollectionReference coleccion;
+    private boolean paused = false;
 
     public FrameMisRecetas(Usuario usuario) {
         this.usuario = usuario;
@@ -62,9 +69,8 @@ public class FrameMisRecetas extends Fragment {
         FloatingActionButton floatingActionButton = view.findViewById(R.id.floatingActionButtonMisRecetas);
 
         floatingActionButton.setOnClickListener((View) -> {
-            CardAddRecetas cardAddRecetas = new CardAddRecetas(getContext(), usuario);
-
-            cardAddRecetas.operacionesCardView();
+            paused = true;
+            this.onPause();
         });
     }
 
@@ -75,5 +81,32 @@ public class FrameMisRecetas extends Fragment {
         recetas = usuario.getRecetasCreadas();
         adapterMisRecetas = new AdapterMisRecetas(recetas, FrameMisRecetas.this.getContext());
         recyclerView.setAdapter(adapterMisRecetas);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if (paused) {
+            paused = false;
+            CardAddRecetas cardAddRecetas = new CardAddRecetas(getContext(), usuario);
+
+            cardAddRecetas.operacionesCardView();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        database = FirebaseFirestore.getInstance();
+        coleccion = database.collection("recetas");
+
+        coleccion.addSnapshotListener((snapshot, e) -> {
+            if (e != null) {
+                return;
+            }
+            mostrarRecetas();
+        });
     }
 }

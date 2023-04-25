@@ -1,15 +1,15 @@
 package com.example.eatit.entities;
 
 public class Ingrediente {
-    private String nombre, fechaCaducidad, tipo;
-    private float kcal, cantidad;
+    private String nombre, fechaCaducidad, tipo, usuarioId;
+    private boolean desactivado;
 
-    public Ingrediente(String nombre, String fechaCaducidad, String tipo, float kcal, float cantidad) {
+    public Ingrediente(String nombre, String fechaCaducidad, String tipo, String usuario) {
         this.nombre = nombre;
         this.fechaCaducidad = fechaCaducidad;
         this.tipo = tipo;
-        this.kcal = kcal;
-        this.cantidad = cantidad;
+        usuarioId = usuario;
+        desactivado = false;
     }
 
     public Ingrediente(){
@@ -43,19 +43,11 @@ public class Ingrediente {
         this.tipo = tipo;
     }
 
-    public float getKcal() {
-        return kcal;
-    }
+    public String getUsuarioId() {return usuarioId;}
 
-    public void setKcal(float kcal) {
-        this.kcal = kcal;
-    }
+    public void setUsuarioId(String usuarioId) {this.usuarioId = usuarioId;}
 
-    public float getCantidad() {
-        return cantidad;
-    }
+    public boolean isDesactivado() {return desactivado;}
 
-    public void setCantidad(float cantidad) {
-        this.cantidad = cantidad;
-    }
+    public void setDesactivado(boolean desactivado) {this.desactivado = desactivado;}
 }

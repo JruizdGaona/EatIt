@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -11,8 +13,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.eatit.R;
 import com.example.eatit.entities.Ingrediente;
+import com.example.eatit.entities.Usuario;
 import com.example.eatit.fragments.adapters.AdapterIngrediente;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +31,12 @@ public class FrameIngredientes extends Fragment {
     List<Ingrediente> ingredientes = new ArrayList<>();
     RecyclerView recyclerView;
     AdapterIngrediente adapterIngrediente;
+    Usuario usuario;
+    FirebaseFirestore database;
+    CollectionReference coleccion;
+    private boolean paused = false, form = false, barcode = false;
+
+    public FrameIngredientes (Usuario usuario) {this.usuario = usuario;}
 
     /**
      * Método onCreate del fragment de Ingredientes.
@@ -42,32 +53,68 @@ public class FrameIngredientes extends Fragment {
         recyclerView = view.findViewById(R.id.fragment_ingredientes);
         recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
 
-        FloatingActionButton floatingActionButton = view.findViewById(R.id.btn_flotante);
+        return view;
+    }
 
-        floatingActionButton.setOnClickListener((View) -> {
-            CardAddIngrediente cardAddIngrediente = new CardAddIngrediente(getContext());
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mostrarIngredientes();
 
-            cardAddIngrediente.operacionesCardView();
+        FloatingActionButton btn_barcode = view.findViewById(R.id.btn_barcode);
+        FloatingActionButton btn_formulario = view.findViewById(R.id.btn_formulario);
+
+        btn_barcode.setOnClickListener((View) -> {
+            paused = true;
+            barcode = true;
+            this.onPause();
         });
 
-        mostrarIngredientes();
-        return view;
+        btn_formulario.setOnClickListener((View) -> {
+            paused = true;
+            form = true;
+            this.onPause();
+        });
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if (paused && form) {
+            paused = false;
+            form = false;
+            CardAddIngrediente cardAddIngrediente = new CardAddIngrediente(getContext(), usuario);
+
+            cardAddIngrediente.operacionesCardView();
+        } else if (paused && barcode) {
+            paused = false;
+            barcode = false;
+            Toast.makeText(this.getContext(), "Escaneando codigo de barras...", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        database = FirebaseFirestore.getInstance();
+        coleccion = database.collection("ingredientes");
+
+        coleccion.addSnapshotListener((snapshot, e) -> {
+            if (e != null) {
+                return;
+            }
+            mostrarIngredientes();
+        });
     }
 
     /**
      * Método que crea los ingredientes y los carga en el adapter de ingredientes.
      */
     private void mostrarIngredientes() {
-        for (int i = 0; i < 20; i++) {
-            String nombre = "Ingrediente" + i;
-            String fecha = "12/02/202" + i;
-            String tipo = "Carne";
-            float kcal = i;
-            float cantidad = i;
-
-            ingredientes.add(new Ingrediente(nombre, fecha, tipo, kcal, cantidad));
-        }
-        adapterIngrediente = new AdapterIngrediente(ingredientes, FrameIngredientes.this.getContext());
+        ingredientes = usuario.getIngredientes();
+        adapterIngrediente = new AdapterIngrediente(ingredientes, FrameIngredientes.this.getContext(), usuario);
         recyclerView.setAdapter(adapterIngrediente);
     }
 }

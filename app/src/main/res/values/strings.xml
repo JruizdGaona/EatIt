@@ -75,6 +75,7 @@
         <string name="kcal">KCAL:</string>
         <string name="kcal_ejemplo">120 kcal.</string>
         <string name="tipo">TIPO:</string>
+            <string name="tipo_context">Seleccionar tipo de ingrediente</string>
         <string name="tipo_ejemplo">Carne</string>
         <string name="modificar">EDITAR</string>
         <string name="eliminar">ELIMINAR</string>
@@ -84,14 +85,17 @@
     <string name="btn_float">Botón Flotante</string>
         <!-- Cadenas de Texto para el CardView de añadir ingredientes -->
         <string name="card_add_ingredientes">NUEVO INGREDIENTE</string>
-        <string name="card_nombre_ingrediente">NOMBRE *</string>
+        <string name="card_nombre_ingrediente">NOMBRE: *</string>
         <string name="nombre_ingrediente_hint">Nombre del ingrediente</string>
-        <string name="card_cantidad_ingrediente">CANTIDAD *</string>
-        <string name="cantidad_ingrediente_hint">Escribe la cantidad</string>
-        <string name="card_caducidad">FECHA DE CADUCIDAD</string>
+        <string name="card_caducidad">FECHA DE CADUCIDAD: *</string>
         <string name="caducidad_ingrediente_hint">Escribe la fecha de caducidad</string>
+        <string name="tipo_ingrediente">TIPO</string>
+        <string name="tipo_ingrediente_hint">Elige el tipo del ingrediente</string>
         <string name="guardar_ingrediente">GUARDAR</string>
+        <string name="actualizar_ingrediente">ACTUALIZAR</string>
         <string name="description_cerrar">Botón de cerrar</string>
+        <string name="warn_caducado">Símbolo de alerta</string>
+        <string name="warn_caducado_text">¡Ingrediente Caducado!</string>
 
     <!-- Cadenas de Texto Fragment de Bucador -->
     <string name="busqueda_hint">Escribe la receta que quieres buscar</string>
@@ -136,4 +140,6 @@
 
     <!-- String para el content descriprion del fondo de la SplashScreen -->
     <string name="fondo_splashscreen">Fondo SplashScreen</string>
+
+    <string name="tipo_ingrediente_prompt">Selecciona el tipo de ingrediente</string>
 </resources>
