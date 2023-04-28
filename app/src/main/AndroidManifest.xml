@@ -22,6 +22,11 @@
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".fragments.ActivityRecetas"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".activities.SplashScreen"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="true"

@@ -1,6 +1,7 @@
 package com.example.eatit.fragments.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.eatit.R;
 import com.example.eatit.entities.Receta;
-import com.example.eatit.fragments.recetas.CardVerMisRecetas;
+import com.example.eatit.fragments.ActivityRecetas;
 import com.google.android.material.card.MaterialCardView;
 import java.util.List;
 
@@ -59,9 +60,9 @@ public class AdapterMisRecetas extends RecyclerView.Adapter<AdapterMisRecetas.My
         holder.bindData(recetas.get(position));
 
         holder.cv.setOnClickListener((view) -> {
-            CardVerMisRecetas misRecetas = new CardVerMisRecetas(context);
-
-            misRecetas.operacionesCardView(recetas.get(position));
+            Intent intent = new Intent(context, ActivityRecetas.class);
+            intent.putExtra("receta", recetas.get(position));
+            context.startActivity(intent);
         });
     }
 

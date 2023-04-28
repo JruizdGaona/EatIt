@@ -64,6 +64,16 @@
         <string name="pasos_elab">Receta</string>
         <string name="guardar_favoritos">GUARDAR EN FAVORITOS</string>
 
+    <!-- Cadenas de Texto para el activity de ver Recetas -->
+    <string name="activity_nombre_receta">Nombre de la receta</string>
+    <string name="activity_dificultad">Dificultad</string>
+    <string name="activity_tiempo">Tiempo</string>
+    <string name="activity_comensales">Comensales</string>
+    <string name="activity_ingredientes">INGREDIENTES</string>
+    <string name="siguiente_paso">Comenzar receta</string>
+    <string name="paso_1">ELABORACIÓN - PASO 1</string>
+    <string name="siguiente">Siguiente Paso</string>
+
     <!-- Cadenas de Texto Fragment de Añadir Ingredientes y Fragment de Mis Ingredientes-->
     <string name="mis_ingredientes">MIS INGREDIENTES</string>
         <!-- Cadenas de texto para la pantalla de ver Mis Ingredientes -->
