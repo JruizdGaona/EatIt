@@ -68,7 +68,7 @@ public class FrameRecetas extends Fragment {
             String nombre = "Receta" +i;
             String dificultad = "Dificultad " +i;
 
-            recetas.add(new Receta(nombre, dificultad, null, (float) i, 0, i, null));
+            recetas.add(new Receta(nombre, dificultad, "Hola", i, null));
         }
         adapter = new AdapterReceta(recetas, FrameRecetas.this.getContext());
         recyclerView.setAdapter(adapter);

@@ -39,10 +39,12 @@ public class FragmentRecetas extends Fragment {
         comensales = view.findViewById(R.id.text_comensales);
         ingredientes = view.findViewById(R.id.ingredientes_receta);
         comenzarReceta = view.findViewById(R.id.btn_start);
-        dificultad.setText(receta.getDificultad());
-        tiempo.setText(String.valueOf(receta.getDuracion()));
-        comensales.setText(String.valueOf(receta.getRaciones()));
-        ingredientes.setText(mostrarIngredientes());
+        if (receta != null) {
+            dificultad.setText(receta.getDificultad());
+            tiempo.setText(String.valueOf(receta.getDuracion()));
+            comensales.setText(String.valueOf(receta.getRaciones()));
+            ingredientes.setText(mostrarIngredientes());
+        }
 
         start();
     }
@@ -60,11 +62,8 @@ public class FragmentRecetas extends Fragment {
         String finalIng = "";
 
         if (receta.getIngredientes() != null) {
-            String ingredientes = receta.getIngredientes();
-            String[] ing = ingredientes.split(" ");
-
-            for (String currIngrediente: ing) {
-                finalIng = finalIng + currIngrediente + "\n" + "- ";
+            for (String ing: receta.getIngredientes()) {
+                finalIng = finalIng + ing + "\n" + "- ";
             }
 
             return finalIng;

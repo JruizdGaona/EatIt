@@ -92,7 +92,7 @@ public class FragmentBuscador extends Fragment {
         List<Receta> listRecetasFiltradas = new ArrayList<>();
         List<Receta> recetas = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
-            recetas.add(new Receta("Receta" + i, String.valueOf(i), null, i, i, i, null));
+            recetas.add(new Receta("Receta" + i, null, String.valueOf(i), i, null));
         }
 
         for (Receta r: recetas) {

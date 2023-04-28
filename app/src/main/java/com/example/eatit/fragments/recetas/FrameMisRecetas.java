@@ -1,5 +1,6 @@
 package com.example.eatit.fragments.recetas;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.eatit.R;
+import com.example.eatit.activities.ActivityRecetas;
 import com.example.eatit.entities.Receta;
 import com.example.eatit.entities.Usuario;
 import com.example.eatit.fragments.adapters.AdapterMisRecetas;
@@ -89,9 +91,8 @@ public class FrameMisRecetas extends Fragment {
 
         if (paused) {
             paused = false;
-            CardAddRecetas cardAddRecetas = new CardAddRecetas(getContext(), usuario);
-
-            cardAddRecetas.operacionesCardView();
+            Intent intent = new Intent(getContext(), ActivityRecetas.class);
+            getContext().startActivity(intent);
         }
     }
 

@@ -37,7 +37,7 @@ public class FragmentPasos extends Fragment {
         pasos = view.findViewById(R.id.pasos_receta);
         siguiente = view.findViewById(R.id.siguiente_paso);
         anterior = view.findViewById(R.id.anterior_paso);
-        pasos.setText(receta.getDescripcion());
+        //pasos.setText(receta.getDescripcion());
 
         siguiente.setOnClickListener((View) -> {
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();

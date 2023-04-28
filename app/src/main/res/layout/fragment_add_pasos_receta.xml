@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/negroClaro">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/anterior_paso"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/arrow_left"
+        android:layout_marginTop="29dp"
+        android:layout_marginStart="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/nuevo_paso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center"
+        android:fontFamily="@font/montserrat_medio"
+        android:gravity="center"
+        android:text="@string/crear_paso"
+        android:textColor="@color/doradoClaro"
+        android:textSize="20sp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/siguiente_paso"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/arrow_right"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_nuevo_paso"
+        android:layout_width="wrap_content"
+        android:layout_height="570dp"
+        app:layout_constraintTop_toBottomOf="@+id/nuevo_paso"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Texto Correo electronico -->
+        <TextView
+            android:id="@+id/texto_nuevo_paso"
+            android:layout_width="wrap_content"
+            android:layout_height="23dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/montserrat_light"
+            android:text="@string/desc_paso"
+            android:textColor="@color/doradoClaro"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Layout TextInputEditText Correo Electrónico -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_textInput"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="347dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:fontFamily="@font/montserrat_light"
+            android:textColorHint="@color/doradoClaro"
+            android:textSize="16sp"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/doradoClaro"
+            app:errorEnabled="true"
+            app:helperTextEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/texto_nuevo_paso">
+
+            <!-- TextInput Correo Electrónico Login -->
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/login_textInput_correo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_light"
+                android:hint="@string/desc_paso_hint"
+                android:textColor="@color/doradoClaro"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_next"
+        android:layout_width="175dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal|center"
+        android:layout_marginTop="45dp"
+        android:background="@drawable/btn_login"
+        android:fontFamily="@font/montserrat_medio"
+        android:gravity="center"
+        android:text="@string/nuevo_paso"
+        android:textColor="@color/negroClaro"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/btn_guardar"
+        android:layout_marginBottom="40dp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_guardar"
+        android:layout_width="175dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal|center"
+        android:layout_marginTop="45dp"
+        android:background="@drawable/btn_login"
+        android:fontFamily="@font/montserrat_medio"
+        android:gravity="center"
+        android:text="@string/guardar_receta"
+        android:textColor="@color/negroClaro"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/btn_next"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginBottom="40dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

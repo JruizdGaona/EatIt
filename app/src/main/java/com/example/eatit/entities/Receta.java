@@ -1,24 +1,25 @@
 package com.example.eatit.entities;
 
 import java.io.Serializable;
+import java.net.URI;
+import java.util.List;
 
 /**
  * @author Javier Ruiz de Gaona Tre.
  */
 public class Receta implements Serializable {
-    private String nombre, dificultad, descripcion, ingredientes;
-    private float duracion;
-    private int kcal, raciones;
+    private String nombre, dificultad, duracion;
+    private List<String> ingredientes, pasos;
+    private URI uri;
+    private int raciones;
     private String usuarioId;
 
     public Receta() {}
 
-    public Receta(String nombre, String dificultad, String description, float duracion, int kcal, int raciones, String usuario) {
+    public Receta(String nombre, String dificultad, String duracion, int raciones, String usuario) {
         this.nombre = nombre;
         this.dificultad = dificultad;
         this.duracion = duracion;
-        this.descripcion = description;
-        this.kcal = kcal;
         this.raciones = raciones;
         this.usuarioId = usuario;
     }
@@ -43,28 +44,12 @@ public class Receta implements Serializable {
         this.dificultad = dificultad;
     }
 
-    public float getDuracion() {
+    public String getDuracion() {
         return duracion;
     }
 
-    public void setDuracion(float duracion) {
+    public void setDuracion(String duracion) {
         this.duracion = duracion;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public int getKcal() {
-        return kcal;
-    }
-
-    public void setKcal(int kcal) {
-        this.kcal = kcal;
     }
 
     public int getRaciones() {
@@ -75,19 +60,39 @@ public class Receta implements Serializable {
         this.raciones = raciones;
     }
 
-    public String getIngredientes() {
-        return ingredientes;
-    }
-
-    public void setIngredientes(String ingredientes) {
-        this.ingredientes = ingredientes;
-    }
-
     public String getUsuarioId() {
         return usuarioId;
     }
 
     public void setUsuario(String usuarioId) {
         this.usuarioId = usuarioId;
+    }
+
+    public List<String> getIngredientes() {
+        return ingredientes;
+    }
+
+    public void setIngredientes(List<String> ingredientes) {
+        this.ingredientes = ingredientes;
+    }
+
+    public List<String> getPasos() {
+        return pasos;
+    }
+
+    public void setPasos(List<String> pasos) {
+        this.pasos = pasos;
+    }
+
+    public void setUsuarioId(String usuarioId) {
+        this.usuarioId = usuarioId;
+    }
+
+    public URI getUri() {
+        return uri;
+    }
+
+    public void setUri(URI uri) {
+        this.uri = uri;
     }
 }
