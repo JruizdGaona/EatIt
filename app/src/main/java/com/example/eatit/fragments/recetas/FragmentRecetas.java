@@ -1,4 +1,4 @@
-package com.example.eatit.fragments;
+package com.example.eatit.fragments.recetas;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

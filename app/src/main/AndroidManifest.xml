@@ -22,7 +22,7 @@
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".fragments.ActivityRecetas"
+            android:name=".activities.ActivityRecetas"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="true"
             android:screenOrientation="portrait" />

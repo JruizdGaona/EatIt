@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.eatit.R;
 import com.example.eatit.entities.Receta;
-import com.example.eatit.fragments.ActivityRecetas;
+import com.example.eatit.activities.ActivityRecetas;
 import com.google.android.material.card.MaterialCardView;
 import java.util.List;
 

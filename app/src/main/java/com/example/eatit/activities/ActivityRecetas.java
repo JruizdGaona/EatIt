@@ -1,4 +1,4 @@
-package com.example.eatit.fragments;
+package com.example.eatit.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,12 +6,12 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.eatit.R;
 import com.example.eatit.entities.Receta;
+import com.example.eatit.fragments.recetas.FragmentRecetas;
 import com.google.android.material.imageview.ShapeableImageView;
 
 public class ActivityRecetas extends AppCompatActivity {
