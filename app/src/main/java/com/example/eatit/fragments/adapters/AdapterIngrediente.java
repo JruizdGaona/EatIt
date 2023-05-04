@@ -100,7 +100,7 @@ public class AdapterIngrediente extends RecyclerView.Adapter<AdapterIngrediente.
             boolean desactivado = item.isDesactivado();
 
             if (desactivado) {
-                cv.setCardBackgroundColor(ContextCompat.getColor(context, R.color.grisClaro));
+                cv.findViewById(R.id.disabled_ic_card).setVisibility(View.VISIBLE);
             }
 
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");

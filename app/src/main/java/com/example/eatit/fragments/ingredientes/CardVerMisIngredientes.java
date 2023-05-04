@@ -17,15 +17,18 @@ import androidx.core.content.ContextCompat;
 import com.example.eatit.R;
 import com.example.eatit.entities.Ingrediente;
 import com.example.eatit.entities.Usuario;
+import com.example.eatit.fragments.adapters.AdapterIngrediente;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -36,10 +39,10 @@ public class CardVerMisIngredientes {
 
     // Declaramos las Variables.
     Context context;
-    TextView nombre, fecha_caducidad, tipo, warn_caducado;
-    ImageView warn;
+    TextView nombre, fecha_caducidad, tipo, warn_caducado, warn_deshabilitado;
+    ImageView warn, warnDisabled;
     String name, fecha, tipo_ingredinte;
-    AppCompatButton eliminar, editar;
+    AppCompatButton eliminar, editar, habilitar;
     FirebaseFirestore database;
     CollectionReference coleccion;
     Usuario usuario;
@@ -64,6 +67,8 @@ public class CardVerMisIngredientes {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         MaterialCardView cardView = dialog.findViewById(R.id.cradView_ver_ingredientes);
         warn_caducado = dialog.findViewById(R.id.caducado_text);
+        warnDisabled = dialog.findViewById(R.id.deshabilitado_ic);
+        warn_deshabilitado = dialog.findViewById(R.id.deshabilitado_text);
         warn = dialog.findViewById(R.id.caducado_ic);
 
         if (comprobarFecha(ingrediente)) {
@@ -72,9 +77,45 @@ public class CardVerMisIngredientes {
             warn.setVisibility(View.VISIBLE);
         }
 
+        if (ingrediente.isDesactivado()) {
+            editar = dialog.findViewById(R.id.btn_editar_ingrediente);
+            habilitar = dialog.findViewById(R.id.btn_habilitar_ingrediente);
+            habilitar.setVisibility(View.VISIBLE);
+            editar.setVisibility(View.INVISIBLE);
+            warn_deshabilitado.setVisibility(View.VISIBLE);
+            warnDisabled.setVisibility(View.VISIBLE);
+
+            habilitarIngrediente(ingrediente);
+        }
+
         cargarDatos(ingrediente, dialog);
         cerrarCardView(dialog);
         dialog.show();
+    }
+
+    private void habilitarIngrediente(Ingrediente ingrediente) {
+        habilitar.setOnClickListener((View) -> {
+            Task<QuerySnapshot> obtenerIngrediente = database.collection("ingredientes").whereEqualTo("nombre", ingrediente.getNombre()).get();
+
+            obtenerIngrediente.addOnSuccessListener(ingredienteSnapshot -> {
+                if (!ingredienteSnapshot.isEmpty()) {
+                    DocumentSnapshot documentSnapshotIngrediente = ingredienteSnapshot.getDocuments().get(0);
+                    String idIngrediente = documentSnapshotIngrediente.getId();
+                    DocumentReference ingredienteRef = database.collection("ingredientes").document(idIngrediente);
+
+                    Ingrediente ing = documentSnapshotIngrediente.toObject(Ingrediente.class);
+                    ing.setDesactivado(false);
+
+                    ingredienteRef.update("desactivado", ing.isDesactivado());
+                }
+            });
+
+            Toast.makeText(context, "Ingrediente habilitado", Toast.LENGTH_SHORT).show();
+            habilitar.setVisibility(android.view.View.INVISIBLE);
+            warn_deshabilitado.setVisibility(View.INVISIBLE);
+            warnDisabled.setVisibility(View.INVISIBLE);
+            editar.setVisibility(android.view.View.VISIBLE);
+        });
     }
 
     private boolean comprobarFecha(Ingrediente ingrediente) {

@@ -40,6 +40,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageView
+                android:id="@+id/deshabilitado_ic"
+                android:visibility="invisible"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/ic_alert_disabled"
+                android:contentDescription="@string/warn_caducado"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/caducado_ic" />
+
             <TextView
                 android:id="@+id/caducado_text"
                 android:visibility="invisible"
@@ -53,6 +64,20 @@
                 app:layout_constraintBottom_toBottomOf="@+id/caducado_ic"
                 app:layout_constraintStart_toEndOf="@+id/caducado_ic"
                 app:layout_constraintTop_toTopOf="@+id/caducado_ic" />
+
+            <TextView
+                android:id="@+id/deshabilitado_text"
+                android:visibility="invisible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_medio"
+                android:text="@string/warn_deshabilitado_text"
+                android:textColor="@color/deshabilitado"
+                android:layout_marginStart="10dp"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/deshabilitado_ic"
+                app:layout_constraintStart_toEndOf="@+id/deshabilitado_ic"
+                app:layout_constraintTop_toTopOf="@+id/deshabilitado_ic" />
 
             <!-- Imagen con el botón de Cerrar -->
             <ImageView
@@ -163,6 +188,23 @@
                 android:fontFamily="@font/montserrat_medio"
                 android:gravity="center"
                 android:text="@string/modificar"
+                android:textColor="@color/negroClaro"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout_tipo_ingrediente" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_habilitar_ingrediente"
+                android:layout_width="296dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_horizontal|center"
+                android:layout_marginTop="60dp"
+                android:background="@drawable/btn_login"
+                android:fontFamily="@font/montserrat_medio"
+                android:gravity="center"
+                android:visibility="invisible"
+                android:text="@string/habilitar"
                 android:textColor="@color/negroClaro"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
