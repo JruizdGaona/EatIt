@@ -17,8 +17,12 @@ import com.example.eatit.entities.Usuario;
 public class FragmentMisIngredientes extends Fragment {
 
     private Usuario usuario;
+    private String correo;
 
-    public FragmentMisIngredientes(Usuario usuario) {this.usuario = usuario;}
+    public FragmentMisIngredientes(Usuario usuario) {
+        this.usuario = usuario;
+        this.correo = usuario.getCorreo();
+    }
 
     /**
      * Método onCreate del fragment de Ingredientes.

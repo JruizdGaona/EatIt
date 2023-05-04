@@ -16,8 +16,11 @@ import com.example.eatit.entities.Ingrediente;
 import com.example.eatit.entities.Usuario;
 import com.example.eatit.fragments.adapters.AdapterIngrediente;
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,11 +31,10 @@ import java.util.List;
 public class FrameIngredientes extends Fragment {
 
     // Declaración de Variables.
-    List<Ingrediente> ingredientes = new ArrayList<>();
     RecyclerView recyclerView;
     AdapterIngrediente adapterIngrediente;
     Usuario usuario;
-    FirebaseFirestore database;
+    FirebaseFirestore database = FirebaseFirestore.getInstance();
     CollectionReference coleccion;
     private boolean paused = false, form = false, barcode = false;
 
@@ -113,9 +115,32 @@ public class FrameIngredientes extends Fragment {
      * Método que crea los ingredientes y los carga en el adapter de ingredientes.
      */
     private void mostrarIngredientes() {
-        ingredientes = usuario.getIngredientes();
-        if (ingredientes == null) ingredientes = new ArrayList<>();
-        adapterIngrediente = new AdapterIngrediente(ingredientes, FrameIngredientes.this.getContext(), usuario);
-        recyclerView.setAdapter(adapterIngrediente);
+        Task<QuerySnapshot> obtenerUsuario = database.collection("usuarios").whereEqualTo("correo", usuario.getCorreo()).get();
+
+        obtenerUsuario.addOnSuccessListener(usuarioSnapshot -> {
+            if (!usuarioSnapshot.isEmpty()) {
+                DocumentSnapshot documentSnapshotUsuario = usuarioSnapshot.getDocuments().get(0);
+                String idUsuario = documentSnapshotUsuario.getId();
+
+                Task<QuerySnapshot> obtenerIngredientesUsuario = database.collection("ingredientes").whereEqualTo("usuarioId", idUsuario).get();
+
+                obtenerIngredientesUsuario.addOnSuccessListener(ingredientesSnapshot -> {
+                    List<Ingrediente> ingredientes = new ArrayList<>();
+
+                    if (!ingredientesSnapshot.isEmpty()) {
+                        List<DocumentSnapshot> documents = ingredientesSnapshot.getDocuments();
+                        if (!documents.isEmpty()) {
+                            for (DocumentSnapshot ds: documents) {
+                                Ingrediente ing = ds.toObject(Ingrediente.class);
+                                ingredientes.add(ing);
+                            }
+                        }
+                    }
+
+                    adapterIngrediente = new AdapterIngrediente(ingredientes, FrameIngredientes.this.getContext(), usuario);
+                    recyclerView.setAdapter(adapterIngrediente);
+                });
+            }
+        });
     }
 }

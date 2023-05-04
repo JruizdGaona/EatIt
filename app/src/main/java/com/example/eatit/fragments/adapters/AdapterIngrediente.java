@@ -97,6 +97,11 @@ public class AdapterIngrediente extends RecyclerView.Adapter<AdapterIngrediente.
         void bindData(@NonNull final Ingrediente item) {
             nombre.setText((item.getNombre()));
             String fechaCad = item.getFechaCaducidad();
+            boolean desactivado = item.isDesactivado();
+
+            if (desactivado) {
+                cv.setCardBackgroundColor(ContextCompat.getColor(context, R.color.grisClaro));
+            }
 
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
             try {

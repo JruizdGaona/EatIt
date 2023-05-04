@@ -82,6 +82,7 @@ public class FragmentPasos extends Fragment {
             botonFin.setOnClickListener((View) -> {
                 cargarRecetas();
                 actualizarPopularidadRecetas();
+                actualizarEstadoIngredientes();
             });
 
             anterior.setOnClickListener((View) -> {
@@ -205,5 +206,26 @@ public class FragmentPasos extends Fragment {
                 recetaRef.update("popularidad", receta.getPopularidad());
             }
         });
+    }
+
+    private void actualizarEstadoIngredientes() {
+        for (String nombreIngrediente: receta.getIngredientes()) {
+            Task<QuerySnapshot> obtenerIngrediente = database.collection("ingredientes").whereEqualTo("nombre", nombreIngrediente).get();
+
+            obtenerIngrediente.addOnSuccessListener(ingredienteSnapshot -> {
+               Ingrediente ingrediente;
+
+               if (!ingredienteSnapshot.isEmpty()) {
+                   DocumentSnapshot documentSnapshotIngrediente = ingredienteSnapshot.getDocuments().get(0);
+                   String idIngrediente = documentSnapshotIngrediente.getId();
+                   DocumentReference ingredienteRef = database.collection("ingredientes").document(idIngrediente);
+
+                   ingrediente = documentSnapshotIngrediente.toObject(Ingrediente.class);
+                   ingrediente.setDesactivado(true);
+
+                   ingredienteRef.update("desactivado", ingrediente.isDesactivado());
+               }
+            });
+        }
     }
 }
