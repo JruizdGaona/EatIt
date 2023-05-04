@@ -68,7 +68,7 @@ public class FragmentPasosRecetas extends Fragment {
     private void inicializarVariables(View view) {
         guardar = view.findViewById(R.id.btn_guardar);
         nuevoPaso = view.findViewById(R.id.btn_next);
-        pasoET = view.findViewById(R.id.login_textInput_correo);
+        pasoET = view.findViewById(R.id.textInput_pasos);
         img_avanzar = view.findViewById(R.id.siguiente_paso);
         img_retroceso = view.findViewById(R.id.anterior_paso);
     }
@@ -136,13 +136,13 @@ public class FragmentPasosRecetas extends Fragment {
     }
 
     private void guardarReceta() {
-        paso = pasoET.getText().toString();
-        List<String> pasosActuales = receta.getPasos();
-        pasosActuales.add(paso);
-
-        receta.setPasos(pasosActuales);
-
         guardar.setOnClickListener((view) -> {
+            paso = pasoET.getText().toString();
+            List<String> pasosActuales = receta.getPasos();
+            pasosActuales.add(paso);
+
+            receta.setPasos(pasosActuales);
+
             Task<QuerySnapshot> obtenerUsuario = database.collection("usuarios").whereEqualTo("correo", email).get();
             obtenerUsuario.addOnSuccessListener(usuarioSnapshot -> {
                 Usuario usuario;

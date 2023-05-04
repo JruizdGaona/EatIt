@@ -80,7 +80,7 @@
 
             <!-- TextInput Correo Electrónico Login -->
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/login_textInput_correo"
+                android:id="@+id/textInput_pasos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_light"
