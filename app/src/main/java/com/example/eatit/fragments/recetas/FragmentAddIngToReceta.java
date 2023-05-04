@@ -149,16 +149,35 @@ public class FragmentAddIngToReceta extends Fragment {
     private void cargarIngredientes() {
         Task<QuerySnapshot> obtenerUsuario = database.collection("usuarios").whereEqualTo("correo", email).get();
         obtenerUsuario.addOnSuccessListener(usuarioSnapshot -> {
-            Usuario usuario;
-
             if (!usuarioSnapshot.isEmpty()) {
                 DocumentSnapshot documentSnapshotUsuario = usuarioSnapshot.getDocuments().get(0);
                 String idUsuario = documentSnapshotUsuario.getId();
-                DocumentReference userRef = database.collection("usuarios").document(idUsuario);
 
-                usuario = documentSnapshotUsuario.toObject(Usuario.class);
-                List<Ingrediente> ingredientes = usuario.getIngredientes();
-                rellenarCheckbox(ingredientes);
+                Task<QuerySnapshot> obtenerIngredientesUsuario = database.collection("ingredientes").whereEqualTo("usuarioId", idUsuario).get();
+
+                obtenerIngredientesUsuario.addOnSuccessListener(ingredientesSnapshot -> {
+                    List<Ingrediente> ingredientes = new ArrayList<>();
+
+                    if (!ingredientesSnapshot.isEmpty()) {
+                        List<DocumentSnapshot> documents = ingredientesSnapshot.getDocuments();
+                        if (!documents.isEmpty()) {
+                            for (DocumentSnapshot ds: documents) {
+                                Ingrediente ing = ds.toObject(Ingrediente.class);
+                                ingredientes.add(ing);
+                            }
+                        }
+                    }
+
+                    List<Ingrediente> ingredientesToShow = new ArrayList<>();
+
+                    for (Ingrediente i: ingredientes) {
+                        if (!i.isDesactivado()) {
+                            ingredientesToShow.add(i);
+                        }
+                    }
+
+                    rellenarCheckbox(ingredientesToShow);
+                });
             }
         });
     }
