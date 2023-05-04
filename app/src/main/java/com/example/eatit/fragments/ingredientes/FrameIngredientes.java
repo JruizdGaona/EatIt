@@ -114,6 +114,7 @@ public class FrameIngredientes extends Fragment {
      */
     private void mostrarIngredientes() {
         ingredientes = usuario.getIngredientes();
+        if (ingredientes == null) ingredientes = new ArrayList<>();
         adapterIngrediente = new AdapterIngrediente(ingredientes, FrameIngredientes.this.getContext(), usuario);
         recyclerView.setAdapter(adapterIngrediente);
     }

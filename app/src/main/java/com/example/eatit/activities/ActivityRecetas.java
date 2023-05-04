@@ -3,6 +3,7 @@ package com.example.eatit.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,13 +16,16 @@ import com.example.eatit.fragments.recetas.FragmentCrearReceta;
 import com.example.eatit.fragments.recetas.FragmentRecetas;
 import com.google.android.material.imageview.ShapeableImageView;
 
-public class ActivityRecetas extends AppCompatActivity {
+import java.io.Serializable;
+
+public class ActivityRecetas extends AppCompatActivity implements Serializable {
 
     private AppCompatImageView imagenRetroceso;
     private TextView nombreReceta;
     private ShapeableImageView imagenReceta;
     private Receta receta;
-    private int crear;
+    private boolean crear = false;
+    String email;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,28 +39,28 @@ public class ActivityRecetas extends AppCompatActivity {
 
     private void inicializarVariables() {
         Intent intent = getIntent();
+        email = intent.getStringExtra("email");
         receta = (Receta) intent.getSerializableExtra("receta");
         imagenRetroceso = findViewById(R.id.img_back);
         nombreReceta = findViewById(R.id.recetas);
         imagenReceta = findViewById(R.id.img_receta);
         if (receta != null) {
             nombreReceta.setText(receta.getNombre());
-        } else crear = 1;
+        } else crear = true;
     }
 
     private void cargarFragmentInicio() {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
-        if (crear == 1) {
-            fragmentTransaction.replace(R.id.frame_info, new FragmentCrearReceta()).commit();
+        if (crear) {
+            Toast.makeText(this, "Usu: " + email, Toast.LENGTH_SHORT).show();
+            fragmentTransaction.replace(R.id.frame_info, new FragmentCrearReceta(email)).commit();
         } else {
             fragmentTransaction.replace(R.id.frame_info, new FragmentRecetas(receta)).commit();
         }
     }
 
     private void cerrarActivity() {
-        imagenRetroceso.setOnClickListener((view) -> {
-            this.finish();
-        });
+        imagenRetroceso.setOnClickListener((view) -> this.finish());
     }
 }

@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +20,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.eatit.R;
 import com.example.eatit.entities.Receta;
+import com.example.eatit.entities.Usuario;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -28,10 +30,14 @@ public class FragmentCrearReceta extends Fragment {
     private AppCompatButton boton_siguiente;
     private Receta receta;
     private Spinner spinnerDificultad;
-    TextInputEditText tiempoET, comensalesET;
+    TextInputEditText tiempoET, comensalesET, nombreET;
     TextInputLayout tiempo, comensales;
     private String dificultad;
-    private ImageView imagen;
+    String email;
+
+    public FragmentCrearReceta(String email) {
+        this.email = email;
+    }
 
     @Nullable
     @Override
@@ -46,7 +52,6 @@ public class FragmentCrearReceta extends Fragment {
 
         view.setOnTouchListener((view1, motionEvent) -> ocultar());
         clickSiguienteBtn();
-        clickSiguientImg();
     }
 
     private void inicializarVariables(View view) {
@@ -59,8 +64,7 @@ public class FragmentCrearReceta extends Fragment {
         tiempo = view.findViewById(R.id.layoutTextInput_tiempo);
         comensalesET = view.findViewById(R.id.textInput_comensales);
         comensales = view.findViewById(R.id.layoutTextInput_comensales);
-        imagen = view.findViewById(R.id.siguiente_paso);
-
+        nombreET = view.findViewById(R.id.textInput_nombre);
 
         spinnerDificultad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -80,23 +84,11 @@ public class FragmentCrearReceta extends Fragment {
             receta.setDuracion(tiempoET.getText().toString());
             receta.setRaciones(Integer.parseInt(comensalesET.getText().toString()));
             receta.setDificultad(dificultad);
+            receta.setNombre(nombreET.getText().toString());
 
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
-            fragmentTransaction.replace(R.id.frame_info, new FragmentAddIngToReceta(receta));
-            fragmentTransaction.commit();
-        });
-    }
-
-    private void clickSiguientImg() {
-        imagen.setOnClickListener((view) -> {
-            receta.setDuracion(tiempoET.getText().toString());
-            receta.setRaciones(Integer.parseInt(comensalesET.getText().toString()));
-            receta.setDificultad(dificultad);
-
-            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
-            fragmentTransaction.replace(R.id.frame_info, new FragmentAddIngToReceta(receta));
+            fragmentTransaction.replace(R.id.frame_info, new FragmentAddIngToReceta(receta, email));
             fragmentTransaction.commit();
         });
     }

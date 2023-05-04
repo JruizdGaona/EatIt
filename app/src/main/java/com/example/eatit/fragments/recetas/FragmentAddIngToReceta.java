@@ -21,7 +21,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.eatit.R;
+import com.example.eatit.entities.Ingrediente;
 import com.example.eatit.entities.Receta;
+import com.example.eatit.entities.Usuario;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,9 +42,13 @@ public class FragmentAddIngToReceta extends Fragment {
     private AppCompatButton botonNext;
     private LinearLayout checkBoxContainer;
     private ImageView img_avanzar, img_retroceso;
+    private String email;
+    private FirebaseFirestore database = FirebaseFirestore.getInstance();
+    private CollectionReference coleccion = database.collection("recetas");
 
-    public FragmentAddIngToReceta(Receta receta) {
+    public FragmentAddIngToReceta(Receta receta, String email) {
         this.receta = receta;
+        this.email = email;
     }
 
     @Nullable
@@ -71,14 +83,13 @@ public class FragmentAddIngToReceta extends Fragment {
                     }
                 }
             }
-            // TODO: Añadir los elementos seleccionados a los ingredientes de la receta
             receta.setIngredientes(opcionesSeleccionadas);
 
             Toast.makeText(getContext(), "Se han seleccionado " + opcionesSeleccionadas.size(), Toast.LENGTH_SHORT).show();
 
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
-            fragmentTransaction.replace(R.id.frame_info, new FragmentPasosRecetas(receta, 0));
+            fragmentTransaction.replace(R.id.frame_info, new FragmentPasosRecetas(receta, 0, email));
             fragmentTransaction.commit();
         });
     }
@@ -98,14 +109,13 @@ public class FragmentAddIngToReceta extends Fragment {
                     }
                 }
             }
-            // TODO: Añadir los elementos seleccionados a los ingredientes de la receta
             receta.setIngredientes(opcionesSeleccionadas);
 
             Toast.makeText(getContext(), "Se han seleccionado " + opcionesSeleccionadas.size(), Toast.LENGTH_SHORT).show();
 
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
-            fragmentTransaction.replace(R.id.frame_info, new FragmentPasosRecetas(receta, 0));
+            fragmentTransaction.replace(R.id.frame_info, new FragmentPasosRecetas(receta, 0, email));
             fragmentTransaction.commit();
         });
     }
@@ -125,22 +135,36 @@ public class FragmentAddIngToReceta extends Fragment {
                     }
                 }
             }
-            // TODO: Añadir los elementos seleccionados a los ingredientes de la receta
             receta.setIngredientes(opcionesSeleccionadas);
 
             Toast.makeText(getContext(), "Se han seleccionado " + opcionesSeleccionadas.size(), Toast.LENGTH_SHORT).show();
 
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.from_left, R.anim.to_right);
-            fragmentTransaction.replace(R.id.frame_info, new FragmentCrearReceta());
+            fragmentTransaction.replace(R.id.frame_info, new FragmentCrearReceta(email));
             fragmentTransaction.commit();
         });
     }
 
     private void cargarIngredientes() {
-        List<String> opciones = Arrays.asList("Opción 1", "Opción 2", "Opción 3", "Opción 4", "Opción 5", "Opción 6", "Opción 7", "Opción 8", "Opción 9", "Opción 10");
+        Task<QuerySnapshot> obtenerUsuario = database.collection("usuarios").whereEqualTo("correo", email).get();
+        obtenerUsuario.addOnSuccessListener(usuarioSnapshot -> {
+            Usuario usuario;
 
-        for (int i = 0; i < opciones.size(); i++) {
+            if (!usuarioSnapshot.isEmpty()) {
+                DocumentSnapshot documentSnapshotUsuario = usuarioSnapshot.getDocuments().get(0);
+                String idUsuario = documentSnapshotUsuario.getId();
+                DocumentReference userRef = database.collection("usuarios").document(idUsuario);
+
+                usuario = documentSnapshotUsuario.toObject(Usuario.class);
+                List<Ingrediente> ingredientes = usuario.getIngredientes();
+                rellenarCheckbox(ingredientes);
+            }
+        });
+    }
+
+    private void rellenarCheckbox(List<Ingrediente> ingredientes) {
+        for (int i = 0; i < ingredientes.size(); i++) {
             CheckBox checkBox = new CheckBox(getContext());
 
             checkBox.setPadding(20,20,20,20);
@@ -149,7 +173,7 @@ public class FragmentAddIngToReceta extends Fragment {
             Typeface typeface = ResourcesCompat.getFont(getContext(), R.font.montserrat_medio);
             checkBox.setTypeface(typeface);
 
-            checkBox.setText(opciones.get(i));
+            checkBox.setText(ingredientes.get(i).getNombre());
             checkBoxContainer.addView(checkBox);
         }
     }

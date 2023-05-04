@@ -5,39 +5,62 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/negroClaro">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/crear_receta"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_nombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|center"
-        android:fontFamily="@font/montserrat_medio"
-        android:gravity="center"
-        android:text="@string/activity_paso1"
-        android:textColor="@color/doradoClaro"
-        android:textSize="20sp"
-        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/siguiente_paso"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/arrow_right"
-        android:layout_marginTop="29dp"
-        android:layout_marginEnd="25dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/texto_nombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/montserrat_light"
+            android:text="@string/texto_nombre"
+            android:textColor="@color/doradoClaro"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutTextInput_nombre"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="7dp"
+            android:fontFamily="@font/montserrat_light"
+            android:textColorHint="@color/doradoClaro"
+            android:textSize="16sp"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/doradoClaro"
+            app:errorEnabled="true"
+            app:helperTextEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/texto_nombre">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInput_nombre"
+                android:layout_width="330dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_light"
+                android:hint="@string/texto_nombre_hint"
+                android:textColor="@color/doradoClaro"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_tiempo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/crear_receta">
+        app:layout_constraintTop_toBottomOf="@+id/layout_nombre">
 
         <TextView
             android:id="@+id/texto_tiempo"
@@ -83,7 +106,6 @@
         android:id="@+id/layout_comensales"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_tiempo">
@@ -132,7 +154,6 @@
         android:id="@+id/layout_dificultad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_comensales">
@@ -141,7 +162,6 @@
             android:id="@+id/texto_dificultad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:fontFamily="@font/montserrat_light"
             android:text="@string/texto_dificultad"
             android:textColor="@color/doradoClaro"

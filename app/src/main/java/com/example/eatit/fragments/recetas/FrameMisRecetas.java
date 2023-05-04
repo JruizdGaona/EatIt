@@ -35,7 +35,6 @@ public class FrameMisRecetas extends Fragment {
     Usuario usuario;
     FirebaseFirestore database;
     CollectionReference coleccion;
-    private boolean paused = false;
 
     public FrameMisRecetas(Usuario usuario) {
         this.usuario = usuario;
@@ -71,9 +70,13 @@ public class FrameMisRecetas extends Fragment {
         FloatingActionButton floatingActionButton = view.findViewById(R.id.floatingActionButtonMisRecetas);
 
         floatingActionButton.setOnClickListener((View) -> {
-            paused = true;
-            this.onPause();
+            Intent intent = new Intent(getContext(), ActivityRecetas.class);
+            intent.putExtra("email", usuario.getCorreo());
+            getContext().startActivity(intent);
         });
+
+        database = FirebaseFirestore.getInstance();
+        coleccion = database.collection("recetas");
     }
 
     /**
@@ -81,33 +84,8 @@ public class FrameMisRecetas extends Fragment {
      */
     private void mostrarRecetas() {
         recetas = usuario.getRecetasCreadas();
+        if (recetas == null) recetas = new ArrayList<>();
         adapterMisRecetas = new AdapterMisRecetas(recetas, FrameMisRecetas.this.getContext());
         recyclerView.setAdapter(adapterMisRecetas);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        if (paused) {
-            paused = false;
-            Intent intent = new Intent(getContext(), ActivityRecetas.class);
-            getContext().startActivity(intent);
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        database = FirebaseFirestore.getInstance();
-        coleccion = database.collection("recetas");
-
-        coleccion.addSnapshotListener((snapshot, e) -> {
-            if (e != null) {
-                return;
-            }
-            mostrarRecetas();
-        });
     }
 }

@@ -63,7 +63,8 @@ public class FragmentRecetas extends Fragment {
 
         if (receta.getIngredientes() != null) {
             for (String ing: receta.getIngredientes()) {
-                finalIng = finalIng + ing + "\n" + "- ";
+                ing = "- " + ing + "\n\n";
+                finalIng = finalIng + ing;
             }
 
             return finalIng;
