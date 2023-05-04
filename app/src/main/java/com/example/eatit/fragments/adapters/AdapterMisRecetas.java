@@ -24,15 +24,17 @@ public class AdapterMisRecetas extends RecyclerView.Adapter<AdapterMisRecetas.My
     private final List<Receta> recetas;
     private final Context context;
     TextView nombre;
+    private String email;
 
     /**
      * Constructor del Adapter de Recetas.
      * @param re Lista de recetas a añadir en el Fragment.
      * @param context Contexto en el que usamos el Adapter.
      */
-    public AdapterMisRecetas(List<Receta> re, Context context){
+    public AdapterMisRecetas(List<Receta> re, Context context, String correo){
         this.recetas = re;
         this.context = context;
+        this.email = correo;
     }
 
     /**
@@ -62,6 +64,7 @@ public class AdapterMisRecetas extends RecyclerView.Adapter<AdapterMisRecetas.My
         holder.cv.setOnClickListener((view) -> {
             Intent intent = new Intent(context, ActivityRecetas.class);
             intent.putExtra("receta", recetas.get(position));
+            intent.putExtra("email", email);
             context.startActivity(intent);
         });
     }

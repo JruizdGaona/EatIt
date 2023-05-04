@@ -85,7 +85,7 @@ public class FrameMisRecetas extends Fragment {
     private void mostrarRecetas() {
         recetas = usuario.getRecetasCreadas();
         if (recetas == null) recetas = new ArrayList<>();
-        adapterMisRecetas = new AdapterMisRecetas(recetas, FrameMisRecetas.this.getContext());
+        adapterMisRecetas = new AdapterMisRecetas(recetas, FrameMisRecetas.this.getContext(), usuario.getCorreo());
         recyclerView.setAdapter(adapterMisRecetas);
     }
 }

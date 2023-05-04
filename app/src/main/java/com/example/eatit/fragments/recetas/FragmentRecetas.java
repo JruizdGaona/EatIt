@@ -19,9 +19,11 @@ public class FragmentRecetas extends Fragment {
     private Receta receta;
     private AppCompatTextView dificultad, tiempo, comensales, ingredientes;
     private AppCompatButton comenzarReceta;
+    private String email;
 
-    public FragmentRecetas(Receta receta) {
+    public FragmentRecetas(Receta receta, String email) {
         this.receta = receta;
+        this.email = email;
     }
 
     @Nullable
@@ -53,7 +55,7 @@ public class FragmentRecetas extends Fragment {
         comenzarReceta.setOnClickListener((view) -> {
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
-            fragmentTransaction.replace(R.id.frame_info, new FragmentPasos(receta));
+            fragmentTransaction.replace(R.id.frame_info, new FragmentPasos(receta, 0, email));
             fragmentTransaction.commit();
         });
     }

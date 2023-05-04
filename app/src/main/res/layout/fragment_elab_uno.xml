@@ -26,7 +26,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/ingredientes"
+        android:id="@+id/pasos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|center"
@@ -48,9 +48,9 @@
         android:scrollbars="none"
         android:layout_marginTop="10dp"
         app:layout_constraintHeight_max="400dp"
-        app:layout_constraintStart_toStartOf="@+id/ingredientes"
-        app:layout_constraintEnd_toEndOf="@+id/ingredientes"
-        app:layout_constraintTop_toBottomOf="@+id/ingredientes">
+        app:layout_constraintStart_toStartOf="@+id/pasos"
+        app:layout_constraintEnd_toEndOf="@+id/pasos"
+        app:layout_constraintTop_toBottomOf="@+id/pasos">
 
         <!-- Layout para el CardView -->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -72,8 +72,25 @@
     </ScrollView>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_anterior"
+        android:layout_width="175dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal|center"
+        android:layout_marginTop="45dp"
+        android:background="@drawable/btn_login"
+        android:fontFamily="@font/montserrat_medio"
+        android:gravity="center"
+        android:text="@string/anterior"
+        android:textColor="@color/negroClaro"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/btn_siguiente"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginBottom="40dp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_siguiente"
-        android:layout_width="296dp"
+        android:layout_width="175dp"
         android:layout_height="48dp"
         android:layout_gravity="center_horizontal|center"
         android:layout_marginTop="45dp"
@@ -85,7 +102,24 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/btn_anterior"
+        android:layout_marginBottom="40dp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_finalizar"
+        android:layout_width="175dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal|center"
+        android:layout_marginTop="45dp"
+        android:background="@drawable/btn_login"
+        android:fontFamily="@font/montserrat_medio"
+        android:gravity="center"
+        android:text="@string/fin"
+        android:textColor="@color/negroClaro"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/btn_anterior"
         android:layout_marginBottom="40dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

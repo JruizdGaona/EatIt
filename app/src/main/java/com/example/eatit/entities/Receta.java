@@ -3,6 +3,7 @@ package com.example.eatit.entities;
 import java.io.Serializable;
 import java.net.URI;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Javier Ruiz de Gaona Tre.
@@ -11,7 +12,7 @@ public class Receta implements Serializable {
     private String nombre, dificultad, duracion;
     private List<String> ingredientes, pasos;
     private URI uri;
-    private int raciones;
+    private int raciones, popularidad;
     private String usuarioId;
 
     public Receta() {}
@@ -94,5 +95,22 @@ public class Receta implements Serializable {
 
     public void setUri(URI uri) {
         this.uri = uri;
+    }
+
+    public int getPopularidad() {return popularidad;}
+
+    public void setPopularidad(int popularidad) {this.popularidad = popularidad;}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Receta receta = (Receta) o;
+        return raciones == receta.raciones && popularidad == receta.popularidad && Objects.equals(nombre, receta.nombre) && Objects.equals(dificultad, receta.dificultad) && Objects.equals(duracion, receta.duracion) && Objects.equals(ingredientes, receta.ingredientes) && Objects.equals(pasos, receta.pasos) && Objects.equals(uri, receta.uri) && Objects.equals(usuarioId, receta.usuarioId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombre, dificultad, duracion, ingredientes, pasos, uri, raciones, popularidad, usuarioId);
     }
 }

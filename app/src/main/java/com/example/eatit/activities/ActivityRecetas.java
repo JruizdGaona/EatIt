@@ -53,10 +53,9 @@ public class ActivityRecetas extends AppCompatActivity implements Serializable {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
         if (crear) {
-            Toast.makeText(this, "Usu: " + email, Toast.LENGTH_SHORT).show();
             fragmentTransaction.replace(R.id.frame_info, new FragmentCrearReceta(email)).commit();
         } else {
-            fragmentTransaction.replace(R.id.frame_info, new FragmentRecetas(receta)).commit();
+            fragmentTransaction.replace(R.id.frame_info, new FragmentRecetas(receta, email)).commit();
         }
     }
 
