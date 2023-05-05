@@ -1,5 +1,7 @@
 package com.example.eatit.entities;
 
+import android.net.Uri;
+
 import java.io.Serializable;
 import java.net.URI;
 import java.util.List;
@@ -11,7 +13,7 @@ import java.util.Objects;
 public class Receta implements Serializable {
     private String nombre, dificultad, duracion;
     private List<String> ingredientes, pasos;
-    private URI uri;
+    private Uri uri;
     private int raciones, popularidad;
     private String usuarioId;
 
@@ -89,11 +91,11 @@ public class Receta implements Serializable {
         this.usuarioId = usuarioId;
     }
 
-    public URI getUri() {
+    public Uri getUri() {
         return uri;
     }
 
-    public void setUri(URI uri) {
+    public void setUri(Uri uri) {
         this.uri = uri;
     }
 

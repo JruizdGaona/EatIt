@@ -141,7 +141,7 @@ public class FragmentAddIngToReceta extends Fragment {
 
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.from_left, R.anim.to_right);
-            fragmentTransaction.replace(R.id.frame_info, new FragmentCrearReceta(email));
+            fragmentTransaction.replace(R.id.frame_info, new FragmentCrearReceta(email, receta));
             fragmentTransaction.commit();
         });
     }

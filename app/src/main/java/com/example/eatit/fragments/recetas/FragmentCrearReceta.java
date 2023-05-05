@@ -35,8 +35,9 @@ public class FragmentCrearReceta extends Fragment {
     private String dificultad;
     String email;
 
-    public FragmentCrearReceta(String email) {
+    public FragmentCrearReceta(String email, Receta receta) {
         this.email = email;
+        this.receta = receta;
     }
 
     @Nullable
@@ -55,7 +56,6 @@ public class FragmentCrearReceta extends Fragment {
     }
 
     private void inicializarVariables(View view) {
-        receta = new Receta();
         boton_siguiente = view.findViewById(R.id.btn_next);
         spinnerDificultad = view.findViewById(R.id.spinner_dificultad);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, dificultadReceta);
