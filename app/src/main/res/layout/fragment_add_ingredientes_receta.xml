@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/negroClaro">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/img_dificultad"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        app:lottie_loop="true"
+        app:lottie_autoPlay="true"
+        app:lottie_rawRes="@raw/dificultad"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="15dp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_dificultad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="60dp"
+        app:layout_constraintLeft_toLeftOf="@id/img_dificultad"
+        app:layout_constraintRight_toRightOf="@id/img_dificultad"
+        android:text="@string/activity_dificultad"
+        android:textColor="@color/doradoClaro"
+        android:fontFamily="@font/montserrat_medio"
+        android:textSize="15sp"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/img_tiempo"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        app:lottie_loop="true"
+        app:lottie_autoPlay="true"
+        app:lottie_rawRes="@raw/clock"
+        app:layout_constraintTop_toTopOf="@+id/img_dificultad"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/img_dificultad"
+        android:layout_marginBottom="9dp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_tiempo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="60dp"
+        app:layout_constraintLeft_toLeftOf="@id/img_tiempo"
+        app:layout_constraintRight_toRightOf="@id/img_tiempo"
+        android:text="@string/activity_tiempo"
+        android:textColor="@color/doradoClaro"
+        android:fontFamily="@font/montserrat_medio"
+        android:textSize="15sp"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/img_comensales"
+        android:layout_width="145dp"
+        android:layout_height="145dp"
+        app:lottie_loop="true"
+        app:lottie_autoPlay="true"
+        app:lottie_rawRes="@raw/comensales"
+        app:layout_constraintTop_toTopOf="@+id/img_tiempo"
+        app:layout_constraintStart_toEndOf="@+id/img_tiempo"
+        android:layout_marginStart="55dp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_tiempo" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_comensales"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="60dp"
+        app:layout_constraintLeft_toLeftOf="@id/img_comensales"
+        app:layout_constraintRight_toRightOf="@id/img_comensales"
+        android:text="@string/activity_comensales"
+        android:textColor="@color/doradoClaro"
+        android:fontFamily="@font/montserrat_medio"
+        android:textSize="15sp"/>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="315dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="25dp"
+        android:background="@color/doradoClaro"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_tiempo" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/anterior_paso"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/arrow_left"
+        android:layout_marginTop="29dp"
+        android:layout_marginStart="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/ingredientes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center"
+        android:fontFamily="@font/montserrat_medio"
+        android:gravity="center"
+        android:text="@string/activity_ingredientes"
+        android:textColor="@color/doradoClaro"
+        android:textSize="20sp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/siguiente_paso"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/arrow_right"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout" />
+
+    <ScrollView
+        android:id="@+id/check_box_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constrainedHeight="true"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:scrollbars="none"
+        app:layout_constraintHeight_max="300dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ingredientes">
+
+        <LinearLayout
+            android:id="@+id/container_ch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+    </ScrollView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_next"
+        android:layout_width="296dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal|center"
+        android:layout_marginTop="45dp"
+        android:background="@drawable/btn_login"
+        android:fontFamily="@font/montserrat_medio"
+        android:gravity="center"
+        android:text="@string/btn_add_receta"
+        android:textColor="@color/negroClaro"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginBottom="40dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

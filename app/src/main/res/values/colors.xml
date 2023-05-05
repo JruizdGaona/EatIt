@@ -17,6 +17,9 @@
     <!-- Color para los ingredientes caducados -->
     <color name="caducado">#8b0000</color>
 
+    <!-- Color para los ingredientes deshabilitados -->
+    <color name="deshabilitado">#FFA500</color>
+
     <!-- Colores restantes (Aún sin usar) -->
     <color name="doradoClaro2">#aa905e</color>
     <color name="doradoClaro3">#9a8356</color>

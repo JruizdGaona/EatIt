@@ -98,7 +98,7 @@ public class CardAddRecetas {
             nombre.setText(receta.getNombre());
             name.setText(receta.getNombre());
             tiempo.setText(String.valueOf(receta.getDuracion()));
-            descripcion.setText(receta.getDescripcion());
+            //descripcion.setText(receta.getDescripcion());
         }
     }
 
@@ -153,7 +153,7 @@ public class CardAddRecetas {
                 DocumentSnapshot documentSnapshot = documentSnapshots.getDocuments().get(0);
                 String id = documentSnapshot.getId();
                 DocumentReference userRef = database.collection("usuarios").document(id);
-                Receta receta = new Receta(nombre, dif, desc, time, 0, personas, id);
+                Receta receta = new Receta(nombre, dif, String.valueOf(time), 0, id);
                 List<Receta> recetas = usuario.getRecetasCreadas();
 
                 if (recetas == null) recetas = new ArrayList<>();

@@ -1,5 +1,6 @@
 package com.example.eatit.fragments.recetas;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.eatit.R;
+import com.example.eatit.activities.ActivityRecetas;
 import com.example.eatit.entities.Receta;
 import com.example.eatit.entities.Usuario;
 import com.example.eatit.fragments.adapters.AdapterMisRecetas;
@@ -33,7 +35,6 @@ public class FrameMisRecetas extends Fragment {
     Usuario usuario;
     FirebaseFirestore database;
     CollectionReference coleccion;
-    private boolean paused = false;
 
     public FrameMisRecetas(Usuario usuario) {
         this.usuario = usuario;
@@ -69,9 +70,13 @@ public class FrameMisRecetas extends Fragment {
         FloatingActionButton floatingActionButton = view.findViewById(R.id.floatingActionButtonMisRecetas);
 
         floatingActionButton.setOnClickListener((View) -> {
-            paused = true;
-            this.onPause();
+            Intent intent = new Intent(getContext(), ActivityRecetas.class);
+            intent.putExtra("email", usuario.getCorreo());
+            getContext().startActivity(intent);
         });
+
+        database = FirebaseFirestore.getInstance();
+        coleccion = database.collection("recetas");
     }
 
     /**
@@ -79,34 +84,8 @@ public class FrameMisRecetas extends Fragment {
      */
     private void mostrarRecetas() {
         recetas = usuario.getRecetasCreadas();
-        adapterMisRecetas = new AdapterMisRecetas(recetas, FrameMisRecetas.this.getContext());
+        if (recetas == null) recetas = new ArrayList<>();
+        adapterMisRecetas = new AdapterMisRecetas(recetas, FrameMisRecetas.this.getContext(), usuario.getCorreo());
         recyclerView.setAdapter(adapterMisRecetas);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        if (paused) {
-            paused = false;
-            CardAddRecetas cardAddRecetas = new CardAddRecetas(getContext(), usuario);
-
-            cardAddRecetas.operacionesCardView();
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        database = FirebaseFirestore.getInstance();
-        coleccion = database.collection("recetas");
-
-        coleccion.addSnapshotListener((snapshot, e) -> {
-            if (e != null) {
-                return;
-            }
-            mostrarRecetas();
-        });
     }
 }

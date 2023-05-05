@@ -64,6 +64,35 @@
         <string name="pasos_elab">Receta</string>
         <string name="guardar_favoritos">GUARDAR EN FAVORITOS</string>
 
+    <!-- Cadenas de Texto para el activity de ver Recetas -->
+    <string name="activity_nombre_receta">Nueva receta</string>
+    <string name="activity_dificultad">Dificultad</string>
+    <string name="activity_tiempo">Tiempo</string>
+    <string name="activity_comensales">Comensales</string>
+    <string name="activity_ingredientes">INGREDIENTES</string>
+    <string name="siguiente_paso">Comenzar receta</string>
+    <string name="paso_1">ELABORACIÓN - PASO 1</string>
+    <string name="siguiente">Siguiente Paso</string>
+    <string name="anterior">Anterior Paso</string>
+    <string name="fin">Terminar Receta</string>
+
+    <!-- Cadenas de Texto para el activity de crear receta -->
+    <string name="activity_paso1">RELLENA LOS CAMPOS</string>
+    <string name="btn_add_receta">SIGUIENTE</string>
+    <string name="texto_tiempo">TIEMPO DE ELABORACIÓN</string>
+    <string name="texto_nombre">NOMBRE DE LA RECETA</string>
+    <string name="texto_hint">Tiempo de la elaboración de la receta</string>
+    <string name="texto_nombre_hint">Nombre de la receta</string>
+    <string name="texto_comensales">COMENSALES</string>
+    <string name="texto_comensales_hint">Número de comensales</string>
+    <string name="texto_dificultad">DIFICULTAD DE LA RECETA</string>
+    <string name="texto_dificultad_hint">Dificultad de la receta</string>
+    <string name="nuevo_paso">Nuevo Paso</string>
+    <string name="guardar_receta">Guardar receta</string>
+    <string name="crear_paso">NUEVO PASO</string>
+    <string name="desc_paso">ELABORACIÓN:</string>
+    <string name="desc_paso_hint">Describe el nuevo paso de la receta</string>
+
     <!-- Cadenas de Texto Fragment de Añadir Ingredientes y Fragment de Mis Ingredientes-->
     <string name="mis_ingredientes">MIS INGREDIENTES</string>
         <!-- Cadenas de texto para la pantalla de ver Mis Ingredientes -->
@@ -78,7 +107,22 @@
             <string name="tipo_context">Seleccionar tipo de ingrediente</string>
         <string name="tipo_ejemplo">Carne</string>
         <string name="modificar">EDITAR</string>
+        <string name="habilitar">HABILITAR INGREDIENTE</string>
         <string name="eliminar">ELIMINAR</string>
+
+    <string name="info_ings">INFORMACIÓN</string>
+    <string name="desc">- Este símbolo indica que un ingrediente está caducado.</string>
+    <string name="desc2">- Este símbolo indica que el ingrediente ha sido usado en una receta.</string>
+    <string name="desc3">- Los ingredientes caducados o ya usados no aparecerán a la hora de crear una receta.</string>
+    <string name="desc4">- Para que dichos ingredientes aparezcan disponibles, se deberá:</string>
+    <string name="desc5">- Actualizar la fecha de caducidad.</string>
+    <string name="desc6">- Volver a habilitar el ingrediente.</string>
+
+
+    <string name="op_recetas">OPCIONES</string>
+    <string name="op_text_recetas">¿Qué operación deseas realizar?</string>
+    <string name="delete_receta">ELIMINAR</string>
+    <string name="update_receta">EDITAR</string>
 
     <string name="add_ingrediente">AÑADIR INGREDIENTE</string>
     <string name="scanner">Imagen Scanner</string>
@@ -96,6 +140,7 @@
         <string name="description_cerrar">Botón de cerrar</string>
         <string name="warn_caducado">Símbolo de alerta</string>
         <string name="warn_caducado_text">¡Ingrediente Caducado!</string>
+        <string name="warn_deshabilitado_text">¡Ingrediente Deshabilitado!</string>
 
     <!-- Cadenas de Texto Fragment de Bucador -->
     <string name="busqueda_hint">Escribe la receta que quieres buscar</string>

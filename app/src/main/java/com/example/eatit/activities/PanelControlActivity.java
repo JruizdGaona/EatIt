@@ -19,7 +19,6 @@ import com.example.eatit.entities.Usuario;
 import com.example.eatit.fragments.FragmentAjustes;
 import com.example.eatit.fragments.FragmentInicio;
 import com.example.eatit.fragments.ingredientes.FragmentMisIngredientes;
-import com.example.eatit.fragments.ingredientes.FragmentAddIngredientes;
 import com.example.eatit.fragments.recetas.FragmentBuscador;
 import com.example.eatit.fragments.recetas.FragmentMisRecetas;
 import com.example.eatit.utils.LoadingDialog;
@@ -158,12 +157,6 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
                 fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
                 fragmentTransaction.replace(R.id.frame_inicio, new FragmentInicio());
                 break;
-            /*case R.id.nav_ingredientes2:
-                mostrarMensajesCarga(1, loadingDialog);
-                status = 1;
-                fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-                fragmentTransaction.replace(R.id.frame_inicio, new FragmentAddIngredientes());
-                break;*/
             case R.id.nav_ingredientes3:
                 mostrarMensajesCarga(1, loadingDialog);
                 status = 1;
