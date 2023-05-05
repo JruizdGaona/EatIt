@@ -66,6 +66,9 @@ public class ActivityRecetas extends AppCompatActivity implements Serializable {
         imagenReceta = findViewById(R.id.img_receta);
         if (receta != null) {
             nombreReceta.setText(receta.getNombre());
+            if (receta.getUri() != null) {
+                imagenReceta.setImageURI(Uri.parse(receta.getUri()));
+            }
         } else crear = true;
     }
 
@@ -194,11 +197,11 @@ public class ActivityRecetas extends AppCompatActivity implements Serializable {
         if (receta.getUri() == null) {
             if(resultCode == Activity.RESULT_OK) {
                 if (requestCode == PICK_CAMERA_CODE) {
-                    receta.setUri(uri);
+                    receta.setUri(uri.toString());
                     imagenReceta.setImageURI(uri);
                 } else if (requestCode == PICK_GALLERY_CODE) {
                     Uri path = data.getData();
-                    receta.setUri(path);
+                    receta.setUri(path.toString());
                     imagenReceta.setImageURI(path);
                 }
                 Toast.makeText(this, "Imagen actualizada correctamente", Toast.LENGTH_SHORT).show();

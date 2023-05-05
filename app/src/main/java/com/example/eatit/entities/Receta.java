@@ -13,7 +13,7 @@ import java.util.Objects;
 public class Receta implements Serializable {
     private String nombre, dificultad, duracion;
     private List<String> ingredientes, pasos;
-    private Uri uri;
+    private String uri;
     private int raciones, popularidad;
     private String usuarioId;
 
@@ -91,11 +91,11 @@ public class Receta implements Serializable {
         this.usuarioId = usuarioId;
     }
 
-    public Uri getUri() {
+    public String getUri() {
         return uri;
     }
 
-    public void setUri(Uri uri) {
+    public void setUri(String uri) {
         this.uri = uri;
     }
 

@@ -2,6 +2,7 @@ package com.example.eatit.fragments.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import com.example.eatit.R;
 import com.example.eatit.entities.Receta;
 import com.example.eatit.activities.ActivityRecetas;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.imageview.ShapeableImageView;
+
 import java.util.List;
 
 /**
@@ -25,6 +28,7 @@ public class AdapterMisRecetas extends RecyclerView.Adapter<AdapterMisRecetas.My
     private final Context context;
     TextView nombre;
     private String email;
+    private ShapeableImageView imagen;
 
     /**
      * Constructor del Adapter de Recetas.
@@ -88,10 +92,17 @@ public class AdapterMisRecetas extends RecyclerView.Adapter<AdapterMisRecetas.My
         public MyViewHolder(View view){
             super(view);
             nombre = view.findViewById(R.id.mis_recetas_nombre);
+            imagen = view.findViewById(R.id.ilm_foto);
             cv = view.findViewById(R.id.layout_list_mis_recetas);
         }
 
         void bindData(final Receta item) {
+            if (item.getUri() != null) {
+                if (item.getUri().length() != 0) {
+                    Uri uri = Uri.parse(item.getUri());
+                    imagen.setImageURI(uri);
+                }
+            }
             nombre.setText((item.getNombre()));
         }
     }
