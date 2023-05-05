@@ -10,6 +10,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.example.eatit.R;
 import com.example.eatit.entities.Receta;
 import com.example.eatit.activities.ActivityRecetas;
@@ -97,11 +99,11 @@ public class AdapterMisRecetas extends RecyclerView.Adapter<AdapterMisRecetas.My
         }
 
         void bindData(final Receta item) {
-            if (item.getUri() != null) {
-                if (item.getUri().length() != 0) {
-                    Uri uri = Uri.parse(item.getUri());
-                    imagen.setImageURI(uri);
-                }
+            if (item.getUri() != null && !item.getUri().isEmpty()) {
+                Glide.with(context)
+                        .load(item.getUri())
+                        .centerCrop()
+                        .into(imagen);
             }
             nombre.setText((item.getNombre()));
         }

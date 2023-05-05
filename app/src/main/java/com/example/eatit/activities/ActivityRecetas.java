@@ -3,11 +3,11 @@ package com.example.eatit.activities;
 import android.Manifest;
 import android.app.Activity;
 import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,14 +21,24 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.bumptech.glide.Glide;
 import com.example.eatit.R;
 import com.example.eatit.entities.Receta;
 import com.example.eatit.fragments.recetas.FragmentCrearReceta;
 import com.example.eatit.fragments.recetas.FragmentRecetas;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
-import java.net.URI;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ActivityRecetas extends AppCompatActivity implements Serializable {
 
@@ -39,6 +49,7 @@ public class ActivityRecetas extends AppCompatActivity implements Serializable {
     private boolean crear = false;
     private String email;
     private Uri uri;
+    StorageReference storageReference;
     private static final int REQUEST_CAMERA_CODE = 1;
     private static final int REQUEST_STORAGE_CODE = 2;
     private static final int PICK_CAMERA_CODE = 3;
@@ -64,10 +75,14 @@ public class ActivityRecetas extends AppCompatActivity implements Serializable {
         imagenRetroceso = findViewById(R.id.img_back);
         nombreReceta = findViewById(R.id.recetas);
         imagenReceta = findViewById(R.id.img_receta);
+        storageReference = FirebaseStorage.getInstance().getReference("uploads");
         if (receta != null) {
             nombreReceta.setText(receta.getNombre());
             if (receta.getUri() != null) {
-                imagenReceta.setImageURI(Uri.parse(receta.getUri()));
+                    Glide.with(this)
+                            .load(receta.getUri())
+                            .centerCrop()
+                            .into(imagenReceta);
             }
         } else crear = true;
     }
@@ -193,26 +208,76 @@ public class ActivityRecetas extends AppCompatActivity implements Serializable {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        // Si el usuario no tiene imagen asociada, la ponemos desde cámara o galeería, dependiendo de lo que haya seleccionado el usuario.
+
         if (receta.getUri() == null) {
             if(resultCode == Activity.RESULT_OK) {
                 if (requestCode == PICK_CAMERA_CODE) {
-                    receta.setUri(uri.toString());
-                    imagenReceta.setImageURI(uri);
+                    Glide.with(this)
+                            .load(uri)
+                            .into(imagenReceta);
                 } else if (requestCode == PICK_GALLERY_CODE) {
-                    Uri path = data.getData();
-                    receta.setUri(path.toString());
-                    imagenReceta.setImageURI(path);
+                    uri = data.getData();
+                    Glide.with(this)
+                            .load(uri)
+                            .into(imagenReceta);
                 }
-                Toast.makeText(this, "Imagen actualizada correctamente", Toast.LENGTH_SHORT).show();
+                subirImagen();
+                Toast.makeText(this, "Imagen cargada correctamente", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "Error al cambiar la imagen", Toast.LENGTH_SHORT).show();
             }
             // Si ya tiene una imagen asociada, la ponemos.
         } else {
             receta.setUri(receta.getUri());
-            imagenReceta.setImageURI(uri);
+            Glide.with(this)
+                    .load(receta.getUri())
+                    .centerCrop()
+                    .into(imagenReceta);
         }
+    }
+
+    private void subirImagen() {
+        if (uri != null) {
+            StorageReference fileReference = storageReference.child(System.currentTimeMillis() + ".jpg");
+
+            try {
+                File image = createImage();
+                InputStream inputStream = getContentResolver().openInputStream(uri);
+                OutputStream outputStream = new FileOutputStream(image);
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = inputStream.read(buffer)) > 0) {
+                    outputStream.write(buffer, 0, length);
+                }
+
+                inputStream.close();
+                outputStream.close();
+                Uri file = Uri.fromFile(image);
+                fileReference.putFile(file)
+                        .addOnSuccessListener(taskSnapshot -> {
+                            // Get the URL of the uploaded file
+                            Task<Uri> downloadUrlTask = taskSnapshot.getStorage().getDownloadUrl();
+                            downloadUrlTask.addOnSuccessListener(uri -> {
+                                String imageUrl = uri.toString();
+                                // Update the URL in Realtime Database
+                                receta.setUri(imageUrl);
+                            });
+                        }).addOnFailureListener(e -> Toast.makeText(ActivityRecetas.this, "Error al subir la imagen", Toast.LENGTH_LONG).show());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private File createImage() throws IOException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        return File.createTempFile(
+                imageFileName,
+                ".jpg",
+                storageDir
+        );
     }
 
     private void cerrarActivity() {
