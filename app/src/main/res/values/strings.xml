@@ -119,6 +119,11 @@
     <string name="desc6">- Volver a habilitar el ingrediente.</string>
 
 
+    <string name="op_recetas">OPCIONES</string>
+    <string name="op_text_recetas">¿Qué operación deseas realizar?</string>
+    <string name="delete_receta">ELIMINAR</string>
+    <string name="update_receta">EDITAR</string>
+
     <string name="add_ingrediente">AÑADIR INGREDIENTE</string>
     <string name="scanner">Imagen Scanner</string>
     <string name="btn_float">Botón Flotante</string>
