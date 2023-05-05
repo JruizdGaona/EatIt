@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Layout principal para el card de Añadir Ingredientes -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_card_ver_ingredientes">
+
+    <!-- CradView de Añadir Ingredientes -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cradView_info"
+        android:layout_width="355dp"
+        android:layout_height="550dp"
+        app:cardCornerRadius="20dp"
+        android:foreground="@color/negroClaro"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="@color/negroClaro"
+        app:cardBackgroundColor="@color/negroClaro"
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/doradoClaro">
+
+        <!-- Layout para el CardView -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/cardInfo">
+
+            <!-- Imagen con el botón de Cerrar -->
+            <ImageView
+                android:id="@+id/cerrar_info"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_close"
+                android:contentDescription="@string/description_cerrar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- TextView del CardView -->
+            <TextView
+                android:id="@+id/text_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/montserrat_medio"
+                android:text="@string/info_ings"
+                android:textColor="@color/doradoClaro"
+                android:textSize="25sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="300dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/doradoClaro"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_info" />
+
+            <ImageView
+                android:id="@+id/caducado"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/warning"
+                android:contentDescription="@string/description_cerrar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+            <TextView
+                android:id="@+id/desc_1"
+                android:layout_width="310dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/montserrat_medio"
+                android:text="@string/desc"
+                android:textColor="@color/doradoClaro"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/caducado" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="300dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/doradoClaro"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/desc_1" />
+
+            <ImageView
+                android:id="@+id/disabled"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_alert_disabled"
+                android:contentDescription="@string/description_cerrar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+            <TextView
+                android:id="@+id/desc_2"
+                android:layout_width="310dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/montserrat_medio"
+                android:text="@string/desc2"
+                android:textColor="@color/doradoClaro"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/disabled" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="300dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/doradoClaro"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/desc_2" />
+
+            <TextView
+                android:id="@+id/desc_3"
+                android:layout_width="310dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/montserrat_medio"
+                android:text="@string/desc3"
+                android:textColor="@color/doradoClaro"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout4"
+                android:layout_width="300dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/doradoClaro"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/desc_3" />
+
+            <TextView
+                android:id="@+id/desc_4"
+                android:layout_width="310dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/montserrat_medio"
+                android:text="@string/desc4"
+                android:textColor="@color/doradoClaro"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
+
+            <ImageView
+                android:id="@+id/caducado2"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/warning"
+                android:contentDescription="@string/description_cerrar"
+                app:layout_constraintEnd_toStartOf="@+id/desc_5"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintTop_toTopOf="@+id/desc_5"
+                app:layout_constraintBottom_toBottomOf="@+id/desc_5"/>
+
+            <TextView
+                android:id="@+id/desc_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/montserrat_medio"
+                android:text="@string/desc5"
+                android:textColor="@color/doradoClaro"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/desc_4" />
+
+            <ImageView
+                android:id="@+id/disabled2"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:contentDescription="@string/description_cerrar"
+                android:src="@drawable/ic_alert_disabled"
+                app:layout_constraintBottom_toBottomOf="@+id/desc_6"
+                app:layout_constraintEnd_toEndOf="@+id/caducado2"
+                app:layout_constraintStart_toStartOf="@+id/caducado2"
+                app:layout_constraintTop_toTopOf="@+id/desc_6" />
+
+            <TextView
+                android:id="@+id/desc_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/montserrat_medio"
+                android:text="@string/desc6"
+                android:textColor="@color/doradoClaro"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/desc_5" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,11 +1,17 @@
 package com.example.eatit.fragments.ingredientes;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.example.eatit.R;
@@ -17,11 +23,10 @@ import com.example.eatit.entities.Usuario;
 public class FragmentMisIngredientes extends Fragment {
 
     private Usuario usuario;
-    private String correo;
+    private AppCompatImageView info;
 
     public FragmentMisIngredientes(Usuario usuario) {
         this.usuario = usuario;
-        this.correo = usuario.getCorreo();
     }
 
     /**
@@ -46,9 +51,28 @@ public class FragmentMisIngredientes extends Fragment {
      */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        info = view.findViewById(R.id.info);
+        abrirInfo();
+
         Fragment fragmentIngredientes = new FrameIngredientes(usuario);
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
 
         fragmentTransaction.replace(R.id.frame_ingredientes, fragmentIngredientes).commit();
+    }
+
+    private void abrirInfo() {
+        info.setOnClickListener((View) -> {
+            Dialog dialog = new Dialog(getContext());
+            dialog.setContentView(R.layout.card_info_ingredientes);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+            cerrarCardView(dialog);
+            dialog.show();
+        });
+    }
+
+    private void cerrarCardView(Dialog dialog) {
+        ImageView imageView = dialog.findViewById(R.id.cerrar_info);
+        imageView.setOnClickListener((View) -> dialog.dismiss());
     }
 }
