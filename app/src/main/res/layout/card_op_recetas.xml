@@ -10,7 +10,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cradView_info"
         android:layout_width="355dp"
-        android:layout_height="250dp"
+        android:layout_height="200dp"
         app:cardCornerRadius="20dp"
         android:foreground="@color/negroClaro"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -40,39 +40,25 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- TextView del CardView -->
-            <TextView
-                android:id="@+id/text_opciones"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:fontFamily="@font/montserrat_medio"
-                android:text="@string/op_recetas"
-                android:textColor="@color/doradoClaro"
-                android:textSize="25sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <TextView
                 android:id="@+id/text_pregunta"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="60dp"
                 android:fontFamily="@font/montserrat_medio"
                 android:text="@string/op_text_recetas"
                 android:textColor="@color/doradoClaro"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_opciones" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_delete"
                 android:layout_width="100dp"
                 android:layout_height="48dp"
                 android:layout_gravity="center_horizontal|center"
-                android:layout_marginTop="45dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/btn_login"
                 android:fontFamily="@font/montserrat_medio"
                 android:gravity="center"
@@ -88,7 +74,7 @@
                 android:layout_width="100dp"
                 android:layout_height="48dp"
                 android:layout_gravity="center_horizontal|center"
-                android:layout_marginTop="45dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/btn_login"
                 android:fontFamily="@font/montserrat_medio"
                 android:gravity="center"
