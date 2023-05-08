@@ -66,8 +66,9 @@ public class FragmentPasos extends Fragment {
         botonFin.setVisibility(View.INVISIBLE);
         textoPasos = view.findViewById(R.id.pasos);
 
+        int showPaso = numPaso + 1;
         if (numPaso == 0) textoPasos.setText(textoPasos.getText().toString().replace("PASO 1", "PASO " + 1));
-        else textoPasos.setText(textoPasos.getText().toString().replace("PASO 1", "PASO " + numPaso));
+        else textoPasos.setText(textoPasos.getText().toString().replace("PASO 1", "PASO " + showPaso));
 
 
         gestionPasos();
