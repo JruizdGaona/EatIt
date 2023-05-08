@@ -74,7 +74,7 @@ public class FragmentPasos extends Fragment {
     }
 
     private void gestionPasos() {
-        if (numPaso == receta.getPasos().size() - 1) {
+        if (numPaso == 0 && numPaso == receta.getPasos().size() - 1) {
             siguiente.setVisibility(View.INVISIBLE);
             botonSiguiente.setVisibility(View.INVISIBLE);
             botonFin.setVisibility(View.VISIBLE);
@@ -88,14 +88,14 @@ public class FragmentPasos extends Fragment {
             anterior.setOnClickListener((View) -> {
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.from_left, R.anim.to_right);
-                fragmentTransaction.replace(R.id.frame_info, new FragmentPasos(receta, numPaso - 1, email));
+                fragmentTransaction.replace(R.id.frame_info, new FragmentRecetas(receta, email));
                 fragmentTransaction.commit();
             });
 
             botonAnterior.setOnClickListener((View) -> {
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.from_left, R.anim.to_right);
-                fragmentTransaction.replace(R.id.frame_info, new FragmentPasos(receta, numPaso - 1, email));
+                fragmentTransaction.replace(R.id.frame_info, new FragmentRecetas(receta, email));
                 fragmentTransaction.commit();
             });
         } else if (numPaso == 0) {
@@ -124,6 +124,30 @@ public class FragmentPasos extends Fragment {
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.from_left, R.anim.to_right);
                 fragmentTransaction.replace(R.id.frame_info, new FragmentRecetas(receta, email));
+                fragmentTransaction.commit();
+            });
+        } else if (numPaso == receta.getPasos().size() - 1) {
+            siguiente.setVisibility(View.INVISIBLE);
+            botonSiguiente.setVisibility(View.INVISIBLE);
+            botonFin.setVisibility(View.VISIBLE);
+
+            botonFin.setOnClickListener((View) -> {
+                cargarRecetas();
+                actualizarPopularidadRecetas();
+                actualizarEstadoIngredientes();
+            });
+
+            anterior.setOnClickListener((View) -> {
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.from_left, R.anim.to_right);
+                fragmentTransaction.replace(R.id.frame_info, new FragmentPasos(receta, numPaso - 1, email));
+                fragmentTransaction.commit();
+            });
+
+            botonAnterior.setOnClickListener((View) -> {
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.from_left, R.anim.to_right);
+                fragmentTransaction.replace(R.id.frame_info, new FragmentPasos(receta, numPaso - 1, email));
                 fragmentTransaction.commit();
             });
         } else {
