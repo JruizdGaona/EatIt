@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -42,6 +43,7 @@ public class LoginActivity extends Activity {
     FirebaseAuth firebaseAuth;
     LoadingDialog loadingDialog;
     boolean estaActivado;
+    CountDownTimer countDownTimer;
 
     /**
      * Método que se ejecuta ak crear la actividad de Login.
@@ -236,6 +238,20 @@ public class LoginActivity extends Activity {
             String correo = Objects.requireNonNull(correoET.getText()).toString();
             String contraseña = Objects.requireNonNull(contraseñaET.getText()).toString();
 
+            // Agregar temporizador
+            countDownTimer = new CountDownTimer(30000, 1000) {
+
+                public void onTick(long millisUntilFinished) {
+                    // El temporizador está en marcha
+                }
+
+                public void onFinish() {
+                    // El temporizador ha terminado, mostrar mensaje de error
+                    loadingDialog.closeDialog();
+                    Toast.makeText(LoginActivity.this, "Error al Iniciar Sesión, pruebe más tarde", Toast.LENGTH_LONG).show();
+                }
+            }.start();
+
             inicioSesionFirebase(correo, contraseña);
         });
     }
@@ -252,13 +268,16 @@ public class LoginActivity extends Activity {
                     this.finish();
                     startActivity(new Intent(LoginActivity.this, PanelControlActivity.class).putExtra("firebaseUser", firebaseAuth.getCurrentUser()));
                     loadingDialog.closeDialog();
+                    countDownTimer.cancel();
                 } else {
                     loadingDialog.closeDialog();
                     Toast.makeText(LoginActivity.this, "Correo no validado", Toast.LENGTH_SHORT).show();
+                    countDownTimer.cancel();
                 }
             } else {
                 loadingDialog.closeDialog();
                 Toast.makeText(LoginActivity.this, "Correo o contraseña no válidos", Toast.LENGTH_SHORT).show();
+                countDownTimer.cancel();
             }
         });
     }
