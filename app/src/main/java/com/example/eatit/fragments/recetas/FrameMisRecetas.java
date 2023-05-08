@@ -12,13 +12,19 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.eatit.R;
 import com.example.eatit.activities.ActivityRecetas;
+import com.example.eatit.entities.Ingrediente;
 import com.example.eatit.entities.Receta;
 import com.example.eatit.entities.Usuario;
+import com.example.eatit.fragments.adapters.AdapterIngrediente;
 import com.example.eatit.fragments.adapters.AdapterMisRecetas;
 import com.example.eatit.fragments.ingredientes.CardAddIngrediente;
+import com.example.eatit.fragments.ingredientes.FrameIngredientes;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,8 +39,9 @@ public class FrameMisRecetas extends Fragment {
     RecyclerView recyclerView;
     AdapterMisRecetas adapterMisRecetas;
     Usuario usuario;
-    FirebaseFirestore database;
+    FirebaseFirestore database = FirebaseFirestore.getInstance();
     CollectionReference coleccion;
+    boolean paused = false;
 
     public FrameMisRecetas(Usuario usuario) {
         this.usuario = usuario;
@@ -70,22 +77,67 @@ public class FrameMisRecetas extends Fragment {
         FloatingActionButton floatingActionButton = view.findViewById(R.id.floatingActionButtonMisRecetas);
 
         floatingActionButton.setOnClickListener((View) -> {
+            paused = true;
+            this.onPause();
+        });
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if (paused) {
+            paused = false;
             Intent intent = new Intent(getContext(), ActivityRecetas.class);
             intent.putExtra("email", usuario.getCorreo());
             getContext().startActivity(intent);
-        });
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
 
         database = FirebaseFirestore.getInstance();
         coleccion = database.collection("recetas");
+
+        coleccion.addSnapshotListener((snapshot, e) -> {
+            if (e != null) {
+                return;
+            }
+            mostrarRecetas();
+        });
     }
 
     /**
      * Método que crea los ingredientes y los carga en el adapter de ingredientes.
      */
     private void mostrarRecetas() {
-        recetas = usuario.getRecetasCreadas();
-        if (recetas == null) recetas = new ArrayList<>();
-        adapterMisRecetas = new AdapterMisRecetas(recetas, FrameMisRecetas.this.getContext(), usuario.getCorreo());
-        recyclerView.setAdapter(adapterMisRecetas);
+        Task<QuerySnapshot> obtenerUsuario = database.collection("usuarios").whereEqualTo("correo", usuario.getCorreo()).get();
+
+        obtenerUsuario.addOnSuccessListener(usuarioSnapshot -> {
+            if (!usuarioSnapshot.isEmpty()) {
+                DocumentSnapshot documentSnapshotUsuario = usuarioSnapshot.getDocuments().get(0);
+                String idUsuario = documentSnapshotUsuario.getId();
+
+                Task<QuerySnapshot> obtenerRecetasUsuario = database.collection("recetas").whereEqualTo("usuarioId", idUsuario).get();
+
+                obtenerRecetasUsuario.addOnSuccessListener(recetasSnapshot -> {
+                    List<Receta> recetas = new ArrayList<>();
+
+                    if (!recetasSnapshot.isEmpty()) {
+                        List<DocumentSnapshot> documents = recetasSnapshot.getDocuments();
+                        if (!documents.isEmpty()) {
+                            for (DocumentSnapshot ds: documents) {
+                                Receta rec = ds.toObject(Receta.class);
+                                recetas.add(rec);
+                            }
+                        }
+                    }
+                    adapterMisRecetas = new AdapterMisRecetas(recetas, FrameMisRecetas.this.getContext(), usuario.getCorreo());
+                    recyclerView.setAdapter(adapterMisRecetas);
+                });
+            }
+        });
     }
 }
