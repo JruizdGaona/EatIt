@@ -31,8 +31,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class FragmentAddIngToReceta extends Fragment {
@@ -192,9 +195,30 @@ public class FragmentAddIngToReceta extends Fragment {
             Typeface typeface = ResourcesCompat.getFont(getContext(), R.font.montserrat_medio);
             checkBox.setTypeface(typeface);
 
-            checkBox.setText(ingredientes.get(i).getNombre());
+            if (comprobarFecha(ingredientes.get(i))) {
+                checkBox.setText(ingredientes.get(i).getNombre());
+                checkBox.setTextColor(ContextCompat.getColor(requireContext(), R.color.caducado));
+            } else {
+                checkBox.setText(ingredientes.get(i).getNombre());
+                checkBox.setTextColor(ContextCompat.getColor(requireContext(), R.color.doradoClaro));
+            }
             checkBoxContainer.addView(checkBox);
         }
+    }
+
+    private boolean comprobarFecha(Ingrediente ingrediente) {
+        String fechaCad = ingrediente.getFechaCaducidad();
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+
+        try {
+            Date fecha = formato.parse(fechaCad);
+
+            return fecha.before(new Date());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
     private void inicializarVariables(View view) {
