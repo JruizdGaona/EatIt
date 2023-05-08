@@ -113,7 +113,7 @@
     <string name="info_ings">INFORMACIÓN</string>
     <string name="desc">- Este símbolo indica que un ingrediente está caducado.</string>
     <string name="desc2">- Este símbolo indica que el ingrediente ha sido usado en una receta.</string>
-    <string name="desc3">- Los ingredientes caducados o ya usados no aparecerán a la hora de crear una receta.</string>
+    <string name="desc3">- Los ingredientes ya usados no aparecerán a la hora de crear una receta, y los caducados, aparecerán en rojo.</string>
     <string name="desc4">- Para que dichos ingredientes aparezcan disponibles, se deberá:</string>
     <string name="desc5">- Actualizar la fecha de caducidad.</string>
     <string name="desc6">- Volver a habilitar el ingrediente.</string>
