@@ -24,6 +24,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.bumptech.glide.Glide;
 import com.example.eatit.R;
 import com.example.eatit.entities.Receta;
+import com.example.eatit.fragments.recetas.actualizar.FragmentActualizarReceta;
 import com.example.eatit.fragments.recetas.crear.FragmentCrearReceta;
 import com.example.eatit.fragments.recetas.listar.FragmentRecetas;
 import com.google.android.gms.tasks.Task;
@@ -49,6 +50,7 @@ public class ActivityRecetas extends AppCompatActivity implements Serializable {
     private boolean crear = false;
     private String email;
     private Uri uri;
+    private boolean editar;
     StorageReference storageReference;
     private static final int REQUEST_CAMERA_CODE = 1;
     private static final int REQUEST_STORAGE_CODE = 2;
@@ -74,6 +76,7 @@ public class ActivityRecetas extends AppCompatActivity implements Serializable {
         receta = (Receta) intent.getSerializableExtra("receta");
         imagenRetroceso = findViewById(R.id.img_back);
         nombreReceta = findViewById(R.id.recetas);
+        editar = intent.getBooleanExtra("editar", false);
         imagenReceta = findViewById(R.id.img_receta);
         storageReference = FirebaseStorage.getInstance().getReference("uploads");
         if (receta != null) {
@@ -93,6 +96,9 @@ public class ActivityRecetas extends AppCompatActivity implements Serializable {
         if (crear) {
             receta = new Receta();
             fragmentTransaction.replace(R.id.frame_info, new FragmentCrearReceta(email, receta)).commit();
+        } else if (editar) {
+            receta.setUri(null);
+            fragmentTransaction.replace(R.id.frame_info, new FragmentActualizarReceta(email, receta)).commit();
         } else {
             fragmentTransaction.replace(R.id.frame_info, new FragmentRecetas(receta, email)).commit();
         }

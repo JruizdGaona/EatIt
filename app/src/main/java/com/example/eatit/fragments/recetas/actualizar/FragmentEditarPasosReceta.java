@@ -1,0 +1,216 @@
+package com.example.eatit.fragments.recetas.actualizar;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.example.eatit.R;
+import com.example.eatit.entities.Receta;
+import com.example.eatit.entities.Usuario;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class FragmentEditarPasosReceta extends Fragment {
+    private Receta receta;
+    private AppCompatButton guardar, nuevoPaso;
+    private int pasoActual, pasoActualReceta, pasosReceta;
+    private TextInputEditText pasoET;
+    private String paso, recetaOldName;
+    private ImageView img_avanzar, img_retroceso;
+    private String email;
+    private boolean pasoExistente;
+    private FirebaseFirestore database = FirebaseFirestore.getInstance();
+    CollectionReference coleccion = database.collection("recetas");
+
+    public FragmentEditarPasosReceta(Receta receta, int paso, String email, String nombre) {
+        this.receta = receta;
+        this.email = email;
+        this.pasoActualReceta = paso;
+        this.pasoActual = paso + 1;
+        this.pasosReceta = receta.getPasos().size();
+        this.recetaOldName = nombre;
+
+        pasoExistente = pasoActualReceta < pasosReceta;
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return LayoutInflater.from(getContext()).inflate(R.layout.fragment_add_pasos_receta, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        inicializarVariables(view);
+        siguientePaso();
+        pasoAnterior();
+        actualizarReceta();
+    }
+
+    private void inicializarVariables(View view) {
+        guardar = view.findViewById(R.id.btn_guardar);
+        nuevoPaso = view.findViewById(R.id.btn_next);
+        pasoET = view.findViewById(R.id.textInput_pasos);
+        img_avanzar = view.findViewById(R.id.siguiente_paso);
+        img_retroceso = view.findViewById(R.id.anterior_paso);
+
+        if (pasoExistente) pasoET.setText(receta.getPasos().get(pasoActualReceta));
+    }
+
+    private void siguientePaso() {
+        img_avanzar.setOnClickListener((view) -> {
+            if (pasoExistente) {
+                paso = pasoET.getText().toString();
+                receta.getPasos().set(pasoActualReceta, paso);
+                receta.setPasos(receta.getPasos());
+            } else {
+                receta.getPasos().add(paso);
+                receta.setPasos(receta.getPasos());
+            }
+
+            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
+            fragmentTransaction.replace(R.id.frame_info, new FragmentEditarPasosReceta(receta, pasoActual, email, recetaOldName));
+            fragmentTransaction.commit();
+        });
+
+        nuevoPaso.setOnClickListener(view -> {
+            if (pasoExistente) {
+                paso = pasoET.getText().toString();
+                receta.getPasos().set(pasoActualReceta, paso);
+                receta.setPasos(receta.getPasos());
+            } else {
+                receta.getPasos().add(paso);
+                receta.setPasos(receta.getPasos());
+            }
+
+            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
+            fragmentTransaction.replace(R.id.frame_info, new FragmentEditarPasosReceta(receta, pasoActual, email, recetaOldName));
+            fragmentTransaction.commit();
+        });
+    }
+
+    private void pasoAnterior() {
+        img_retroceso.setOnClickListener((view) -> {
+            if (pasoActualReceta != 0) {
+                if (pasoExistente) {
+                    paso = pasoET.getText().toString();
+                    receta.getPasos().set(pasoActualReceta, paso);
+                    receta.setPasos(receta.getPasos());
+                } else {
+                    paso = pasoET.getText().toString();
+                    receta.getPasos().add(paso);
+                    receta.setPasos(receta.getPasos());
+                }
+
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.from_left, R.anim.to_right);
+                fragmentTransaction.replace(R.id.frame_info, new FragmentEditarPasosReceta(receta, pasoActualReceta - 1, email, recetaOldName));
+                fragmentTransaction.commit();
+            } else {
+                if (pasoExistente) {
+                    paso = pasoET.getText().toString();
+                    receta.getPasos().set(pasoActualReceta, paso);
+                    receta.setPasos(receta.getPasos());
+                } else {
+                    paso = pasoET.getText().toString();
+                    receta.getPasos().add(paso);
+                    receta.setPasos(receta.getPasos());
+                }
+
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.from_left, R.anim.to_right);
+                fragmentTransaction.replace(R.id.frame_info, new FragmentEditarIngReceta(receta, email, recetaOldName));
+                fragmentTransaction.commit();
+            }
+        });
+    }
+
+    private void actualizarReceta() {
+        guardar.setOnClickListener((view) -> {
+            paso = pasoET.getText().toString();
+            List<String> pasosActuales = receta.getPasos();
+
+            if (!pasosActuales.contains(paso)) {
+                pasosActuales.add(paso);
+            }
+
+            receta.setPasos(pasosActuales);
+
+            Task<QuerySnapshot> obtenerUsuario = database.collection("usuarios").whereEqualTo("correo", email).get();
+            obtenerUsuario.addOnSuccessListener(usuarioSnapshot -> {
+                Usuario usuario;
+
+                if (!usuarioSnapshot.isEmpty()) {
+                    DocumentSnapshot documentSnapshotUsuario = usuarioSnapshot.getDocuments().get(0);
+                    String idUsuario = documentSnapshotUsuario.getId();
+                    DocumentReference userRef = database.collection("usuarios").document(idUsuario);
+
+                    usuario = documentSnapshotUsuario.toObject(Usuario.class);
+                    List<Receta> recetas = usuario.getRecetasCreadas();
+
+                    if (recetas == null) recetas = new ArrayList<>();
+                    receta.setUsuarioId(idUsuario);
+                    recetas.add(receta);
+                    usuario.setRecetasCreadas(recetas);
+
+                    userRef.update("recetasCreadas", usuario.getRecetasCreadas());
+
+                    Task<QuerySnapshot> consulta = coleccion.whereEqualTo("nombre", recetaOldName).get();
+
+                    consulta.addOnSuccessListener(documentSnapshots -> {
+                        if (!documentSnapshots.isEmpty()) {
+                            for (DocumentSnapshot documentSnapshot : documentSnapshots.getDocuments()) {
+                                if (documentSnapshot.getString("nombre").equalsIgnoreCase(recetaOldName)) {
+                                    coleccion.document(documentSnapshot.getId())
+                                            .update("nombre", receta.getNombre(),
+                                                    "dificultad", receta.getDificultad(),
+                                                    "duracion", receta.getDuracion(),
+                                                    "ingredientes", receta.getIngredientes(),
+                                                    "pasos", receta.getPasos(),
+                                                    "raciones", receta.getRaciones(),
+                                                    "uri", receta.getUri())
+                                            .addOnSuccessListener(aVoid -> {
+                                                Toast.makeText(getContext(), "Receta actualizada correctamente", Toast.LENGTH_SHORT).show();
+                                                getActivity().finish();
+                                            }).addOnFailureListener(e -> {
+                                                Toast.makeText(getContext(), "Error al actualizar la receta", Toast.LENGTH_SHORT).show();
+                                                getActivity().finish();
+                                            });
+                                    return;
+                                }
+                            }
+                        }
+                        Toast.makeText(getContext(), "Error al actualizar la receta", Toast.LENGTH_SHORT).show();
+                        getActivity().finish();
+                    }).addOnFailureListener(e -> {
+                        Toast.makeText(getContext(), "Error al actualizar la receta", Toast.LENGTH_SHORT).show();
+                        getActivity().finish();
+                    });
+                } else {
+                    Toast.makeText(getContext(), "Error al actualizar la receta", Toast.LENGTH_SHORT).show();
+                }
+            });
+        });
+    }
+}

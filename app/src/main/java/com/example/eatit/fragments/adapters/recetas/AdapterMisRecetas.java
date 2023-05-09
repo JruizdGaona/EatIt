@@ -96,10 +96,24 @@ public class AdapterMisRecetas extends RecyclerView.Adapter<AdapterMisRecetas.My
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
             eliminarReceta(dialog, recetas.get(position));
+            editarReceta(dialog, recetas.get(position));
             cerrarCardView(dialog);
             dialog.show();
             Toast.makeText(context, "Pulsación Laraga", Toast.LENGTH_SHORT).show();
             return true;
+        });
+    }
+
+    private void editarReceta(Dialog dialog, Receta receta) {
+        AppCompatButton editar = dialog.findViewById(R.id.btn_update);
+
+        editar.setOnClickListener((view) -> {
+            Intent intent = new Intent(context, ActivityRecetas.class);
+            intent.putExtra("receta", receta);
+            intent.putExtra("email", email);
+            intent.putExtra("editar", true);
+            context.startActivity(intent);
+            dialog.dismiss();
         });
     }
 
