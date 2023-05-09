@@ -1,26 +1,23 @@
-package com.example.eatit.fragments.recetas;
+package com.example.eatit.fragments.ingredientes.listar;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.eatit.R;
-import com.example.eatit.activities.ActivityRecetas;
 import com.example.eatit.entities.Ingrediente;
-import com.example.eatit.entities.Receta;
 import com.example.eatit.entities.Usuario;
 import com.example.eatit.fragments.adapters.AdapterIngrediente;
-import com.example.eatit.fragments.adapters.AdapterMisRecetas;
-import com.example.eatit.fragments.ingredientes.CardAddIngrediente;
-import com.example.eatit.fragments.ingredientes.FrameIngredientes;
+import com.example.eatit.fragments.ingredientes.crear.CardAddIngrediente;
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -32,20 +29,17 @@ import java.util.List;
 /**
  * @author Javier Ruiz de Gaona Tre.
  */
-public class FrameMisRecetas extends Fragment {
+public class FrameIngredientes extends Fragment {
 
-    // Declaramos las Variables.
-    List<Receta> recetas = new ArrayList<>();
+    // Declaración de Variables.
     RecyclerView recyclerView;
-    AdapterMisRecetas adapterMisRecetas;
+    AdapterIngrediente adapterIngrediente;
     Usuario usuario;
     FirebaseFirestore database = FirebaseFirestore.getInstance();
     CollectionReference coleccion;
-    boolean paused = false;
+    private boolean paused = false, form = false, barcode = false;
 
-    public FrameMisRecetas(Usuario usuario) {
-        this.usuario = usuario;
-    }
+    public FrameIngredientes (Usuario usuario) {this.usuario = usuario;}
 
     /**
      * Método onCreate del fragment de Ingredientes.
@@ -58,26 +52,30 @@ public class FrameMisRecetas extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.frame_mis_recetas,container,false);
-        recyclerView = view.findViewById(R.id.fragment_recetas);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.frame_ingredientes,container,false);
+        recyclerView = view.findViewById(R.id.fragment_ingredientes);
         recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
 
         return view;
     }
 
-    /**
-     * Método que se ejecuta una vez se ha creado el Fragment nuevo.
-     * Llama al Fragment de recetas para que las muestre en el Frame.
-     * @param view Vista del Fragment creado.
-     * @param savedInstanceState Estado de la instancia de la aplicación.
-     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        mostrarRecetas();
-        FloatingActionButton floatingActionButton = view.findViewById(R.id.floatingActionButtonMisRecetas);
+        super.onViewCreated(view, savedInstanceState);
+        mostrarIngredientes();
 
-        floatingActionButton.setOnClickListener((View) -> {
+        FloatingActionButton btn_barcode = view.findViewById(R.id.btn_barcode);
+        FloatingActionButton btn_formulario = view.findViewById(R.id.btn_formulario);
+
+        btn_barcode.setOnClickListener((View) -> {
             paused = true;
+            barcode = true;
+            this.onPause();
+        });
+
+        btn_formulario.setOnClickListener((View) -> {
+            paused = true;
+            form = true;
             this.onPause();
         });
     }
@@ -86,11 +84,16 @@ public class FrameMisRecetas extends Fragment {
     public void onPause() {
         super.onPause();
 
-        if (paused) {
+        if (paused && form) {
             paused = false;
-            Intent intent = new Intent(getContext(), ActivityRecetas.class);
-            intent.putExtra("email", usuario.getCorreo());
-            getContext().startActivity(intent);
+            form = false;
+            CardAddIngrediente cardAddIngrediente = new CardAddIngrediente(getContext(), usuario);
+
+            cardAddIngrediente.operacionesCardView();
+        } else if (paused && barcode) {
+            paused = false;
+            barcode = false;
+            Toast.makeText(this.getContext(), "Escaneando codigo de barras...", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -99,20 +102,20 @@ public class FrameMisRecetas extends Fragment {
         super.onResume();
 
         database = FirebaseFirestore.getInstance();
-        coleccion = database.collection("recetas");
+        coleccion = database.collection("ingredientes");
 
         coleccion.addSnapshotListener((snapshot, e) -> {
             if (e != null) {
                 return;
             }
-            mostrarRecetas();
+            mostrarIngredientes();
         });
     }
 
     /**
      * Método que crea los ingredientes y los carga en el adapter de ingredientes.
      */
-    private void mostrarRecetas() {
+    private void mostrarIngredientes() {
         Task<QuerySnapshot> obtenerUsuario = database.collection("usuarios").whereEqualTo("correo", usuario.getCorreo()).get();
 
         obtenerUsuario.addOnSuccessListener(usuarioSnapshot -> {
@@ -120,22 +123,23 @@ public class FrameMisRecetas extends Fragment {
                 DocumentSnapshot documentSnapshotUsuario = usuarioSnapshot.getDocuments().get(0);
                 String idUsuario = documentSnapshotUsuario.getId();
 
-                Task<QuerySnapshot> obtenerRecetasUsuario = database.collection("recetas").whereEqualTo("usuarioId", idUsuario).get();
+                Task<QuerySnapshot> obtenerIngredientesUsuario = database.collection("ingredientes").whereEqualTo("usuarioId", idUsuario).get();
 
-                obtenerRecetasUsuario.addOnSuccessListener(recetasSnapshot -> {
-                    List<Receta> recetas = new ArrayList<>();
+                obtenerIngredientesUsuario.addOnSuccessListener(ingredientesSnapshot -> {
+                    List<Ingrediente> ingredientes = new ArrayList<>();
 
-                    if (!recetasSnapshot.isEmpty()) {
-                        List<DocumentSnapshot> documents = recetasSnapshot.getDocuments();
+                    if (!ingredientesSnapshot.isEmpty()) {
+                        List<DocumentSnapshot> documents = ingredientesSnapshot.getDocuments();
                         if (!documents.isEmpty()) {
                             for (DocumentSnapshot ds: documents) {
-                                Receta rec = ds.toObject(Receta.class);
-                                recetas.add(rec);
+                                Ingrediente ing = ds.toObject(Ingrediente.class);
+                                ingredientes.add(ing);
                             }
                         }
                     }
-                    adapterMisRecetas = new AdapterMisRecetas(recetas, FrameMisRecetas.this.getContext(), usuario.getCorreo());
-                    recyclerView.setAdapter(adapterMisRecetas);
+
+                    adapterIngrediente = new AdapterIngrediente(ingredientes, FrameIngredientes.this.getContext(), usuario);
+                    recyclerView.setAdapter(adapterIngrediente);
                 });
             }
         });

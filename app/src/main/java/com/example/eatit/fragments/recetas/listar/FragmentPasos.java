@@ -1,4 +1,4 @@
-package com.example.eatit.fragments.recetas;
+package com.example.eatit.fragments.recetas.listar;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,7 +20,6 @@ import com.example.eatit.entities.Ingrediente;
 import com.example.eatit.entities.Receta;
 import com.example.eatit.entities.Usuario;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;

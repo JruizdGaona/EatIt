@@ -1,4 +1,4 @@
-package com.example.eatit.fragments.adapters;
+package com.example.eatit.fragments.adapters.recetas;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -19,7 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.eatit.R;
-import com.example.eatit.entities.Ingrediente;
 import com.example.eatit.entities.Receta;
 import com.example.eatit.activities.ActivityRecetas;
 import com.example.eatit.entities.Usuario;

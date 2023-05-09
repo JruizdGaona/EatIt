@@ -1,4 +1,4 @@
-package com.example.eatit.fragments.recetas;
+package com.example.eatit.fragments.recetas.crear;
 
 import android.content.res.ColorStateList;
 import android.graphics.Typeface;
@@ -23,10 +23,8 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.eatit.R;
 import com.example.eatit.entities.Ingrediente;
 import com.example.eatit.entities.Receta;
-import com.example.eatit.entities.Usuario;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -34,7 +32,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 

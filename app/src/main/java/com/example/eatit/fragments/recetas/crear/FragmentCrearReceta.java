@@ -1,4 +1,4 @@
-package com.example.eatit.fragments.recetas;
+package com.example.eatit.fragments.recetas.crear;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -8,9 +8,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,7 +18,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.eatit.R;
 import com.example.eatit.entities.Receta;
-import com.example.eatit.entities.Usuario;
+import com.example.eatit.fragments.recetas.crear.FragmentAddIngToReceta;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 

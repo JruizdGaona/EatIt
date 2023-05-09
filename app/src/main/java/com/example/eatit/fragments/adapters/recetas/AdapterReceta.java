@@ -1,4 +1,4 @@
-package com.example.eatit.fragments.adapters;
+package com.example.eatit.fragments.adapters.recetas;
 
 import android.content.Context;
 import android.content.Intent;
