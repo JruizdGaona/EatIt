@@ -25,7 +25,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FragmentPasosRecetas extends Fragment {
 
@@ -44,7 +46,7 @@ public class FragmentPasosRecetas extends Fragment {
         this.email = email;
         pasoActual = paso + 1;
         if (receta.getPasos() == null) {
-            receta.setPasos(new ArrayList<>());
+            receta.setPasos(new HashMap<>());
         }
     }
 
@@ -76,9 +78,8 @@ public class FragmentPasosRecetas extends Fragment {
     private void crearNuevoPaso() {
         nuevoPaso.setOnClickListener((view) -> {
             paso = pasoET.getText().toString();
-
-            List<String> pasosActuales = receta.getPasos();
-            pasosActuales.add(paso);
+            Map<String, String> pasosActuales = receta.getPasos();
+            pasosActuales.put(String.valueOf(pasoActual), paso);
 
             receta.setPasos(pasosActuales);
 
@@ -92,9 +93,8 @@ public class FragmentPasosRecetas extends Fragment {
     private void clickSiguienteImg() {
         img_avanzar.setOnClickListener((view) -> {
             paso = pasoET.getText().toString();
-
-            List<String> pasosActuales = receta.getPasos();
-            pasosActuales.add(paso);
+            Map<String, String> pasosActuales = receta.getPasos();
+            pasosActuales.put(String.valueOf(pasoActual), paso);
 
             receta.setPasos(pasosActuales);
 
@@ -110,8 +110,8 @@ public class FragmentPasosRecetas extends Fragment {
             if (pasoActual == 1) {
                 paso = pasoET.getText().toString();
 
-                List<String> pasosActuales = receta.getPasos();
-                pasosActuales.add(paso);
+                Map<String, String> pasosActuales = receta.getPasos();
+                pasosActuales.put(String.valueOf(pasoActual), paso);
 
                 receta.setPasos(pasosActuales);
 
@@ -122,8 +122,8 @@ public class FragmentPasosRecetas extends Fragment {
             } else {
                 paso = pasoET.getText().toString();
 
-                List<String> pasosActuales = receta.getPasos();
-                pasosActuales.add(paso);
+                Map<String, String> pasosActuales = receta.getPasos();
+                pasosActuales.put(String.valueOf(pasoActual), paso);
 
                 receta.setPasos(pasosActuales);
 
@@ -138,8 +138,8 @@ public class FragmentPasosRecetas extends Fragment {
     private void guardarReceta() {
         guardar.setOnClickListener((view) -> {
             paso = pasoET.getText().toString();
-            List<String> pasosActuales = receta.getPasos();
-            pasosActuales.add(paso);
+            Map<String, String> pasosActuales = receta.getPasos();
+            pasosActuales.put(String.valueOf(pasoActual), paso);
 
             receta.setPasos(pasosActuales);
 
