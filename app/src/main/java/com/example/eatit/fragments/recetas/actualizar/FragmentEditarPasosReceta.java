@@ -68,7 +68,7 @@ public class FragmentEditarPasosReceta extends Fragment {
         siguientePaso();
         pasoAnterior();
         actualizarReceta();
-        ocultar();
+        view.setOnTouchListener((view1, motionEvent) -> ocultar());
     }
 
     private void inicializarVariables(View view) {
@@ -159,7 +159,6 @@ public class FragmentEditarPasosReceta extends Fragment {
 
     private void actualizarReceta() {
         guardar.setOnClickListener((view) -> {
-            Toast.makeText(getContext(), "Uri: " + uri, Toast.LENGTH_SHORT).show();
             paso = pasoET.getText().toString();
             Map<String, String> pasosActuales = receta.getPasos();
 
