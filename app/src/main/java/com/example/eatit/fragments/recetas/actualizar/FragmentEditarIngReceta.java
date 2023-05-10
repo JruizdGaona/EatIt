@@ -101,7 +101,7 @@ public class FragmentEditarIngReceta extends Fragment {
 
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
-            fragmentTransaction.replace(R.id.frame_info, new FragmentEditarPasosReceta(receta, 0, email, recetaOldName));
+            fragmentTransaction.replace(R.id.frame_info, new FragmentEditarPasosReceta(receta, 1, email, recetaOldName));
             fragmentTransaction.commit();
         });
     }
@@ -125,7 +125,7 @@ public class FragmentEditarIngReceta extends Fragment {
 
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
-            fragmentTransaction.replace(R.id.frame_info, new FragmentEditarPasosReceta(receta, 0, email, recetaOldName));
+            fragmentTransaction.replace(R.id.frame_info, new FragmentEditarPasosReceta(receta, 1, email, recetaOldName));
             fragmentTransaction.commit();
         });
     }

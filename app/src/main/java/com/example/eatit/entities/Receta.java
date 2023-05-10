@@ -5,6 +5,7 @@ import android.net.Uri;
 import java.io.Serializable;
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -12,7 +13,8 @@ import java.util.Objects;
  */
 public class Receta implements Serializable {
     private String nombre, dificultad, duracion;
-    private List<String> ingredientes, pasos;
+    private List<String> ingredientes;
+    private Map<String, String> pasos;
     private String uri;
     private int raciones, popularidad;
     private String usuarioId;
@@ -79,11 +81,11 @@ public class Receta implements Serializable {
         this.ingredientes = ingredientes;
     }
 
-    public List<String> getPasos() {
+    public Map<String, String> getPasos() {
         return pasos;
     }
 
-    public void setPasos(List<String> pasos) {
+    public void setPasos(Map<String, String> pasos) {
         this.pasos = pasos;
     }
 
