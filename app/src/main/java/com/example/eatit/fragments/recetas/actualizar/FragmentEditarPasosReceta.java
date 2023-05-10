@@ -180,10 +180,15 @@ public class FragmentEditarPasosReceta extends Fragment {
 
                     if (recetas == null) recetas = new ArrayList<>();
                     receta.setUsuarioId(idUsuario);
-                    recetas.add(receta);
-                    usuario.setRecetasCreadas(recetas);
 
-                    userRef.update("recetasCreadas", usuario.getRecetasCreadas());
+                    for (Receta r: recetas) {
+                        if (!r.getNombre().equalsIgnoreCase(recetaOldName)) {
+                            recetas.add(receta);
+                            usuario.setRecetasCreadas(recetas);
+
+                            userRef.update("recetasCreadas", usuario.getRecetasCreadas());
+                        }
+                    }
 
                     Task<QuerySnapshot> consulta = coleccion.whereEqualTo("nombre", recetaOldName).get();
 
