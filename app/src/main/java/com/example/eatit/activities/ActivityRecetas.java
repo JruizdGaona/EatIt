@@ -98,7 +98,8 @@ public class ActivityRecetas extends AppCompatActivity implements Serializable {
             fragmentTransaction.replace(R.id.frame_info, new FragmentCrearReceta(email, receta)).commit();
         } else if (editar) {
             receta.setUri(null);
-            fragmentTransaction.replace(R.id.frame_info, new FragmentActualizarReceta(email, receta)).commit();
+            uri = null;
+            fragmentTransaction.replace(R.id.frame_info, new FragmentActualizarReceta(email, receta, uri)).commit();
         } else {
             fragmentTransaction.replace(R.id.frame_info, new FragmentRecetas(receta, email)).commit();
         }

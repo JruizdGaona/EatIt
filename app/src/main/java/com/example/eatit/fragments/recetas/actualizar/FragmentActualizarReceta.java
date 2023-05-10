@@ -1,6 +1,7 @@
 package com.example.eatit.fragments.recetas.actualizar;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,11 +31,13 @@ public class FragmentActualizarReceta extends Fragment {
     TextInputEditText tiempoET, comensalesET, nombreET;
     private String dificultad;
     String email, recetaOldName;
+    Uri uri;
 
-    public FragmentActualizarReceta(String email, Receta receta) {
+    public FragmentActualizarReceta(String email, Receta receta, Uri uri) {
         this.email = email;
         this.receta = receta;
         this.recetaOldName = receta.getNombre();
+        this.uri = uri;
     }
 
     @Nullable
@@ -92,7 +95,7 @@ public class FragmentActualizarReceta extends Fragment {
 
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
-            fragmentTransaction.replace(R.id.frame_info, new FragmentEditarIngReceta(receta, email, recetaOldName));
+            fragmentTransaction.replace(R.id.frame_info, new FragmentEditarIngReceta(receta, email, recetaOldName, uri));
             fragmentTransaction.commit();
         });
     }

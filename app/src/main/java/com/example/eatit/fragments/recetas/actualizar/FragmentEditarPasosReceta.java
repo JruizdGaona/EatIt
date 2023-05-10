@@ -1,5 +1,6 @@
 package com.example.eatit.fragments.recetas.actualizar;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +39,7 @@ public class FragmentEditarPasosReceta extends Fragment {
     private boolean pasoExistente;
     private FirebaseFirestore database = FirebaseFirestore.getInstance();
     CollectionReference coleccion = database.collection("recetas");
+    private Uri uri;
 
     public FragmentEditarPasosReceta(Receta receta, int paso, String email, String nombre) {
         this.receta = receta;
@@ -140,7 +142,7 @@ public class FragmentEditarPasosReceta extends Fragment {
 
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.from_left, R.anim.to_right);
-                fragmentTransaction.replace(R.id.frame_info, new FragmentEditarIngReceta(receta, email, recetaOldName));
+                fragmentTransaction.replace(R.id.frame_info, new FragmentEditarIngReceta(receta, email, recetaOldName, uri));
                 fragmentTransaction.commit();
             }
         });
@@ -148,6 +150,7 @@ public class FragmentEditarPasosReceta extends Fragment {
 
     private void actualizarReceta() {
         guardar.setOnClickListener((view) -> {
+            Toast.makeText(getContext(), "Uri: " + uri, Toast.LENGTH_SHORT).show();
             paso = pasoET.getText().toString();
             List<String> pasosActuales = receta.getPasos();
 
@@ -182,6 +185,8 @@ public class FragmentEditarPasosReceta extends Fragment {
                         if (!documentSnapshots.isEmpty()) {
                             for (DocumentSnapshot documentSnapshot : documentSnapshots.getDocuments()) {
                                 if (documentSnapshot.getString("nombre").equalsIgnoreCase(recetaOldName)) {
+                                    Receta oldReceta = documentSnapshot.toObject(Receta.class);
+                                    if (receta.getUri() == null) receta.setUri(oldReceta.getUri());
                                     coleccion.document(documentSnapshot.getId())
                                             .update("nombre", receta.getNombre(),
                                                     "dificultad", receta.getDificultad(),
