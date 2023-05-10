@@ -99,7 +99,6 @@ public class AdapterMisRecetas extends RecyclerView.Adapter<AdapterMisRecetas.My
             editarReceta(dialog, recetas.get(position));
             cerrarCardView(dialog);
             dialog.show();
-            Toast.makeText(context, "Pulsación Laraga", Toast.LENGTH_SHORT).show();
             return true;
         });
     }

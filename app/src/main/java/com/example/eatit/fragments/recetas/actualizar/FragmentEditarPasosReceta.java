@@ -1,10 +1,12 @@
 package com.example.eatit.fragments.recetas.actualizar;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -66,6 +68,7 @@ public class FragmentEditarPasosReceta extends Fragment {
         siguientePaso();
         pasoAnterior();
         actualizarReceta();
+        ocultar();
     }
 
     private void inicializarVariables(View view) {
@@ -166,67 +169,56 @@ public class FragmentEditarPasosReceta extends Fragment {
 
             receta.setPasos(pasosActuales);
 
-            Task<QuerySnapshot> obtenerUsuario = database.collection("usuarios").whereEqualTo("correo", email).get();
-            obtenerUsuario.addOnSuccessListener(usuarioSnapshot -> {
-                Usuario usuario;
+            Task<QuerySnapshot> consulta = coleccion.whereEqualTo("nombre", recetaOldName).get();
 
-                if (!usuarioSnapshot.isEmpty()) {
-                    DocumentSnapshot documentSnapshotUsuario = usuarioSnapshot.getDocuments().get(0);
-                    String idUsuario = documentSnapshotUsuario.getId();
-                    DocumentReference userRef = database.collection("usuarios").document(idUsuario);
-
-                    usuario = documentSnapshotUsuario.toObject(Usuario.class);
-                    List<Receta> recetas = usuario.getRecetasCreadas();
-
-                    if (recetas == null) recetas = new ArrayList<>();
-                    receta.setUsuarioId(idUsuario);
-
-                    for (Receta r: recetas) {
-                        if (!r.getNombre().equalsIgnoreCase(recetaOldName)) {
-                            recetas.add(receta);
-                            usuario.setRecetasCreadas(recetas);
-
-                            userRef.update("recetasCreadas", usuario.getRecetasCreadas());
+            consulta.addOnSuccessListener(documentSnapshots -> {
+                if (!documentSnapshots.isEmpty()) {
+                    for (DocumentSnapshot documentSnapshot : documentSnapshots.getDocuments()) {
+                        if (documentSnapshot.getString("nombre").equalsIgnoreCase(recetaOldName)) {
+                            Receta oldReceta = documentSnapshot.toObject(Receta.class);
+                            if (receta.getUri() == null) receta.setUri(oldReceta.getUri());
+                            coleccion.document(documentSnapshot.getId())
+                                    .update("nombre", receta.getNombre(),
+                                            "dificultad", receta.getDificultad(),
+                                            "duracion", receta.getDuracion(),
+                                            "ingredientes", receta.getIngredientes(),
+                                            "pasos", receta.getPasos(),
+                                            "raciones", receta.getRaciones(),
+                                            "uri", receta.getUri())
+                                    .addOnSuccessListener(aVoid -> {
+                                        Toast.makeText(getContext(), "Receta actualizada correctamente", Toast.LENGTH_SHORT).show();
+                                        getActivity().finish();
+                                    }).addOnFailureListener(e -> {
+                                        Toast.makeText(getContext(), "Error al actualizar la receta", Toast.LENGTH_SHORT).show();
+                                        getActivity().finish();
+                                    });
+                            return;
                         }
                     }
-
-                    Task<QuerySnapshot> consulta = coleccion.whereEqualTo("nombre", recetaOldName).get();
-
-                    consulta.addOnSuccessListener(documentSnapshots -> {
-                        if (!documentSnapshots.isEmpty()) {
-                            for (DocumentSnapshot documentSnapshot : documentSnapshots.getDocuments()) {
-                                if (documentSnapshot.getString("nombre").equalsIgnoreCase(recetaOldName)) {
-                                    Receta oldReceta = documentSnapshot.toObject(Receta.class);
-                                    if (receta.getUri() == null) receta.setUri(oldReceta.getUri());
-                                    coleccion.document(documentSnapshot.getId())
-                                            .update("nombre", receta.getNombre(),
-                                                    "dificultad", receta.getDificultad(),
-                                                    "duracion", receta.getDuracion(),
-                                                    "ingredientes", receta.getIngredientes(),
-                                                    "pasos", receta.getPasos(),
-                                                    "raciones", receta.getRaciones(),
-                                                    "uri", receta.getUri())
-                                            .addOnSuccessListener(aVoid -> {
-                                                Toast.makeText(getContext(), "Receta actualizada correctamente", Toast.LENGTH_SHORT).show();
-                                                getActivity().finish();
-                                            }).addOnFailureListener(e -> {
-                                                Toast.makeText(getContext(), "Error al actualizar la receta", Toast.LENGTH_SHORT).show();
-                                                getActivity().finish();
-                                            });
-                                    return;
-                                }
-                            }
-                        }
-                        Toast.makeText(getContext(), "Error al actualizar la receta", Toast.LENGTH_SHORT).show();
-                        getActivity().finish();
-                    }).addOnFailureListener(e -> {
-                        Toast.makeText(getContext(), "Error al actualizar la receta", Toast.LENGTH_SHORT).show();
-                        getActivity().finish();
-                    });
-                } else {
-                    Toast.makeText(getContext(), "Error al actualizar la receta", Toast.LENGTH_SHORT).show();
                 }
+                Toast.makeText(getContext(), "Error al actualizar la receta", Toast.LENGTH_SHORT).show();
+                getActivity().finish();
+            }).addOnFailureListener(e -> {
+                Toast.makeText(getContext(), "Error al actualizar la receta", Toast.LENGTH_SHORT).show();
+                getActivity().finish();
             });
         });
+    }
+
+    /**
+     * Método usado para cerrar el teclado al pulsar sobre otro lado de la pantalla.
+     *
+     * @return - True, si la vista es distinta de null, False si la View es null.
+     */
+    public boolean ocultar() {
+        View view = this.requireActivity().getCurrentFocus();
+
+        if (view != null) {
+            InputMethodManager input = (InputMethodManager) (requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE));
+            input.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            return true;
+        } else {
+            return false;
+        }
     }
 }
