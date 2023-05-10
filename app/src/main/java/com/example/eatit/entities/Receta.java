@@ -110,7 +110,7 @@ public class Receta implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Receta receta = (Receta) o;
-        return raciones == receta.raciones && popularidad == receta.popularidad && Objects.equals(nombre, receta.nombre) && Objects.equals(dificultad, receta.dificultad) && Objects.equals(duracion, receta.duracion) && Objects.equals(ingredientes, receta.ingredientes) && Objects.equals(pasos, receta.pasos) && Objects.equals(uri, receta.uri) && Objects.equals(usuarioId, receta.usuarioId);
+        return Objects.equals(nombre, receta.nombre) && Objects.equals(usuarioId, receta.usuarioId);
     }
 
     @Override
