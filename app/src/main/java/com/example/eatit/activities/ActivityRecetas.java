@@ -47,7 +47,7 @@ public class ActivityRecetas extends AppCompatActivity implements Serializable {
     private TextView nombreReceta;
     private ShapeableImageView imagenReceta;
     private Receta receta;
-    private boolean crear = false;
+    private boolean crear = false, addImagen = true;
     private String email;
     private Uri uri;
     private boolean editar;
@@ -101,15 +101,18 @@ public class ActivityRecetas extends AppCompatActivity implements Serializable {
             uri = null;
             fragmentTransaction.replace(R.id.frame_info, new FragmentActualizarReceta(email, receta, uri)).commit();
         } else {
+            addImagen = false;
             fragmentTransaction.replace(R.id.frame_info, new FragmentRecetas(receta, email)).commit();
         }
     }
 
     private void addImagenReceta() {
-        imagenReceta.setOnClickListener((View) -> {
-            mostrarOpcionesImagen();
-            Toast.makeText(this, "Seleccionar Imagen", Toast.LENGTH_SHORT).show();
-        });
+        if (addImagen) {
+            imagenReceta.setOnClickListener((View) -> {
+                mostrarOpcionesImagen();
+                Toast.makeText(this, "Seleccionar Imagen", Toast.LENGTH_SHORT).show();
+            });
+        }
     }
 
     private void mostrarOpcionesImagen() {
