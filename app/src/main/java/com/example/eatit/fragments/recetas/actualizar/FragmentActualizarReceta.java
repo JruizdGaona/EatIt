@@ -1,6 +1,7 @@
-package com.example.eatit.fragments.recetas;
+package com.example.eatit.fragments.recetas.actualizar;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,9 +9,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,24 +19,25 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.eatit.R;
 import com.example.eatit.entities.Receta;
-import com.example.eatit.entities.Usuario;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
-public class FragmentCrearReceta extends Fragment {
+import java.util.Arrays;
 
+public class FragmentActualizarReceta extends Fragment {
     private String[] dificultadReceta = {"Fácil", "Media", "Difícil", "Sólo para expertos"};
     private AppCompatButton boton_siguiente;
     private Receta receta;
     private Spinner spinnerDificultad;
     TextInputEditText tiempoET, comensalesET, nombreET;
-    TextInputLayout tiempo, comensales;
     private String dificultad;
-    String email;
+    String email, recetaOldName;
+    Uri uri;
 
-    public FragmentCrearReceta(String email, Receta receta) {
+    public FragmentActualizarReceta(String email, Receta receta, Uri uri) {
         this.email = email;
         this.receta = receta;
+        this.recetaOldName = receta.getNombre();
+        this.uri = uri;
     }
 
     @Nullable
@@ -61,10 +61,18 @@ public class FragmentCrearReceta extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, dificultadReceta);
         spinnerDificultad.setAdapter(adapter);
         tiempoET = view.findViewById(R.id.textInput_tiempo);
-        tiempo = view.findViewById(R.id.layoutTextInput_tiempo);
         comensalesET = view.findViewById(R.id.textInput_comensales);
-        comensales = view.findViewById(R.id.layoutTextInput_comensales);
         nombreET = view.findViewById(R.id.textInput_nombre);
+
+        tiempoET.setText(receta.getDuracion());
+        comensalesET.setText(String.valueOf(receta.getRaciones()));
+        nombreET.setText(receta.getNombre());
+
+        int index = Arrays.asList(dificultadReceta).indexOf(receta.getDificultad());
+        if (index == -1) {
+            index = 0;
+        }
+        spinnerDificultad.setSelection(index);
 
         spinnerDificultad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -74,7 +82,6 @@ public class FragmentCrearReceta extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
     }
@@ -88,7 +95,7 @@ public class FragmentCrearReceta extends Fragment {
 
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
-            fragmentTransaction.replace(R.id.frame_info, new FragmentAddIngToReceta(receta, email));
+            fragmentTransaction.replace(R.id.frame_info, new FragmentEditarIngReceta(receta, email, recetaOldName, uri));
             fragmentTransaction.commit();
         });
     }

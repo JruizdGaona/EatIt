@@ -1,4 +1,4 @@
-package com.example.eatit.fragments.recetas;
+package com.example.eatit.fragments.recetas.listar;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.example.eatit.R;
 import com.example.eatit.entities.Usuario;
+import com.example.eatit.fragments.recetas.listar.FrameMisRecetas;
 
 /**
  * @author Javier Ruiz de Gaona Tre.

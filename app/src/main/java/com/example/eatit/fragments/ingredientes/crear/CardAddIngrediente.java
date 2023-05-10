@@ -1,4 +1,4 @@
-package com.example.eatit.fragments.ingredientes;
+package com.example.eatit.fragments.ingredientes.crear;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;

@@ -1,4 +1,4 @@
-package com.example.eatit.fragments.ingredientes;
+package com.example.eatit.fragments.ingredientes.listar;
 
 import android.app.Dialog;
 import android.graphics.Color;

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.eatit.R;
 import com.example.eatit.entities.Ingrediente;
 import com.example.eatit.entities.Usuario;
-import com.example.eatit.fragments.ingredientes.CardVerMisIngredientes;
+import com.example.eatit.fragments.ingredientes.listar.CardVerMisIngredientes;
 import com.google.android.material.card.MaterialCardView;
 
 import java.text.ParseException;

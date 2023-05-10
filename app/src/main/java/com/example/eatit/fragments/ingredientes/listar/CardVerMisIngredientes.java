@@ -1,4 +1,4 @@
-package com.example.eatit.fragments.ingredientes;
+package com.example.eatit.fragments.ingredientes.listar;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -17,7 +17,7 @@ import androidx.core.content.ContextCompat;
 import com.example.eatit.R;
 import com.example.eatit.entities.Ingrediente;
 import com.example.eatit.entities.Usuario;
-import com.example.eatit.fragments.adapters.AdapterIngrediente;
+import com.example.eatit.fragments.ingredientes.crear.CardAddIngrediente;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.firestore.CollectionReference;
@@ -28,7 +28,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 

@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.example.eatit.R;
-import com.example.eatit.fragments.recetas.FrameRecetas;
+import com.example.eatit.fragments.recetas.listar.FrameRecetas;
 
 /**
  * @author Javier Ruiz de Gaona Tre.

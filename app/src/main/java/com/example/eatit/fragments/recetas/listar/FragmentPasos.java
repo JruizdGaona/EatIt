@@ -1,4 +1,4 @@
-package com.example.eatit.fragments.recetas;
+package com.example.eatit.fragments.recetas.listar;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,7 +20,6 @@ import com.example.eatit.entities.Ingrediente;
 import com.example.eatit.entities.Receta;
 import com.example.eatit.entities.Usuario;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -59,7 +58,7 @@ public class FragmentPasos extends Fragment {
         pasos = view.findViewById(R.id.pasos_receta);
         siguiente = view.findViewById(R.id.siguiente_paso);
         anterior = view.findViewById(R.id.anterior_paso);
-        pasos.setText(receta.getPasos().get(numPaso));
+        pasos.setText(receta.getPasos().get(String.valueOf(numPaso+1)));
         botonSiguiente = view.findViewById(R.id.btn_siguiente);
         botonAnterior = view.findViewById(R.id.btn_anterior);
         botonFin = view.findViewById(R.id.btn_finalizar);
@@ -69,7 +68,6 @@ public class FragmentPasos extends Fragment {
         int showPaso = numPaso + 1;
         if (numPaso == 0) textoPasos.setText(textoPasos.getText().toString().replace("PASO 1", "PASO " + 1));
         else textoPasos.setText(textoPasos.getText().toString().replace("PASO 1", "PASO " + showPaso));
-
 
         gestionPasos();
     }

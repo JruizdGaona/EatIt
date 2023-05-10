@@ -1,4 +1,4 @@
-package com.example.eatit.fragments.recetas;
+package com.example.eatit.fragments.recetas.listar;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.eatit.R;
 import com.example.eatit.entities.Receta;
-import com.example.eatit.fragments.adapters.AdapterReceta;
+import com.example.eatit.fragments.adapters.recetas.AdapterReceta;
 import java.util.ArrayList;
 import java.util.List;
 
