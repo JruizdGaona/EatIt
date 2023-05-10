@@ -14,6 +14,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.example.eatit.R;
 import com.example.eatit.entities.Receta;
+import com.example.eatit.fragments.adapters.recetas.AdapterReceta;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +31,8 @@ public class FragmentBuscador extends Fragment {
 
     // Declaramos las Variables.
     SearchView searchView;
+    FirebaseFirestore database = FirebaseFirestore.getInstance();
+    CollectionReference coleccion = database.collection("recetas");
 
     /**
      * Método onCreate del fragment de Inicio.
@@ -57,7 +65,7 @@ public class FragmentBuscador extends Fragment {
      * Método que carga el frgament de las recetas inicialmente.
      */
     private void cargarFragmentRecetas() {
-        Fragment fragmentRecetas = new FrameRecetas();
+        Fragment fragmentRecetas = new FrameRecetasFiltradas();
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
 
         fragmentTransaction.replace(R.id.frame_recetas, fragmentRecetas).commit();
@@ -91,23 +99,34 @@ public class FragmentBuscador extends Fragment {
     private void filtro(String newText) {
         List<Receta> listRecetasFiltradas = new ArrayList<>();
         List<Receta> recetas = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            recetas.add(new Receta("Receta" + i, null, String.valueOf(i), i, null));
-        }
 
-        for (Receta r: recetas) {
-            if (r.getNombre().toLowerCase().contains(newText.toLowerCase())) {
-                listRecetasFiltradas.add(r);
+        Task<QuerySnapshot> obtenerRecetasPopulares = coleccion.get();
+
+        obtenerRecetasPopulares.addOnSuccessListener(recetaSnapshot -> {
+
+            if (!recetaSnapshot.isEmpty()) {
+                for (DocumentSnapshot snapshot: recetaSnapshot) {
+                    Receta r = snapshot.toObject(Receta.class);
+                    recetas.add(r);
+                }
+
+                for (Receta r: recetas) {
+                    if (r.getNombre().toLowerCase().contains(newText.toLowerCase())) {
+                        listRecetasFiltradas.add(r);
+                    }
+                }
+
+                if (!listRecetasFiltradas.isEmpty()) {
+                    Fragment fragmentRecetas = new FrameRecetas(listRecetasFiltradas);
+                    FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.frame_recetas, fragmentRecetas).commit();
+                } else {
+                    Fragment fragmentRecetas = new FrameRecetas(new ArrayList<>());
+                    FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.frame_recetas, fragmentRecetas).commit();
+                }
             }
-        }
-
-        if (listRecetasFiltradas.isEmpty()) {
-            Toast.makeText(getContext(), "Sin coincidencias", Toast.LENGTH_SHORT).show();
-        } else {
-            Fragment fragmentRecetas = new FrameRecetas(listRecetasFiltradas);
-            FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.frame_recetas, fragmentRecetas).commit();
-        }
+        });
     }
 
     /**

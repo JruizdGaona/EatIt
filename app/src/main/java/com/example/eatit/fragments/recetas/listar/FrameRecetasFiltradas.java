@@ -4,17 +4,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.eatit.R;
 import com.example.eatit.entities.Receta;
-import com.example.eatit.entities.Usuario;
-import com.example.eatit.fragments.adapters.recetas.AdapterMisRecetas;
 import com.example.eatit.fragments.adapters.recetas.AdapterReceta;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -26,12 +24,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author Javier Ruiz de Gaona Tre.
- */
-public class FrameRecetas extends Fragment {
+public class FrameRecetasFiltradas extends Fragment {
 
-    // Declaramos las Variables.
     List<Receta> recetas = new ArrayList<>();
     RecyclerView recyclerView;
     AdapterReceta adapter;
@@ -42,13 +36,13 @@ public class FrameRecetas extends Fragment {
     /**
      * Construcotr por defecto del Frame.
      */
-    public FrameRecetas() {}
+    public FrameRecetasFiltradas() {}
 
     /**
      * Constructor que usamos para cargar las Recetas según la búsqueda del usuario.
      * @param filtradas Lista con las recetas ya Filtradas según la búsqueda.
      */
-    public FrameRecetas (List<Receta> filtradas) {
+    public FrameRecetasFiltradas (List<Receta> filtradas) {
         this.recetas = filtradas;
         filtro = true;
     }
@@ -77,7 +71,7 @@ public class FrameRecetas extends Fragment {
      * Método que crea las recetas y las carga en el adapter de recetas.
      */
     private void mostrarRecetas() {
-        Task<QuerySnapshot> obtenerRecetasPopulares = coleccion.orderBy("popularidad", Query.Direction.DESCENDING).limit(5).get();
+        Task<QuerySnapshot> obtenerRecetasPopulares = coleccion.get();
 
         obtenerRecetasPopulares.addOnSuccessListener(recetaSnapshot -> {
             List<Receta> recetasPopulares = new ArrayList<>();
@@ -89,7 +83,7 @@ public class FrameRecetas extends Fragment {
                 }
             }
 
-            adapter = new AdapterReceta(recetasPopulares, FrameRecetas.this.getContext());
+            adapter = new AdapterReceta(recetasPopulares, FrameRecetasFiltradas.this.getContext());
             recyclerView.setAdapter(adapter);
         });
     }
@@ -98,7 +92,7 @@ public class FrameRecetas extends Fragment {
      * Método que muestra las recetas Filtradas por la búsqueda del Usuario.
      */
     private void mostrarRecetasFiltradas() {
-        adapter = new AdapterReceta(recetas, FrameRecetas.this.getContext());
+        adapter = new AdapterReceta(recetas, FrameRecetasFiltradas.this.getContext());
         recyclerView.setAdapter(adapter);
     }
 }

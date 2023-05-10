@@ -9,10 +9,14 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.example.eatit.R;
 import com.example.eatit.entities.Receta;
 import com.example.eatit.activities.ActivityRecetas;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.imageview.ShapeableImageView;
+
 import java.util.List;
 
 /**
@@ -24,15 +28,7 @@ public class AdapterReceta extends RecyclerView.Adapter<AdapterReceta.MyViewHold
     private List<Receta> recetas;
     private final Context context;
     TextView nombre, dificultad, duracion;
-
-    /**
-     * Método que cambia las recetas a mostrar por el adapter según lo que busque el usuario.
-     * @param filtros Lista de recetas filtrada por el usuario.
-     */
-    public void setRecetasFiltradas(List<Receta> filtros) {
-        this.recetas = filtros;
-        notifyDataSetChanged();
-    }
+    private ShapeableImageView imagen;
 
     /**
      * Constructor del Adapter de Recetas.
@@ -96,10 +92,17 @@ public class AdapterReceta extends RecyclerView.Adapter<AdapterReceta.MyViewHold
             nombre = view.findViewById(R.id.receta_nombre);
             duracion = view.findViewById(R.id.receta_duracion);
             dificultad = view.findViewById(R.id.receta_dificultad);
+            imagen = view.findViewById(R.id.img_receta);
             cv = view.findViewById(R.id.layout_list_receta);
         }
 
         void bindData(@NonNull final Receta item) {
+            if (item.getUri() != null && !item.getUri().isEmpty()) {
+                Glide.with(context)
+                        .load(item.getUri())
+                        .centerCrop()
+                        .into(imagen);
+            }
             nombre.setText((item.getNombre()));
             duracion.setText(String.valueOf(item.getDuracion()).concat(" h"));
             dificultad.setText(item.getDificultad());
