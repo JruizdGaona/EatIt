@@ -84,8 +84,6 @@ public class FragmentAddIngToReceta extends Fragment {
             }
             receta.setIngredientes(opcionesSeleccionadas);
 
-            Toast.makeText(getContext(), "Se han seleccionado " + opcionesSeleccionadas.size(), Toast.LENGTH_SHORT).show();
-
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
             fragmentTransaction.replace(R.id.frame_info, new FragmentPasosRecetas(receta, 0, email));

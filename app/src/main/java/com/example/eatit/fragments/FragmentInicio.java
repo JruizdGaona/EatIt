@@ -16,6 +16,12 @@ import com.example.eatit.fragments.recetas.listar.FrameRecetas;
  */
 public class FragmentInicio extends Fragment {
 
+    String email;
+
+    public FragmentInicio(String email) {
+        this.email = email;
+    }
+
     /**
      * Método onCreate del fragment de Inicio.
      * @param inflater Variable que inlfa el Layout en la actividad.
@@ -38,7 +44,7 @@ public class FragmentInicio extends Fragment {
      */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        Fragment fragmentRecetas = new FrameRecetas();
+        Fragment fragmentRecetas = new FrameRecetas(email);
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
 
         fragmentTransaction.replace(R.id.frame_recetas, fragmentRecetas).commit();

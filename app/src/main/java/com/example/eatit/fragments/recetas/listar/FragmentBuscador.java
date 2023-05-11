@@ -33,6 +33,9 @@ public class FragmentBuscador extends Fragment {
     SearchView searchView;
     FirebaseFirestore database = FirebaseFirestore.getInstance();
     CollectionReference coleccion = database.collection("recetas");
+    String email;
+
+    public FragmentBuscador(String email) {this.email = email;}
 
     /**
      * Método onCreate del fragment de Inicio.
@@ -65,7 +68,7 @@ public class FragmentBuscador extends Fragment {
      * Método que carga el frgament de las recetas inicialmente.
      */
     private void cargarFragmentRecetas() {
-        Fragment fragmentRecetas = new FrameRecetasFiltradas();
+        Fragment fragmentRecetas = new FrameRecetasFiltradas(email);
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
 
         fragmentTransaction.replace(R.id.frame_recetas, fragmentRecetas).commit();

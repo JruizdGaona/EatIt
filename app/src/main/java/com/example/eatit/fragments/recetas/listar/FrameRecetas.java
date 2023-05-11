@@ -35,6 +35,7 @@ public class FrameRecetas extends Fragment {
     List<Receta> recetas = new ArrayList<>();
     RecyclerView recyclerView;
     AdapterReceta adapter;
+    String email;
     boolean filtro = false;
     FirebaseFirestore database = FirebaseFirestore.getInstance();
     CollectionReference coleccion = database.collection("recetas");
@@ -42,7 +43,7 @@ public class FrameRecetas extends Fragment {
     /**
      * Construcotr por defecto del Frame.
      */
-    public FrameRecetas() {}
+    public FrameRecetas(String email) {this.email = email;}
 
     /**
      * Constructor que usamos para cargar las Recetas según la búsqueda del usuario.
@@ -89,7 +90,7 @@ public class FrameRecetas extends Fragment {
                 }
             }
 
-            adapter = new AdapterReceta(recetasPopulares, FrameRecetas.this.getContext());
+            adapter = new AdapterReceta(recetasPopulares, FrameRecetas.this.getContext(), email);
             recyclerView.setAdapter(adapter);
         });
     }
@@ -98,7 +99,7 @@ public class FrameRecetas extends Fragment {
      * Método que muestra las recetas Filtradas por la búsqueda del Usuario.
      */
     private void mostrarRecetasFiltradas() {
-        adapter = new AdapterReceta(recetas, FrameRecetas.this.getContext());
+        adapter = new AdapterReceta(recetas, FrameRecetas.this.getContext(), email);
         recyclerView.setAdapter(adapter);
     }
 }

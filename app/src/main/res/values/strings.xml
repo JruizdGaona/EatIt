@@ -179,6 +179,9 @@
 
     <!-- Cadenas de Texto de list_receta -->
     <string name="receta">Receta</string>
+    <string name="ing_receta1">Ingredientes disponibles: x</string>
+    <string name="ing_receta2">Ingredientes necesarios: y</string>
+    <string name="btn">Ver detalles</string>
 
     <!-- Cadenas de Texto de list_ingredientes -->
     <string name="ingrediente">Ingredientes</string>

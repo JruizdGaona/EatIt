@@ -60,6 +60,53 @@
                 app:layout_constraintTop_toBottomOf="@+id/img_receta" />
 
             <TextView
+                android:id="@+id/receta_ing1"
+                android:visibility="invisible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/montserrat_light"
+                android:text="@string/ing_receta1"
+                android:textColor="@color/doradoClaro"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/receta_nombre"
+                app:layout_constraintStart_toStartOf="@+id/img_receta"
+                app:layout_constraintBottom_toTopOf="@+id/receta_ing2" />
+
+            <TextView
+                android:id="@+id/receta_ing2"
+                android:visibility="invisible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:fontFamily="@font/montserrat_light"
+                android:text="@string/ing_receta2"
+                android:textColor="@color/doradoClaro"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/img_receta"
+                app:layout_constraintBottom_toTopOf="@id/btn_cocinar" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_cocinar"
+                android:visibility="invisible"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/negroClaro"
+                android:layout_gravity="center_horizontal|center"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:background="@drawable/btn_login"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:fontFamily="@font/montserrat_medio"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="20dp"
+                android:text="@string/btn" />
+
+            <TextView
                 android:id="@+id/receta_dificultad"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

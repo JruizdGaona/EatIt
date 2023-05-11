@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -26,18 +28,18 @@ public class AdapterReceta extends RecyclerView.Adapter<AdapterReceta.MyViewHold
 
     // Declaración de variables.
     private List<Receta> recetas;
+    String email;
     private final Context context;
-    TextView nombre, dificultad, duracion;
-    private ShapeableImageView imagen;
 
     /**
      * Constructor del Adapter de Recetas.
      * @param re Lista de recetas a añadir en el Fragment.
      * @param context Contexto en el que usamos el Adapter.
      */
-    public AdapterReceta(List<Receta> re, Context context){
+    public AdapterReceta(List<Receta> re, Context context, String email){
         this.recetas = re;
         this.context = context;
+        this.email = email;
     }
 
     /**
@@ -63,11 +65,41 @@ public class AdapterReceta extends RecyclerView.Adapter<AdapterReceta.MyViewHold
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.cv.setAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_transition));
         holder.bindData(recetas.get(position));
+        holder.ingredientes1.setVisibility(android.view.View.INVISIBLE);
+        holder.ingredientes2.setVisibility(android.view.View.INVISIBLE);
+        holder.btn_detalle.setVisibility(android.view.View.INVISIBLE);
+        holder.expanded = false;
+        ViewGroup.LayoutParams params = holder.cv.getLayoutParams();
+        params.height = 615; // altura en píxeles
+        holder.cv.setLayoutParams(params);
 
         holder.cv.setOnClickListener((View) -> {
-            Intent intent = new Intent(context, ActivityRecetas.class);
-            intent.putExtra("receta", recetas.get(position));
-            context.startActivity(intent);
+            if (holder.expanded) {
+                holder.ingredientes1.setVisibility(android.view.View.INVISIBLE);
+                holder.ingredientes2.setVisibility(android.view.View.INVISIBLE);
+                holder.btn_detalle.setVisibility(android.view.View.INVISIBLE);
+                holder.expanded = false;
+                ViewGroup.LayoutParams params1 = holder.cv.getLayoutParams();
+                params1.height = 615; // altura en píxeles
+                holder.cv.setLayoutParams(params1);
+            } else {
+                holder.ingredientes1.setVisibility(android.view.View.VISIBLE);
+                holder.ingredientes2.setVisibility(android.view.View.VISIBLE);
+                holder.btn_detalle.setVisibility(android.view.View.VISIBLE);
+                holder.expanded = true;
+                ViewGroup.LayoutParams params2 = holder.cv.getLayoutParams();
+                params2.height = 900; // altura en píxeles
+                holder.cv.setLayoutParams(params2);
+            }
+
+            if (holder.expanded) {
+                holder.btn_detalle.setOnClickListener((view) -> {
+                    Intent intent = new Intent(context, ActivityRecetas.class);
+                    intent.putExtra("receta", recetas.get(position));
+                    intent.putExtra("email", email);
+                    context.startActivity(intent);
+                });
+            }
         });
     }
 
@@ -86,9 +118,16 @@ public class AdapterReceta extends RecyclerView.Adapter<AdapterReceta.MyViewHold
      */
     public class MyViewHolder extends RecyclerView.ViewHolder{
         MaterialCardView cv;
+        TextView nombre, dificultad, duracion, ingredientes1, ingredientes2;
+        ShapeableImageView imagen;
+        AppCompatButton btn_detalle;
+        boolean expanded;
 
         public MyViewHolder(View view){
             super(view);
+            btn_detalle = view.findViewById(R.id.btn_cocinar);
+            ingredientes1 = view.findViewById(R.id.receta_ing1);
+            ingredientes2 = view.findViewById(R.id.receta_ing2);
             nombre = view.findViewById(R.id.receta_nombre);
             duracion = view.findViewById(R.id.receta_duracion);
             dificultad = view.findViewById(R.id.receta_dificultad);
