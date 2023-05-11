@@ -16,6 +16,7 @@
 
     <!-- Color para los ingredientes caducados -->
     <color name="caducado">#8b0000</color>
+    <color name="okey">#006400</color>
 
     <!-- Color para los ingredientes deshabilitados -->
     <color name="deshabilitado">#FFA500</color>

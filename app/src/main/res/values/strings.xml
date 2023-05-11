@@ -182,6 +182,8 @@
     <string name="ing_receta1">Ingredientes disponibles: x</string>
     <string name="ing_receta2">Ingredientes necesarios: y</string>
     <string name="btn">Ver detalles</string>
+    <string name="ing_alert">¡Revisar Ingredientes!</string>
+    <string name="ing_alert_ok">¡Listo para Cocinar!</string>
 
     <!-- Cadenas de Texto de list_ingredientes -->
     <string name="ingrediente">Ingredientes</string>
