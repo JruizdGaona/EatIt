@@ -67,6 +67,20 @@ public class FragmentAddIngToReceta extends Fragment {
         clickAnteriorImg();
     }
 
+    private void inicializarVariables(View view) {
+        dificultad = view.findViewById(R.id.text_dificultad);
+        tiempo = view.findViewById(R.id.text_tiempo);
+        comensales = view.findViewById(R.id.text_comensales);
+        botonNext = view.findViewById(R.id.btn_next);
+        checkBoxContainer = view.findViewById(R.id.container_ch);
+        img_avanzar = view.findViewById(R.id.siguiente_paso);
+        img_retroceso = view.findViewById(R.id.anterior_paso);
+
+        dificultad.setText(receta.getDificultad());
+        tiempo.setText(String.valueOf(receta.getDuracion()));
+        comensales.setText(String.valueOf(receta.getRaciones()));
+    }
+
     private void clickSiguienteBtn() {
         botonNext.setOnClickListener((view) -> {
             List<String> opcionesSeleccionadas = new ArrayList<>();
@@ -82,12 +96,21 @@ public class FragmentAddIngToReceta extends Fragment {
                     }
                 }
             }
-            receta.setIngredientes(opcionesSeleccionadas);
+            if (opcionesSeleccionadas.size() > 0) {
+                if (receta.getIngredientes() != null && receta.getIngredientes().size() > 0) {
+                    receta.getIngredientes().clear();
+                    receta.setIngredientes(opcionesSeleccionadas);
+                } else {
+                    receta.setIngredientes(opcionesSeleccionadas);
+                }
 
-            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
-            fragmentTransaction.replace(R.id.frame_info, new FragmentPasosRecetas(receta, 0, email));
-            fragmentTransaction.commit();
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
+                fragmentTransaction.replace(R.id.frame_info, new FragmentPasosRecetas(receta, 0, email));
+                fragmentTransaction.commit();
+            } else {
+                Toast.makeText(getContext(), "Debes seleccionar, por lo menos, un ingrediente", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
@@ -106,14 +129,22 @@ public class FragmentAddIngToReceta extends Fragment {
                     }
                 }
             }
-            receta.setIngredientes(opcionesSeleccionadas);
 
-            Toast.makeText(getContext(), "Se han seleccionado " + opcionesSeleccionadas.size(), Toast.LENGTH_SHORT).show();
+            if (opcionesSeleccionadas.size() > 0) {
+                if (receta.getIngredientes().size() > 0) {
+                    receta.getIngredientes().clear();
+                    receta.setIngredientes(opcionesSeleccionadas);
+                } else {
+                    receta.setIngredientes(opcionesSeleccionadas);
+                }
 
-            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
-            fragmentTransaction.replace(R.id.frame_info, new FragmentPasosRecetas(receta, 0, email));
-            fragmentTransaction.commit();
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
+                fragmentTransaction.replace(R.id.frame_info, new FragmentPasosRecetas(receta, 0, email));
+                fragmentTransaction.commit();
+            } else {
+                Toast.makeText(getContext(), "Debes seleccionar, por lo menos, un ingrediente", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
@@ -133,8 +164,6 @@ public class FragmentAddIngToReceta extends Fragment {
                 }
             }
             receta.setIngredientes(opcionesSeleccionadas);
-
-            Toast.makeText(getContext(), "Se han seleccionado " + opcionesSeleccionadas.size(), Toast.LENGTH_SHORT).show();
 
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.from_left, R.anim.to_right);
@@ -180,7 +209,7 @@ public class FragmentAddIngToReceta extends Fragment {
     }
 
     private void rellenarCheckbox(List<Ingrediente> ingredientes) {
-        for (int i = 0; i < ingredientes.size(); i++) {
+        for (Ingrediente i: ingredientes) {
             CheckBox checkBox = new CheckBox(getContext());
 
             checkBox.setPadding(20,20,20,20);
@@ -189,13 +218,20 @@ public class FragmentAddIngToReceta extends Fragment {
             Typeface typeface = ResourcesCompat.getFont(getContext(), R.font.montserrat_medio);
             checkBox.setTypeface(typeface);
 
-            if (comprobarFecha(ingredientes.get(i))) {
-                checkBox.setText(ingredientes.get(i).getNombre());
+            if (receta.getIngredientes() != null && receta.getIngredientes().size() > 0) {
+                if (receta.getIngredientes().contains(i.getNombre())) {
+                    checkBox.setChecked(true);
+                }
+            }
+
+            if (comprobarFecha(i)) {
+                checkBox.setText(i.getNombre());
                 checkBox.setTextColor(ContextCompat.getColor(requireContext(), R.color.caducado));
             } else {
-                checkBox.setText(ingredientes.get(i).getNombre());
+                checkBox.setText(i.getNombre());
                 checkBox.setTextColor(ContextCompat.getColor(requireContext(), R.color.doradoClaro));
             }
+
             checkBoxContainer.addView(checkBox);
         }
     }
@@ -213,19 +249,5 @@ public class FragmentAddIngToReceta extends Fragment {
         }
 
         return false;
-    }
-
-    private void inicializarVariables(View view) {
-        dificultad = view.findViewById(R.id.text_dificultad);
-        tiempo = view.findViewById(R.id.text_tiempo);
-        comensales = view.findViewById(R.id.text_comensales);
-        botonNext = view.findViewById(R.id.btn_next);
-        checkBoxContainer = view.findViewById(R.id.container_ch);
-        img_avanzar = view.findViewById(R.id.siguiente_paso);
-        img_retroceso = view.findViewById(R.id.anterior_paso);
-
-        dificultad.setText(receta.getDificultad());
-        tiempo.setText(String.valueOf(receta.getDuracion()));
-        comensales.setText(String.valueOf(receta.getRaciones()));
     }
 }

@@ -23,6 +23,7 @@ import com.example.eatit.entities.Receta;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public class FragmentCrearReceta extends Fragment {
@@ -69,7 +70,22 @@ public class FragmentCrearReceta extends Fragment {
         comensales = view.findViewById(R.id.layoutTextInput_comensales);
         nombreET = view.findViewById(R.id.textInput_nombre);
         nombre = view.findViewById(R.id.layoutTextInput_nombre);
-        cambiarEstadoBoton(false);
+
+        if (receta.getNombre() != null && receta.getDuracion() != null && receta.getRaciones() != 0) {
+            tiempoET.setText(receta.getDuracion());
+            nombreET.setText(receta.getNombre());
+            comensalesET.setText(String.valueOf(receta.getRaciones()));
+
+            int index = Arrays.asList(dificultadReceta).indexOf(receta.getDificultad());
+            if (index == -1) {
+                index = 0;
+            }
+            spinnerDificultad.setSelection(index);
+
+            cambiarEstadoBoton(true);
+        } else {
+            cambiarEstadoBoton(false);
+        }
 
         spinnerDificultad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
