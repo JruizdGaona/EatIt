@@ -120,29 +120,38 @@ public class AdapterMisRecetas extends RecyclerView.Adapter<AdapterMisRecetas.My
         AppCompatButton eliminar = dialog.findViewById(R.id.btn_delete);
 
         eliminar.setOnClickListener((view) -> {
-            Task<QuerySnapshot> consulta = coleccion.whereEqualTo("nombre", receta.getNombre()).get();
+            Task<QuerySnapshot> consultaUsuario = database.collection("usuarios").whereEqualTo("correo", email).get();
 
-            consulta.addOnSuccessListener(documentSnapshots -> {
-                if (!documentSnapshots.isEmpty()) {
-                    for (DocumentSnapshot documentSnapshot : documentSnapshots.getDocuments()) {
-                        if (documentSnapshot.getString("nombre").equalsIgnoreCase(receta.getNombre())) {
-                            coleccion.document(documentSnapshot.getId()).delete().addOnSuccessListener(aVoid -> {
-                                eliminarRecetaDelUsuario(receta);
-                                Toast.makeText(context, "Receta eliminada correctamente", Toast.LENGTH_SHORT).show();
-                                dialog.dismiss();
-                            }).addOnFailureListener(e -> {
-                                Toast.makeText(context, "Error al borrar la receta", Toast.LENGTH_SHORT).show();
-                                dialog.dismiss();
-                            });
-                            return;
+            consultaUsuario.addOnSuccessListener(documentSnapshotsUsuario -> {
+                if (!documentSnapshotsUsuario.isEmpty()) {
+                    String idUsuario = documentSnapshotsUsuario.getDocuments().get(0).getId();
+                    Toast.makeText(context, "IdUsuario: " + idUsuario, Toast.LENGTH_SHORT).show();
+                    Task<QuerySnapshot> consulta = coleccion.whereEqualTo("nombre", receta.getNombre()).whereEqualTo("usuarioId", idUsuario).get();
+
+                    consulta.addOnSuccessListener(documentSnapshots -> {
+                        if (!documentSnapshots.isEmpty()) {
+                            for (DocumentSnapshot documentSnapshot : documentSnapshots.getDocuments()) {
+                                if (documentSnapshot.getString("nombre").equalsIgnoreCase(receta.getNombre())) {
+                                    coleccion.document(documentSnapshot.getId()).delete().addOnSuccessListener(aVoid -> {
+                                        Toast.makeText(context, "RECETA: " + receta.getNombre(), Toast.LENGTH_SHORT).show();
+                                        eliminarRecetaDelUsuario(receta);
+                                        Toast.makeText(context, "Receta eliminada correctamente", Toast.LENGTH_SHORT).show();
+                                        dialog.dismiss();
+                                    }).addOnFailureListener(e -> {
+                                        Toast.makeText(context, "Error al borrar la receta", Toast.LENGTH_SHORT).show();
+                                        dialog.dismiss();
+                                    });
+                                    return;
+                                }
+                            }
                         }
-                    }
+                        Toast.makeText(context, "Error al borrar la receta", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }).addOnFailureListener(e -> {
+                        Toast.makeText(context, "Error al borrar la receta", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    });
                 }
-                Toast.makeText(context, "Error al borrar la receta", Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
-            }).addOnFailureListener(e -> {
-                Toast.makeText(context, "Error al borrar la receta", Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
             });
         });
     }

@@ -163,29 +163,36 @@ public class CardVerMisIngredientes {
      */
     private void eliminarIngrediente(Dialog dialog, Ingrediente ingrediente) {
         eliminar.setOnClickListener((View) -> {
-            Task<QuerySnapshot> consulta = coleccion.whereEqualTo("nombre", ingrediente.getNombre()).get();
+            Task<QuerySnapshot> consultaUsuario = database.collection("usuarios").whereEqualTo("correo", usuario.getCorreo()).get();
+            consultaUsuario.addOnSuccessListener(documentSnapshotsUsuario -> {
+                if (!documentSnapshotsUsuario.isEmpty()) {
+                    String usuarioId = documentSnapshotsUsuario.getDocuments().get(0).getId();
 
-            consulta.addOnSuccessListener(documentSnapshots -> {
-                if (!documentSnapshots.isEmpty()) {
-                    for (DocumentSnapshot documentSnapshot : documentSnapshots.getDocuments()) {
-                        if (documentSnapshot.getString("nombre").equalsIgnoreCase(ingrediente.getNombre())) {
-                            coleccion.document(documentSnapshot.getId()).delete().addOnSuccessListener(aVoid -> {
-                                eliminarIngredienteDelUsuario(ingrediente);
-                                Toast.makeText(context, "Ingrediente eliminado correctamente", Toast.LENGTH_SHORT).show();
-                                dialog.dismiss();
-                            }).addOnFailureListener(e -> {
-                                Toast.makeText(context, "Error al borrar el ingrediente", Toast.LENGTH_SHORT).show();
-                                dialog.dismiss();
-                            });
-                            return;
+                    Task<QuerySnapshot> consulta = coleccion.whereEqualTo("nombre", ingrediente.getNombre()).whereEqualTo("usuarioId", usuarioId).get();
+
+                    consulta.addOnSuccessListener(documentSnapshots -> {
+                        if (!documentSnapshots.isEmpty()) {
+                            for (DocumentSnapshot documentSnapshot : documentSnapshots.getDocuments()) {
+                                if (documentSnapshot.getString("nombre").equalsIgnoreCase(ingrediente.getNombre())) {
+                                    coleccion.document(documentSnapshot.getId()).delete().addOnSuccessListener(aVoid -> {
+                                        eliminarIngredienteDelUsuario(ingrediente);
+                                        Toast.makeText(context, "Ingrediente eliminado correctamente", Toast.LENGTH_SHORT).show();
+                                        dialog.dismiss();
+                                    }).addOnFailureListener(e -> {
+                                        Toast.makeText(context, "Error al borrar el ingrediente", Toast.LENGTH_SHORT).show();
+                                        dialog.dismiss();
+                                    });
+                                    return;
+                                }
+                            }
                         }
-                    }
+                        Toast.makeText(context, "Error al borrar el ingrediente", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }).addOnFailureListener(e -> {
+                        Toast.makeText(context, "Error al borrar el ingrediente", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    });
                 }
-                Toast.makeText(context, "Error al borrar el ingrediente", Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
-            }).addOnFailureListener(e -> {
-                Toast.makeText(context, "Error al borrar el ingrediente", Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
             });
         });
     }
