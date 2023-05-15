@@ -3,6 +3,8 @@ package com.example.eatit.fragments.recetas.actualizar;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import com.example.eatit.entities.Receta;
 import com.example.eatit.entities.Usuario;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -30,12 +33,14 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class FragmentEditarPasosReceta extends Fragment {
     private Receta receta;
     private AppCompatButton guardar, nuevoPaso;
     private int pasoActual, pasosReceta;
     private TextInputEditText pasoET;
+    TextInputLayout layoutPaso;
     private String paso, recetaOldName;
     private ImageView img_avanzar, img_retroceso;
     private String email;
@@ -65,6 +70,7 @@ public class FragmentEditarPasosReceta extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         inicializarVariables(view);
+        comprobarPaso();
         siguientePaso();
         pasoAnterior();
         actualizarReceta();
@@ -75,10 +81,58 @@ public class FragmentEditarPasosReceta extends Fragment {
         guardar = view.findViewById(R.id.btn_guardar);
         nuevoPaso = view.findViewById(R.id.btn_next);
         pasoET = view.findViewById(R.id.textInput_pasos);
+        layoutPaso = view.findViewById(R.id.layout_textInput);
         img_avanzar = view.findViewById(R.id.siguiente_paso);
         img_retroceso = view.findViewById(R.id.anterior_paso);
 
         if (pasoExistente) pasoET.setText(receta.getPasos().get(String.valueOf(pasoActual)));
+    }
+
+    private void comprobarPaso() {
+        pasoET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                cambiarEstadoBoton(!charSequence.toString().isEmpty());
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(!editable.toString().isEmpty()) {
+                    if(Objects.requireNonNull(pasoET.getText()).toString().isEmpty()){
+                        layoutPaso.setError(null);
+                        cambiarEstadoBoton(false);
+                    }
+                    else {
+                        layoutPaso.setError(null);
+                        cambiarEstadoBoton(true);
+                    }
+                }else {
+                    layoutPaso.setError("Es obligatorio introducir la información necesaria");
+                    cambiarEstadoBoton(false);
+                }
+            }
+        });
+    }
+
+    private void cambiarEstadoBoton(boolean estado) {
+        this.nuevoPaso.setEnabled(estado);
+        this.guardar.setEnabled(estado);
+        this.img_avanzar.setEnabled(estado);
+
+        if (!estado) {
+            this.img_avanzar.setVisibility(View.INVISIBLE);
+            this.nuevoPaso.setBackgroundResource(R.drawable.btn_login_disabled);
+            this.guardar.setBackgroundResource(R.drawable.btn_login_disabled);
+        } else {
+            this.img_avanzar.setVisibility(View.VISIBLE);
+            this.nuevoPaso.setBackgroundResource(R.drawable.btn_login);
+            this.guardar.setBackgroundResource(R.drawable.btn_login);
+        }
     }
 
     private void siguientePaso() {
