@@ -119,7 +119,7 @@ public class RegistroActivity extends Activity {
                         cambiarEstadoBoton(true);
                     }
                 }else {
-                    nombre.setError("Solo caracteres Alfanuméricos");
+                    nombre.setError("Solo caracteres alfabéticos");
                     cambiarEstadoBoton(false);
                 }
                 if(editable.length() > 25) {
@@ -154,7 +154,7 @@ public class RegistroActivity extends Activity {
                         cambiarEstadoBoton(true);
                     }
                 }else {
-                    apellido.setError("Solo caracteres Alfanuméricos");
+                    apellido.setError("Solo caracteres alfabéticos");
                     cambiarEstadoBoton(false);
                 }
 

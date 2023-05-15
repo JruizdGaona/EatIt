@@ -3,6 +3,8 @@ package com.example.eatit.fragments.recetas.actualizar;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +22,10 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.eatit.R;
 import com.example.eatit.entities.Receta;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class FragmentActualizarReceta extends Fragment {
     private String[] dificultadReceta = {"Fácil", "Media", "Difícil", "Sólo para expertos"};
@@ -29,6 +33,7 @@ public class FragmentActualizarReceta extends Fragment {
     private Receta receta;
     private Spinner spinnerDificultad;
     TextInputEditText tiempoET, comensalesET, nombreET;
+    TextInputLayout tiempo, nombre, comensales;
     private String dificultad;
     String email, recetaOldName;
     Uri uri;
@@ -50,6 +55,9 @@ public class FragmentActualizarReceta extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         inicializarVariables(view);
+        comprobarTiempo();
+        comprobarNombre();
+        comprobarComensales();
 
         view.setOnTouchListener((view1, motionEvent) -> ocultar());
         clickSiguienteBtn();
@@ -63,10 +71,14 @@ public class FragmentActualizarReceta extends Fragment {
         tiempoET = view.findViewById(R.id.textInput_tiempo);
         comensalesET = view.findViewById(R.id.textInput_comensales);
         nombreET = view.findViewById(R.id.textInput_nombre);
+        tiempo = view.findViewById(R.id.layoutTextInput_tiempo);
+        nombre = view.findViewById(R.id.layoutTextInput_nombre);
+        comensales = view.findViewById(R.id.layoutTextInput_comensales);
 
         tiempoET.setText(receta.getDuracion());
         comensalesET.setText(String.valueOf(receta.getRaciones()));
         nombreET.setText(receta.getNombre());
+        cambiarEstadoBoton(true);
 
         int index = Arrays.asList(dificultadReceta).indexOf(receta.getDificultad());
         if (index == -1) {
@@ -84,6 +96,112 @@ public class FragmentActualizarReceta extends Fragment {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
+    }
+
+    private void comprobarComensales() {
+        comensalesET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                cambiarEstadoBoton(!charSequence.toString().isEmpty());
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(!editable.toString().isEmpty() && editable.toString().matches("^[1-9]\\d*")) {
+                    if(Objects.requireNonNull(comensalesET.getText()).toString().isEmpty() || Objects.requireNonNull(tiempoET.getText()).toString().isEmpty() || nombreET.getText().toString().isEmpty()){
+                        comensales.setError(null);
+                        cambiarEstadoBoton(false);
+                    } else {
+                        comensales.setError(null);
+                        cambiarEstadoBoton(true);
+                    }
+                }else {
+                    comensales.setError("Solo caracteres numéricos");
+                    cambiarEstadoBoton(false);
+                }
+            }
+        });
+    }
+
+    private void comprobarNombre() {
+        nombreET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                cambiarEstadoBoton(!charSequence.toString().isEmpty());
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(!editable.toString().isEmpty() && editable.toString().matches("[a-zA-ZáéíóúÁÉÍÓÚS\\s]{1,40}")) {
+                    if(Objects.requireNonNull(nombreET.getText()).toString().isEmpty() || Objects.requireNonNull(tiempoET.getText()).toString().isEmpty() || comensalesET.getText().toString().isEmpty()){
+                        nombre.setError(null);
+                        cambiarEstadoBoton(false);
+                    }
+                    else {
+                        nombre.setError(null);
+                        cambiarEstadoBoton(true);
+                    }
+                }else {
+                    nombre.setError("Sólo caracteres alfabéticos");
+                    cambiarEstadoBoton(false);
+                }
+
+                if(editable.length() > 40) {
+                    nombre.setError("Máximo caracteres alcanzado");
+                }
+            }
+        });
+    }
+
+    private void comprobarTiempo() {
+        tiempoET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                cambiarEstadoBoton(!charSequence.toString().isEmpty());
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(!editable.toString().isEmpty() && editable.toString().matches("^[1-9]\\d*")) {
+                    if(Objects.requireNonNull(tiempoET.getText()).toString().isEmpty() || Objects.requireNonNull(comensalesET.getText()).toString().isEmpty() || nombreET.getText().toString().isEmpty()){
+                        tiempo.setError(null);
+                        cambiarEstadoBoton(false);
+                    }
+                    else {
+                        tiempo.setError(null);
+                        cambiarEstadoBoton(true);
+                    }
+                }else {
+                    tiempo.setError("Solo caracteres numéricos");
+                    cambiarEstadoBoton(false);
+                }
+            }
+        });
+    }
+
+    private void cambiarEstadoBoton(boolean estado) {
+        this.boton_siguiente.setEnabled(estado);
+
+        if (!this.boton_siguiente.isEnabled()) {
+            this.boton_siguiente.setBackgroundResource(R.drawable.btn_login_disabled);
+        } else {
+            this.boton_siguiente.setBackgroundResource(R.drawable.btn_login);
+        }
     }
 
     private void clickSiguienteBtn() {

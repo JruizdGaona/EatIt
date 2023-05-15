@@ -2,6 +2,8 @@ package com.example.eatit.fragments.recetas.crear;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +20,11 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.eatit.R;
 import com.example.eatit.entities.Receta;
 import com.example.eatit.entities.Usuario;
+import com.example.eatit.fragments.recetas.actualizar.FragmentEditarIngReceta;
+import com.example.eatit.fragments.recetas.actualizar.FragmentEditarPasosReceta;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -30,14 +35,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class FragmentPasosRecetas extends Fragment {
 
     private Receta receta;
     private AppCompatButton guardar, nuevoPaso;
-    private int pasoActual;
+    private int pasoActual, pasosReceta;
     private TextInputEditText pasoET;
+    TextInputLayout layoutPaso;
     private String paso;
+    private boolean pasoExistente;
     private ImageView img_avanzar, img_retroceso;
     private String email;
     private FirebaseFirestore database = FirebaseFirestore.getInstance();
@@ -46,10 +54,15 @@ public class FragmentPasosRecetas extends Fragment {
     public FragmentPasosRecetas(Receta receta, int paso, String email) {
         this.receta = receta;
         this.email = email;
-        pasoActual = paso + 1;
+        this.pasoActual = paso;
+
         if (receta.getPasos() == null) {
             receta.setPasos(new HashMap<>());
+        } else {
+            this.pasosReceta = receta.getPasos().size();
         }
+
+        pasoExistente = pasoActual <= pasosReceta;
     }
 
     @Nullable
@@ -63,9 +76,9 @@ public class FragmentPasosRecetas extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         inicializarVariables(view);
+        comprobarPaso();
         crearNuevoPaso();
         guardarReceta();
-        clickSiguienteImg();
         clickAnteriorImg();
 
         view.setOnTouchListener((view1, motionEvent) -> ocultar());
@@ -77,63 +90,134 @@ public class FragmentPasosRecetas extends Fragment {
         pasoET = view.findViewById(R.id.textInput_pasos);
         img_avanzar = view.findViewById(R.id.siguiente_paso);
         img_retroceso = view.findViewById(R.id.anterior_paso);
+        layoutPaso = view.findViewById(R.id.layout_textInput);
+
+        if (pasoExistente) {
+            pasoET.setText(receta.getPasos().get(String.valueOf(pasoActual)));
+            cambiarEstadoBoton(true);
+        } else {
+            cambiarEstadoBoton(false);
+        }
     }
 
-    private void crearNuevoPaso() {
-        nuevoPaso.setOnClickListener((view) -> {
-            paso = pasoET.getText().toString();
-            Map<String, String> pasosActuales = receta.getPasos();
-            pasosActuales.put(String.valueOf(pasoActual), paso);
+    private void comprobarPaso() {
+        pasoET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                cambiarEstadoBoton(!charSequence.toString().isEmpty());
+            }
 
-            receta.setPasos(pasosActuales);
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
-            fragmentTransaction.replace(R.id.frame_info, new FragmentPasosRecetas(receta, pasoActual, email));
-            fragmentTransaction.commit();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(!editable.toString().isEmpty()) {
+                    if(Objects.requireNonNull(pasoET.getText()).toString().isEmpty()){
+                        layoutPaso.setError(null);
+                        cambiarEstadoBoton(false);
+                    }
+                    else {
+                        layoutPaso.setError(null);
+                        cambiarEstadoBoton(true);
+                    }
+                }else {
+                    layoutPaso.setError("Es obligatorio introducir la información necesaria");
+                    cambiarEstadoBoton(false);
+                }
+            }
         });
     }
 
-    private void clickSiguienteImg() {
-        img_avanzar.setOnClickListener((view) -> {
-            paso = pasoET.getText().toString();
-            Map<String, String> pasosActuales = receta.getPasos();
-            pasosActuales.put(String.valueOf(pasoActual), paso);
+    private void cambiarEstadoBoton(boolean estado) {
+        this.nuevoPaso.setEnabled(estado);
+        this.guardar.setEnabled(estado);
+        this.img_avanzar.setEnabled(estado);
 
-            receta.setPasos(pasosActuales);
+        if (!estado) {
+            this.img_avanzar.setVisibility(View.INVISIBLE);
+            this.nuevoPaso.setBackgroundResource(R.drawable.btn_login_disabled);
+            this.guardar.setBackgroundResource(R.drawable.btn_login_disabled);
+        } else {
+            this.img_avanzar.setVisibility(View.VISIBLE);
+            this.nuevoPaso.setBackgroundResource(R.drawable.btn_login);
+            this.guardar.setBackgroundResource(R.drawable.btn_login);
+        }
+    }
+
+    private void crearNuevoPaso() {
+        img_avanzar.setOnClickListener((view) -> {
+            if (pasoExistente) {
+                paso = pasoET.getText().toString();
+                receta.getPasos().replace(String.valueOf(pasoActual), receta.getPasos().get(String.valueOf(pasoActual)), paso);
+                receta.setPasos(receta.getPasos());
+            } else {
+                Map<String, String> pasosActuales = receta.getPasos();
+                paso = pasoET.getText().toString();
+                pasosActuales.put(String.valueOf(pasoActual), paso);
+                receta.setPasos(receta.getPasos());
+            }
 
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
-            fragmentTransaction.replace(R.id.frame_info, new FragmentPasosRecetas(receta, pasoActual, email));
+            fragmentTransaction.replace(R.id.frame_info, new FragmentPasosRecetas(receta, pasoActual + 1, email));
+            fragmentTransaction.commit();
+        });
+
+        nuevoPaso.setOnClickListener(view -> {
+            if (pasoExistente) {
+                paso = pasoET.getText().toString();
+                receta.getPasos().replace(String.valueOf(pasoActual), receta.getPasos().get(String.valueOf(pasoActual)), paso);
+                receta.setPasos(receta.getPasos());
+            } else {
+                Map<String, String> pasosActuales = receta.getPasos();
+                paso = pasoET.getText().toString();
+                pasosActuales.put(String.valueOf(pasoActual), paso);
+                receta.setPasos(receta.getPasos());
+            }
+
+            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
+            fragmentTransaction.replace(R.id.frame_info, new FragmentPasosRecetas(receta, pasoActual + 1, email));
             fragmentTransaction.commit();
         });
     }
 
     private void clickAnteriorImg() {
         img_retroceso.setOnClickListener((view) -> {
-            if (pasoActual == 1) {
-                paso = pasoET.getText().toString();
+            if (pasoActual != 1) {
+                if (pasoExistente) {
+                    paso = pasoET.getText().toString();
+                    receta.getPasos().replace(String.valueOf(pasoActual), receta.getPasos().get(String.valueOf(pasoActual)), paso);
+                    receta.setPasos(receta.getPasos());
+                } else {
+                    Map<String, String> pasosActuales = receta.getPasos();
+                    paso = pasoET.getText().toString();
+                    pasosActuales.put(String.valueOf(pasoActual), paso);
+                    receta.setPasos(receta.getPasos());
+                }
 
-                Map<String, String> pasosActuales = receta.getPasos();
-                pasosActuales.put(String.valueOf(pasoActual), paso);
-
-                receta.setPasos(pasosActuales);
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.from_left, R.anim.to_right);
+                fragmentTransaction.replace(R.id.frame_info, new FragmentPasosRecetas(receta, pasoActual - 1, email));
+                fragmentTransaction.commit();
+            } else {
+                if (pasoExistente) {
+                    paso = pasoET.getText().toString();
+                    receta.getPasos().replace(String.valueOf(pasoActual), receta.getPasos().get(String.valueOf(pasoActual)), paso);
+                    receta.setPasos(receta.getPasos());
+                } else {
+                    Map<String, String> pasosActuales = receta.getPasos();
+                    paso = pasoET.getText().toString();
+                    pasosActuales.put(String.valueOf(pasoActual), paso);
+                    receta.setPasos(receta.getPasos());
+                }
 
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.from_left, R.anim.to_right);
                 fragmentTransaction.replace(R.id.frame_info, new FragmentAddIngToReceta(receta, email));
-                fragmentTransaction.commit();
-            } else {
-                paso = pasoET.getText().toString();
-
-                Map<String, String> pasosActuales = receta.getPasos();
-                pasosActuales.put(String.valueOf(pasoActual), paso);
-
-                receta.setPasos(pasosActuales);
-
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(R.anim.from_left, R.anim.to_right);
-                fragmentTransaction.replace(R.id.frame_info, new FragmentPasosRecetas(receta, pasoActual -1, email));
                 fragmentTransaction.commit();
             }
         });

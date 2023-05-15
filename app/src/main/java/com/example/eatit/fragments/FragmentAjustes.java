@@ -3,6 +3,8 @@ package com.example.eatit.fragments;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,7 +76,10 @@ public class FragmentAjustes extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         inicializarVariables(view);
+        comprobarNombre();
+        comprobarContraseñas();
         clickGuardar();
+
         view.setOnTouchListener((view1, motionEvent) -> ocultar());
     }
 
@@ -96,6 +101,116 @@ public class FragmentAjustes extends Fragment {
         repetirContraseña = view.findViewById(R.id.ajustes_layoutTextInput_contraseña_Nueva_repetir);
         auth = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
+    }
+
+    private void comprobarNombre() {
+        nombreUsuarioET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                cambiarEstadoBoton(!charSequence.toString().isBlank());
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(!editable.toString().isEmpty()) {
+                    if (editable.toString().matches("[a-zA-ZáéíóúÁÉÍÓÚS\\s]{1,10}")) {
+                        nombreUsuario.setError(null);
+                        cambiarEstadoBoton(true);
+                    } else {
+                        nombreUsuario.setError("Nombre de usuario no válido");
+                        cambiarEstadoBoton(false);
+                    }
+                } else {
+                    nombreUsuario.setError("Nombre de usuario vacío, no se actualizará");
+                    cambiarEstadoBoton(true);
+                }
+
+                if(editable.length() > 10) {
+                    nombreUsuario.setError("Máximo caracteres alcanzado");
+                }
+            }
+        });
+    }
+
+    private void comprobarContraseñas() {
+        nuevaContraseñaET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                cambiarEstadoBoton(!charSequence.toString().isBlank());
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(!editable.toString().isBlank()) {
+                    if (editable.toString().matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,15}$")) {
+                        nuevaContrasñea.setError(null);
+                        cambiarEstadoBoton(true);
+                    } else {
+                        nuevaContrasñea.setError("Min 8 Max 15 | 1 Mayuscula | 1 Minuscula | 1 Numero | 1 Caracter especial @#$%^&+=");
+                        cambiarEstadoBoton(false);
+                    }
+                } else {
+                    nuevaContrasñea.setError("Contraseña vacía, no se actualizará");
+                    cambiarEstadoBoton(true);
+                }
+
+                if(editable.length() > 15) {
+                    nuevaContrasñea.setError("Máximo caracteres alcanzado");
+                }
+            }
+        });
+
+        repetirContraseñaET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                cambiarEstadoBoton(!charSequence.toString().isBlank());
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(!editable.toString().isBlank()) {
+                    if (editable.toString().matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,15}$")) {
+                        repetirContraseña.setError(null);
+                        cambiarEstadoBoton(true);
+                    } else {
+                        repetirContraseña.setError("Min 8 Max 15 | 1 Mayuscula | 1 Minuscula | 1 Numero | 1 Caracter especial @#$%^&+=");
+                        cambiarEstadoBoton(false);
+                    }
+                }else {
+                    repetirContraseña.setError("Contraseña vacía, no se actualizará");
+                    cambiarEstadoBoton(true);
+                }
+
+                if(editable.length() > 15) {
+                    repetirContraseña.setError("Máximo caracteres alcanzado");
+                }
+            }
+        });
+    }
+
+    private void cambiarEstadoBoton(boolean estado) {
+        this.btnGuardar.setEnabled(estado);
+
+        if (!estado) {
+            this.btnGuardar.setBackgroundResource(R.drawable.btn_login_disabled);
+        } else {
+            this.btnGuardar.setBackgroundResource(R.drawable.btn_login);
+        }
     }
 
     /**

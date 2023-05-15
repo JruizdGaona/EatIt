@@ -5,7 +5,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -23,6 +25,7 @@ import com.example.eatit.entities.Ingrediente;
 import com.example.eatit.entities.Usuario;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -32,6 +35,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Javier Ruiz de Gaona Tre.
@@ -45,6 +49,7 @@ public class CardAddIngrediente {
     TextView nombre;
     DatePickerDialog datePicker;
     TextInputEditText name, fecha;
+    TextInputLayout nameLayout,fechaLayout;
     String tipo;
     Ingrediente ingrediente;
     Spinner spinnerTipo;
@@ -88,6 +93,8 @@ public class CardAddIngrediente {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         inicializarVariables(dialog);
+        comprobarNombre();
+        comprobarFecha();
         cerrarTeclado(dialog);
         seleccionarFechaFocus();
         seleccionarFechaClick();
@@ -108,7 +115,9 @@ public class CardAddIngrediente {
         fecha = dialog.findViewById(R.id.login_textInput_caducidadIngrediente);
         fecha.setInputType(InputType.TYPE_NULL);
         spinnerTipo = dialog.findViewById(R.id.login_spinner_tipo_ingrediente);
-
+        nameLayout = dialog.findViewById(R.id.login_layoutTextInput_nombre_ingrediente);
+        fechaLayout = dialog.findViewById(R.id.login_layoutTextInput_caducidad_ingrediente);
+        cambiarEstadoBoton(false);
         actualizar.setVisibility(View.INVISIBLE);
         guardar.setVisibility(View.VISIBLE);
 
@@ -132,11 +141,87 @@ public class CardAddIngrediente {
             name.setText(ingrediente.getNombre());
             fecha.setText(ingrediente.getFechaCaducidad());
             spinnerTipo.setSelection(setTipo(ingrediente.getTipo()));
+            cambiarEstadoBoton(true);
 
             guardar.setVisibility(View.INVISIBLE);
             actualizar.setVisibility(View.VISIBLE);
 
             actualizar(dialog, ingrediente);
+        }
+    }
+
+    private void comprobarNombre() {
+        name.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                cambiarEstadoBoton(!charSequence.toString().isBlank());
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(!editable.toString().isEmpty()) {
+                    if(Objects.requireNonNull(fecha.getText()).toString().isEmpty()){
+                        nameLayout.setError(null);
+                        cambiarEstadoBoton(false);
+                    }
+                    else {
+                        nameLayout.setError(null);
+                        cambiarEstadoBoton(true);
+                    }
+                }else {
+                    nameLayout.setError("El nombre no puede estar vacío");
+                    cambiarEstadoBoton(false);
+                }
+            }
+        });
+    }
+
+    private void comprobarFecha() {
+        fecha.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                cambiarEstadoBoton(!charSequence.toString().isBlank());
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(!editable.toString().isEmpty()) {
+                    if(Objects.requireNonNull(name.getText()).toString().isEmpty()){
+                        fechaLayout.setError(null);
+                        cambiarEstadoBoton(false);
+                    }
+                    else {
+                        fechaLayout.setError(null);
+                        cambiarEstadoBoton(true);
+                    }
+                }else {
+                    fechaLayout.setError("La fecha de caducidad no puede estar vacía");
+                    cambiarEstadoBoton(false);
+                }
+            }
+        });
+    }
+
+    private void cambiarEstadoBoton(boolean estado) {
+        this.guardar.setEnabled(estado);
+        this.actualizar.setEnabled(estado);
+
+        if (!estado) {
+            this.guardar.setBackgroundResource(R.drawable.btn_login_disabled);
+            this.actualizar.setBackgroundResource(R.drawable.btn_login_disabled);
+        } else {
+            this.guardar.setBackgroundResource(R.drawable.btn_login);
+            this.actualizar.setBackgroundResource(R.drawable.btn_login);
         }
     }
 

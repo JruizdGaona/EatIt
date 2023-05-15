@@ -79,11 +79,11 @@
     <!-- Cadenas de Texto para el activity de crear receta -->
     <string name="activity_paso1">RELLENA LOS CAMPOS</string>
     <string name="btn_add_receta">SIGUIENTE</string>
-    <string name="texto_tiempo">TIEMPO DE ELABORACIÓN</string>
-    <string name="texto_nombre">NOMBRE DE LA RECETA</string>
-    <string name="texto_hint">Tiempo de la elaboración de la receta</string>
+    <string name="texto_tiempo">TIEMPO DE ELABORACIÓN *</string>
+    <string name="texto_nombre">NOMBRE DE LA RECETA *</string>
+    <string name="texto_hint">Tiempo de la elaboración en minutos</string>
     <string name="texto_nombre_hint">Nombre de la receta</string>
-    <string name="texto_comensales">COMENSALES</string>
+    <string name="texto_comensales">COMENSALES *</string>
     <string name="texto_comensales_hint">Número de comensales</string>
     <string name="texto_dificultad">DIFICULTAD DE LA RECETA</string>
     <string name="texto_dificultad_hint">Dificultad de la receta</string>

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -78,7 +79,7 @@ public class FragmentEditarIngReceta extends Fragment {
         img_retroceso = view.findViewById(R.id.anterior_paso);
 
         dificultad.setText(receta.getDificultad());
-        tiempo.setText(String.valueOf(receta.getDuracion()));
+        tiempo.setText(String.valueOf(receta.getDuracion()).concat("'"));
         comensales.setText(String.valueOf(receta.getRaciones()));
     }
 
@@ -97,12 +98,16 @@ public class FragmentEditarIngReceta extends Fragment {
                     }
                 }
             }
-            receta.setIngredientes(opcionesSeleccionadas);
+            if (opcionesSeleccionadas.size() > 0) {
+                receta.setIngredientes(opcionesSeleccionadas);
 
-            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
-            fragmentTransaction.replace(R.id.frame_info, new FragmentEditarPasosReceta(receta, 1, email, recetaOldName));
-            fragmentTransaction.commit();
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
+                fragmentTransaction.replace(R.id.frame_info, new FragmentEditarPasosReceta(receta, 1, email, recetaOldName));
+                fragmentTransaction.commit();
+            } else {
+                Toast.makeText(getContext(), "Debes seleccionar, por lo menos, un ingrediente", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
@@ -121,12 +126,16 @@ public class FragmentEditarIngReceta extends Fragment {
                     }
                 }
             }
-            receta.setIngredientes(opcionesSeleccionadas);
+            if (opcionesSeleccionadas.size() > 0) {
+                receta.setIngredientes(opcionesSeleccionadas);
 
-            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
-            fragmentTransaction.replace(R.id.frame_info, new FragmentEditarPasosReceta(receta, 1, email, recetaOldName));
-            fragmentTransaction.commit();
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
+                fragmentTransaction.replace(R.id.frame_info, new FragmentEditarPasosReceta(receta, 1, email, recetaOldName));
+                fragmentTransaction.commit();
+            } else {
+                Toast.makeText(getContext(), "Debes seleccionar, por lo menos, un ingrediente", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 

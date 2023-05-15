@@ -44,7 +44,7 @@ public class FragmentRecetas extends Fragment {
         comenzarReceta = view.findViewById(R.id.btn_start);
         if (receta != null) {
             dificultad.setText(receta.getDificultad());
-            tiempo.setText(String.valueOf(receta.getDuracion()));
+            tiempo.setText(String.valueOf(receta.getDuracion()).concat("'"));
             comensales.setText(String.valueOf(receta.getRaciones()));
             ingredientes.setText(mostrarIngredientes());
         }
