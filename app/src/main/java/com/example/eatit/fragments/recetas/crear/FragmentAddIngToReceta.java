@@ -106,7 +106,7 @@ public class FragmentAddIngToReceta extends Fragment {
 
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
-                fragmentTransaction.replace(R.id.frame_info, new FragmentPasosRecetas(receta, 0, email));
+                fragmentTransaction.replace(R.id.frame_info, new FragmentPasosRecetas(receta, 1, email));
                 fragmentTransaction.commit();
             } else {
                 Toast.makeText(getContext(), "Debes seleccionar, por lo menos, un ingrediente", Toast.LENGTH_SHORT).show();
@@ -140,7 +140,7 @@ public class FragmentAddIngToReceta extends Fragment {
 
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
-                fragmentTransaction.replace(R.id.frame_info, new FragmentPasosRecetas(receta, 0, email));
+                fragmentTransaction.replace(R.id.frame_info, new FragmentPasosRecetas(receta, 1, email));
                 fragmentTransaction.commit();
             } else {
                 Toast.makeText(getContext(), "Debes seleccionar, por lo menos, un ingrediente", Toast.LENGTH_SHORT).show();
