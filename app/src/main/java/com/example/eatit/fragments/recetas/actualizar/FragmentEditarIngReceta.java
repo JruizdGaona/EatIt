@@ -79,7 +79,7 @@ public class FragmentEditarIngReceta extends Fragment {
         img_retroceso = view.findViewById(R.id.anterior_paso);
 
         dificultad.setText(receta.getDificultad());
-        tiempo.setText(String.valueOf(receta.getDuracion()));
+        tiempo.setText(String.valueOf(receta.getDuracion()).concat("'"));
         comensales.setText(String.valueOf(receta.getRaciones()));
     }
 
