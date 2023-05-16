@@ -57,6 +57,7 @@ public class CardAddIngrediente {
     Usuario usuario;
     FirebaseFirestore database;
     CollectionReference coleccion;
+    boolean exist = false;
 
     /**
      * Constructor de la Clase.
@@ -146,7 +147,8 @@ public class CardAddIngrediente {
             guardar.setVisibility(View.INVISIBLE);
             actualizar.setVisibility(View.VISIBLE);
 
-            actualizar(dialog, ingrediente);
+            String oldName = ingrediente.getNombre();
+            actualizar(dialog, ingrediente, oldName);
         }
     }
 
@@ -168,8 +170,7 @@ public class CardAddIngrediente {
                     if(Objects.requireNonNull(fecha.getText()).toString().isEmpty()){
                         nameLayout.setError(null);
                         cambiarEstadoBoton(false);
-                    }
-                    else {
+                    } else {
                         nameLayout.setError(null);
                         cambiarEstadoBoton(true);
                     }
@@ -225,12 +226,33 @@ public class CardAddIngrediente {
         }
     }
 
-    private void actualizar(Dialog dialog, Ingrediente ingrediente) {
+    private void actualizar(Dialog dialog, Ingrediente ingrediente, String oldName) {
         actualizar.setOnClickListener((view) -> {
-            Ingrediente newIngrediente = actualizarValoresIngrediente(ingrediente);
+            Task<QuerySnapshot> consulta = database.collection("usuarios").whereEqualTo("correo", usuario.getCorreo()).get();
+            consulta.addOnSuccessListener(documentSnapshots -> {
+                if (!documentSnapshots.isEmpty()) {
+                    DocumentSnapshot documentSnapshot = documentSnapshots.getDocuments().get(0);
+                    String id = documentSnapshot.getId();
+                    List<Ingrediente> ingredientesUsuario = usuario.getIngredientes();
 
-            actualizarIngrediente(dialog, ingrediente, newIngrediente);
+                    if (ingredientesUsuario == null) ingredientesUsuario = new ArrayList<>();
 
+                    for (Ingrediente i: ingredientesUsuario) {
+                        if (i.getNombre().equalsIgnoreCase(name.getText().toString())) {
+                            exist = true;
+                            break;
+                        }
+                    }
+
+                    if (exist) {
+                        Toast.makeText(context, "Ya existe un Ingrediente con ese Nombre", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    } else {
+                        Ingrediente newIngrediente = actualizarValoresIngrediente(ingrediente);
+                        actualizarIngrediente(dialog, ingrediente, newIngrediente, oldName);
+                    }
+                }
+            });
         });
     }
 
@@ -256,45 +278,45 @@ public class CardAddIngrediente {
         return ingrediente;
     }
 
-    private void actualizarIngrediente(Dialog dialog, Ingrediente ingrediente, Ingrediente newIngrediente) {
-        Task<QuerySnapshot> consulta = coleccion.whereEqualTo("nombre", ingrediente.getNombre()).get();
+    private void actualizarIngrediente(Dialog dialog, Ingrediente ingrediente, Ingrediente newIngrediente, String oldName) {
+        Task<QuerySnapshot> consulta = coleccion.whereEqualTo("nombre", oldName).get();
 
         consulta.addOnSuccessListener(documentSnapshots -> {
             if (!documentSnapshots.isEmpty()) {
                 for (DocumentSnapshot documentSnapshot : documentSnapshots.getDocuments()) {
-                    if (documentSnapshot.getString("nombre").equalsIgnoreCase(ingrediente.getNombre())) {
+                    if (documentSnapshot.getString("nombre").equalsIgnoreCase(oldName)) {
                         coleccion.document(documentSnapshot.getId())
                         .update("nombre", newIngrediente.getNombre(),
                             "fechaCaducidad", newIngrediente.getFechaCaducidad(),
                             "tipo", newIngrediente.getTipo())
                         .addOnSuccessListener(aVoid -> {
-                            actualizarIngredienteDelUsuario(ingrediente, newIngrediente);
+                            actualizarIngredienteDelUsuario(oldName, newIngrediente);
                             Toast.makeText(context, "Ingrediente actualizado correctamente", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
                         }).addOnFailureListener(e -> {
-                            Toast.makeText(context, "Error al actualizar el ingrediente", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Error al actualizar el ingrediente1", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
                         });
                         return;
                     }
                 }
             }
-            Toast.makeText(context, "Error al actualizar el ingrediente", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Error al actualizar el ingrediente2", Toast.LENGTH_SHORT).show();
             dialog.dismiss();
         }).addOnFailureListener(e -> {
-            Toast.makeText(context, "Error al actualizar el ingrediente", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Error al actualizar el ingrediente3", Toast.LENGTH_SHORT).show();
             dialog.dismiss();
         });
     }
 
-    private void actualizarIngredienteDelUsuario(Ingrediente ingrediente, Ingrediente newIngrediente) {
+    private void actualizarIngredienteDelUsuario(String oldName, Ingrediente newIngrediente) {
         Task<QuerySnapshot> consultaUsuario = database.collection("usuarios").whereEqualTo("correo", usuario.getCorreo()).get();
         consultaUsuario.addOnSuccessListener(documentSnapshotsUsuario -> {
             if (!documentSnapshotsUsuario.isEmpty()) {
                 List<Ingrediente> ingredientesUsuario = usuario.getIngredientes();
 
                 for (int i = 0; i < ingredientesUsuario.size(); i++) {
-                    if (ingredientesUsuario.get(i).getNombre().equalsIgnoreCase(ingrediente.getNombre())) {
+                    if (ingredientesUsuario.get(i).getNombre().equalsIgnoreCase(oldName)) {
                         ingredientesUsuario.set(i, newIngrediente);
                         break;
                     }
@@ -376,7 +398,6 @@ public class CardAddIngrediente {
                 if (fecha.getText() != null && !fecha.getText().toString().isBlank()) {
                     if (tipo != null && !tipo.isBlank()) {
                         insertarIngrediente(dialog);
-                        Toast.makeText(context, "Ingrediente creado correctamente", Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -400,11 +421,25 @@ public class CardAddIngrediente {
 
                 if (ingredientesUsuario == null) ingredientesUsuario = new ArrayList<>();
 
-                ingredientesUsuario.add(ingrediente);
-                usuario.setIngredientes(ingredientesUsuario);
+                for (Ingrediente i: ingredientesUsuario) {
+                    if (i.getNombre().equalsIgnoreCase(ingrediente.getNombre())) {
+                        exist = true;
+                        break;
+                    }
+                }
 
-                userRef.update("ingredientes", usuario.getIngredientes());
-                coleccion.add(ingrediente);
+                if (exist) {
+                    Toast.makeText(context, "Ya existe un Ingrediente con ese Nombre", Toast.LENGTH_SHORT).show();
+                } else {
+                    ingredientesUsuario.add(ingrediente);
+                    usuario.setIngredientes(ingredientesUsuario);
+
+                    userRef.update("ingredientes", usuario.getIngredientes());
+                    coleccion.add(ingrediente);
+
+                    Toast.makeText(context, "Ingrediente creado correctamente", Toast.LENGTH_LONG).show();
+                }
+
                 dialog.dismiss();
             }
         });
