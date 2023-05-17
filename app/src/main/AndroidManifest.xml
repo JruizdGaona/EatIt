@@ -15,6 +15,15 @@
         android:theme="@style/Theme.EatIt">
 
         <activity
+            android:name=".activities.ScanActivity"
+            android:screenOrientation="portrait"
+            android:exported="true">
+        <intent-filter>
+            <action android:name="com.google.zxing.client.android.SCAN" />
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+    </activity>
+        <activity
             android:name=".activities.RegistroActivity"
             android:exported="false"
             android:screenOrientation="portrait" />

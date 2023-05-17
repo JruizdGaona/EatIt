@@ -141,7 +141,7 @@ public class CardAddIngrediente {
             nombre.setText(ingrediente.getNombre());
             name.setText(ingrediente.getNombre());
             fecha.setText(ingrediente.getFechaCaducidad());
-            spinnerTipo.setSelection(setTipo(ingrediente.getTipo()));
+            if (ingrediente.getTipo() != null) spinnerTipo.setSelection(setTipo(ingrediente.getTipo()));
             cambiarEstadoBoton(true);
 
             guardar.setVisibility(View.INVISIBLE);
@@ -149,6 +149,16 @@ public class CardAddIngrediente {
 
             String oldName = ingrediente.getNombre();
             actualizar(dialog, ingrediente, oldName);
+        }
+
+        if (status == 2) {
+            name.setText(ingrediente.getNombre());
+            fecha.setText(ingrediente.getFechaCaducidad());
+            if (ingrediente.getTipo() != null) spinnerTipo.setSelection(setTipo(ingrediente.getTipo()));
+            cambiarEstadoBoton(true);
+
+            guardar.setVisibility(View.VISIBLE);
+            actualizar.setVisibility(View.INVISIBLE);
         }
     }
 
