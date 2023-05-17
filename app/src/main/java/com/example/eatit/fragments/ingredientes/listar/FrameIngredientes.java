@@ -25,6 +25,7 @@ import com.example.eatit.entities.Ingrediente;
 import com.example.eatit.entities.Usuario;
 import com.example.eatit.fragments.adapters.AdapterIngrediente;
 import com.example.eatit.fragments.ingredientes.crear.CardAddIngrediente;
+import com.example.eatit.utils.LoadingDialog;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
@@ -65,6 +66,7 @@ public class FrameIngredientes extends Fragment {
     FirebaseFirestore database = FirebaseFirestore.getInstance();
     CollectionReference coleccion;
     private boolean paused = false, form = false, barcode = false;
+    LoadingDialog loadingDialog;
 
     public FrameIngredientes (Usuario usuario) {this.usuario = usuario;}
 
@@ -95,6 +97,7 @@ public class FrameIngredientes extends Fragment {
         FloatingActionButton btn_formulario = view.findViewById(R.id.btn_formulario);
 
         btn_barcode.setOnClickListener((View) -> {
+            this.loadingDialog = new LoadingDialog(getContext());
             paused = true;
             barcode = true;
             this.onPause();
@@ -135,8 +138,10 @@ public class FrameIngredientes extends Fragment {
                 if (barcodeResult == null || barcodeResult.isBlank()) {
                     Toast.makeText(getContext(), "Error al escanear el código", Toast.LENGTH_SHORT).show();
                 } else {
+                    loadingDialog.showDialog("Buscando ingredientes...");
                     // Código para hacer la solicitud GET a la API de Open Food Facts
                     new MyAsyncTask(getContext(), usuario).execute(barcodeResult);
+                    loadingDialog.closeDialog();
                 }
             }
         }
@@ -240,7 +245,6 @@ public class FrameIngredientes extends Fragment {
                         if (productObject.has("expiration_date")) {
                             String date = productObject.getString("expiration_date");
                             if (!date.isBlank()) {
-                                String dateFinal = date.replaceAll("-","/");
                                 String formattedDate = "";
 
                                 try {
@@ -252,7 +256,17 @@ public class FrameIngredientes extends Fragment {
 
                                     ingrediente.setFechaCaducidad(formattedDate);
                                 } catch (ParseException e) {
-                                    e.printStackTrace();
+                                    Toast.makeText(context, "Error al formatear la fecha", Toast.LENGTH_SHORT).show();
+
+                                    Calendar calendar = Calendar.getInstance();
+
+                                    int year = calendar.get(Calendar.YEAR);
+                                    int month = calendar.get(Calendar.MONTH) + 1;
+                                    int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                                    String fechaCaducidad = day + "/" + month + "/" + year;
+
+                                    ingrediente.setFechaCaducidad(fechaCaducidad);
                                 }
                             } else {
                                 Calendar calendar = Calendar.getInstance();
@@ -264,7 +278,6 @@ public class FrameIngredientes extends Fragment {
                                 String fechaCaducidad = day + "/" + month + "/" + year;
 
                                 ingrediente.setFechaCaducidad(fechaCaducidad);
-
                             }
                         } else {
                             Calendar calendar = Calendar.getInstance();
@@ -282,10 +295,10 @@ public class FrameIngredientes extends Fragment {
                         CardAddIngrediente cardAddIngrediente = new CardAddIngrediente(context, 2, ingrediente, usuario);
                         cardAddIngrediente.operacionesCardView();
                     } catch (JSONException e) {
-                        Toast.makeText(context, "Exception: Error al cargar el ingrediente", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Ingrediente no encontrado", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(context, "Error al cargar el ingrediente", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Error al escanear el código de barras", Toast.LENGTH_SHORT).show();
                 }
             }
         }
