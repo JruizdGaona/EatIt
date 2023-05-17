@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.eatit.R;
 import com.example.eatit.entities.Receta;
 import com.example.eatit.fragments.adapters.recetas.AdapterReceta;
+import com.example.eatit.fragments.adapters.recetas.AdapterRecetasFiltradas;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -29,6 +31,7 @@ public class FrameRecetasFiltradas extends Fragment {
     List<Receta> recetas = new ArrayList<>();
     RecyclerView recyclerView;
     AdapterReceta adapter;
+    AdapterRecetasFiltradas adapterFiltro;
     String email;
     boolean filtro = false;
     FirebaseFirestore database = FirebaseFirestore.getInstance();
@@ -43,8 +46,9 @@ public class FrameRecetasFiltradas extends Fragment {
      * Constructor que usamos para cargar las Recetas según la búsqueda del usuario.
      * @param filtradas Lista con las recetas ya Filtradas según la búsqueda.
      */
-    public FrameRecetasFiltradas (List<Receta> filtradas) {
+    public FrameRecetasFiltradas (List<Receta> filtradas, String email) {
         this.recetas = filtradas;
+        this.email = email;
         filtro = true;
     }
 
@@ -93,7 +97,7 @@ public class FrameRecetasFiltradas extends Fragment {
      * Método que muestra las recetas Filtradas por la búsqueda del Usuario.
      */
     private void mostrarRecetasFiltradas() {
-        adapter = new AdapterReceta(recetas, FrameRecetasFiltradas.this.getContext(), email);
-        recyclerView.setAdapter(adapter);
+        adapterFiltro = new AdapterRecetasFiltradas(recetas, FrameRecetasFiltradas.this.getContext(), email);
+        recyclerView.setAdapter(adapterFiltro);
     }
 }

@@ -120,11 +120,11 @@ public class FragmentBuscador extends Fragment {
                 }
 
                 if (!listRecetasFiltradas.isEmpty()) {
-                    Fragment fragmentRecetas = new FrameRecetas(listRecetasFiltradas);
+                    Fragment fragmentRecetas = new FrameRecetasFiltradas(listRecetasFiltradas, email);
                     FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.frame_recetas, fragmentRecetas).commit();
                 } else {
-                    Fragment fragmentRecetas = new FrameRecetas(new ArrayList<>());
+                    Fragment fragmentRecetas = new FrameRecetasFiltradas(new ArrayList<>(), email);
                     FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.frame_recetas, fragmentRecetas).commit();
                 }

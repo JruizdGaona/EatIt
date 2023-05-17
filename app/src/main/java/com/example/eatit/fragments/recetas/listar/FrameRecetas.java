@@ -32,11 +32,9 @@ import java.util.List;
 public class FrameRecetas extends Fragment {
 
     // Declaramos las Variables.
-    List<Receta> recetas = new ArrayList<>();
     RecyclerView recyclerView;
     AdapterReceta adapter;
     String email;
-    boolean filtro = false;
     FirebaseFirestore database = FirebaseFirestore.getInstance();
     CollectionReference coleccion = database.collection("recetas");
 
@@ -44,15 +42,6 @@ public class FrameRecetas extends Fragment {
      * Construcotr por defecto del Frame.
      */
     public FrameRecetas(String email) {this.email = email;}
-
-    /**
-     * Constructor que usamos para cargar las Recetas según la búsqueda del usuario.
-     * @param filtradas Lista con las recetas ya Filtradas según la búsqueda.
-     */
-    public FrameRecetas (List<Receta> filtradas) {
-        this.recetas = filtradas;
-        filtro = true;
-    }
 
     /**
      * Método onCreate del fragment de Recetas.
@@ -69,8 +58,7 @@ public class FrameRecetas extends Fragment {
         recyclerView = view.findViewById(R.id.fragment_recetas);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
-        if (!filtro) mostrarRecetas();
-        else mostrarRecetasFiltradas();
+        mostrarRecetas();
         return view;
     }
 
@@ -93,13 +81,5 @@ public class FrameRecetas extends Fragment {
             adapter = new AdapterReceta(recetasPopulares, FrameRecetas.this.getContext(), email);
             recyclerView.setAdapter(adapter);
         });
-    }
-
-    /**
-     * Método que muestra las recetas Filtradas por la búsqueda del Usuario.
-     */
-    private void mostrarRecetasFiltradas() {
-        adapter = new AdapterReceta(recetas, FrameRecetas.this.getContext(), email);
-        recyclerView.setAdapter(adapter);
     }
 }

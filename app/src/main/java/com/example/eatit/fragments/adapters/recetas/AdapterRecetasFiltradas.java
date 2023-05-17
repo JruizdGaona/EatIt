@@ -16,9 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.eatit.R;
+import com.example.eatit.activities.ActivityRecetas;
 import com.example.eatit.entities.Ingrediente;
 import com.example.eatit.entities.Receta;
-import com.example.eatit.activities.ActivityRecetas;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -32,10 +32,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * @author Javier Ruiz de Gaona Tre.
- */
-public class AdapterReceta extends RecyclerView.Adapter<AdapterReceta.MyViewHolder> {
+public class AdapterRecetasFiltradas extends RecyclerView.Adapter<AdapterRecetasFiltradas.MyViewHolder> {
 
     // Declaración de variables.
     private List<Receta> recetas;
@@ -48,7 +45,7 @@ public class AdapterReceta extends RecyclerView.Adapter<AdapterReceta.MyViewHold
      * @param re Lista de recetas a añadir en el Fragment.
      * @param context Contexto en el que usamos el Adapter.
      */
-    public AdapterReceta(List<Receta> re, Context context, String email){
+    public AdapterRecetasFiltradas(List<Receta> re, Context context, String email){
         this.recetas = re;
         this.context = context;
         this.email = email;
@@ -63,9 +60,9 @@ public class AdapterReceta extends RecyclerView.Adapter<AdapterReceta.MyViewHold
      */
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AdapterRecetasFiltradas.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_receta,parent,false);
-        return new MyViewHolder(itemView);
+        return new AdapterRecetasFiltradas.MyViewHolder(itemView);
     }
 
     /**
@@ -74,7 +71,7 @@ public class AdapterReceta extends RecyclerView.Adapter<AdapterReceta.MyViewHold
      * @param position Posicion de la nueva Receta.
      */
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AdapterRecetasFiltradas.MyViewHolder holder, int position) {
         holder.cv.setAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_transition));
         holder.bindData(recetas.get(position));
         holder.ingredientes1.setVisibility(android.view.View.INVISIBLE);
@@ -84,7 +81,7 @@ public class AdapterReceta extends RecyclerView.Adapter<AdapterReceta.MyViewHold
         ViewGroup.LayoutParams params = holder.cv.getLayoutParams();
         params.height = 615; // altura en píxeles
         holder.cv.setLayoutParams(params);
-        buscarIngredientesUsuario(holder, recetas.get(position).getIngredientes(), email);
+        buscarIngredientesUsuario(holder, recetas.get(position).getIngredientes());
 
         holder.cv.setOnClickListener((View) -> {
             if (holder.expanded) {
@@ -118,7 +115,7 @@ public class AdapterReceta extends RecyclerView.Adapter<AdapterReceta.MyViewHold
         });
     }
 
-    private void buscarIngredientesUsuario(MyViewHolder holder, List<String> nombres, String email) {
+    private void buscarIngredientesUsuario(AdapterRecetasFiltradas.MyViewHolder holder, List<String> nombres) {
         Task<QuerySnapshot> obtenerUsuario = database.collection("usuarios").whereEqualTo("correo", email).get();
         obtenerUsuario.addOnSuccessListener(usuarioSnapshot -> {
             if (!usuarioSnapshot.isEmpty()) {
@@ -155,7 +152,7 @@ public class AdapterReceta extends RecyclerView.Adapter<AdapterReceta.MyViewHold
         });
     }
 
-    private void comprobarIngredientesComunes(MyViewHolder holder, List<Ingrediente> ingredientesUsuario, List<String> nombreIngredientesReceta) {
+    private void comprobarIngredientesComunes(AdapterRecetasFiltradas.MyViewHolder holder, List<Ingrediente> ingredientesUsuario, List<String> nombreIngredientesReceta) {
         List<String> ingsComunes = new ArrayList<>();
 
         for (Ingrediente i: ingredientesUsuario) {
