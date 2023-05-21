@@ -1,6 +1,7 @@
 package com.example.eatit.fragments.recetas.listar;
 
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,17 +28,19 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class FragmentPasos extends Fragment {
 
     private Receta receta;
     private AppCompatTextView pasos;
-    private ImageView siguiente, anterior;
+    private ImageView siguiente, anterior, volume;
     private int numPaso;
     private AppCompatButton botonSiguiente, botonFin, botonAnterior;
     private TextView textoPasos;
     private String email;
     private FirebaseFirestore database = FirebaseFirestore.getInstance();
+    private TextToSpeech tts;
 
     public FragmentPasos(Receta receta, int numPaso, String email) {
         this.receta = receta;
@@ -64,6 +67,19 @@ public class FragmentPasos extends Fragment {
         botonFin = view.findViewById(R.id.btn_finalizar);
         botonFin.setVisibility(View.INVISIBLE);
         textoPasos = view.findViewById(R.id.pasos);
+        volume = view.findViewById(R.id.volumen);
+
+        volume.setVisibility(View.VISIBLE);
+
+        volume.setOnClickListener(v -> tts = new TextToSpeech(FragmentPasos.this.getContext(), status -> {
+            if (status == TextToSpeech.SUCCESS) {
+                // El TextToSpeech está listo para usar
+                tts.setLanguage(Locale.getDefault());
+
+                // Leer un texto en voz alta
+                tts.speak(pasos.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
+            }
+        }));
 
         int showPaso = numPaso + 1;
         if (numPaso == 0) textoPasos.setText(textoPasos.getText().toString().replace("PASO 1", "PASO " + 1));
@@ -79,12 +95,14 @@ public class FragmentPasos extends Fragment {
             botonFin.setVisibility(View.VISIBLE);
 
             botonFin.setOnClickListener((View) -> {
+                tts.stop();
                 cargarRecetas();
                 actualizarPopularidadRecetas();
                 actualizarEstadoIngredientes();
             });
 
             anterior.setOnClickListener((View) -> {
+                tts.stop();
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.from_left, R.anim.to_right);
                 fragmentTransaction.replace(R.id.frame_info, new FragmentRecetas(receta, email));
@@ -92,6 +110,7 @@ public class FragmentPasos extends Fragment {
             });
 
             botonAnterior.setOnClickListener((View) -> {
+                tts.stop();
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.from_left, R.anim.to_right);
                 fragmentTransaction.replace(R.id.frame_info, new FragmentRecetas(receta, email));
@@ -99,6 +118,7 @@ public class FragmentPasos extends Fragment {
             });
         } else if (numPaso == 0) {
             siguiente.setOnClickListener((View) -> {
+                tts.stop();
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
                 fragmentTransaction.replace(R.id.frame_info, new FragmentPasos(receta, numPaso + 1, email));
@@ -106,6 +126,7 @@ public class FragmentPasos extends Fragment {
             });
 
             anterior.setOnClickListener((View) -> {
+                tts.stop();
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.from_left, R.anim.to_right);
                 fragmentTransaction.replace(R.id.frame_info, new FragmentRecetas(receta, email));
@@ -113,6 +134,7 @@ public class FragmentPasos extends Fragment {
             });
 
             botonSiguiente.setOnClickListener((View) -> {
+                tts.stop();
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
                 fragmentTransaction.replace(R.id.frame_info, new FragmentPasos(receta, numPaso + 1, email));
@@ -120,6 +142,7 @@ public class FragmentPasos extends Fragment {
             });
 
             botonAnterior.setOnClickListener((View) -> {
+                tts.stop();
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.from_left, R.anim.to_right);
                 fragmentTransaction.replace(R.id.frame_info, new FragmentRecetas(receta, email));
@@ -131,12 +154,14 @@ public class FragmentPasos extends Fragment {
             botonFin.setVisibility(View.VISIBLE);
 
             botonFin.setOnClickListener((View) -> {
+                tts.stop();
                 cargarRecetas();
                 actualizarPopularidadRecetas();
                 actualizarEstadoIngredientes();
             });
 
             anterior.setOnClickListener((View) -> {
+                tts.stop();
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.from_left, R.anim.to_right);
                 fragmentTransaction.replace(R.id.frame_info, new FragmentPasos(receta, numPaso - 1, email));
@@ -144,6 +169,7 @@ public class FragmentPasos extends Fragment {
             });
 
             botonAnterior.setOnClickListener((View) -> {
+                tts.stop();
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.from_left, R.anim.to_right);
                 fragmentTransaction.replace(R.id.frame_info, new FragmentPasos(receta, numPaso - 1, email));
@@ -151,6 +177,7 @@ public class FragmentPasos extends Fragment {
             });
         } else {
             siguiente.setOnClickListener((View) -> {
+                tts.stop();
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
                 fragmentTransaction.replace(R.id.frame_info, new FragmentPasos(receta, numPaso + 1, email));
@@ -158,6 +185,7 @@ public class FragmentPasos extends Fragment {
             });
 
             anterior.setOnClickListener((View) -> {
+                tts.stop();
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.from_left, R.anim.to_right);
                 fragmentTransaction.replace(R.id.frame_info, new FragmentPasos(receta, numPaso - 1, email));
@@ -165,6 +193,7 @@ public class FragmentPasos extends Fragment {
             });
 
             botonSiguiente.setOnClickListener((View) -> {
+                tts.stop();
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
                 fragmentTransaction.replace(R.id.frame_info, new FragmentPasos(receta, numPaso + 1, email));
@@ -172,6 +201,7 @@ public class FragmentPasos extends Fragment {
             });
 
             botonAnterior.setOnClickListener((View) -> {
+                tts.stop();
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.from_left, R.anim.to_right);
                 fragmentTransaction.replace(R.id.frame_info, new FragmentPasos(receta, numPaso - 1, email));

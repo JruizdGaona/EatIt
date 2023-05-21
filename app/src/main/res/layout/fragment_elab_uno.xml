@@ -25,6 +25,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/volumen"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        app:layout_constraintStart_toEndOf="@+id/pasos"
+        app:layout_constraintTop_toTopOf="@+id/pasos"
+        app:layout_constraintEnd_toStartOf="@+id/siguiente_paso"
+        app:layout_constraintBottom_toBottomOf="@+id/pasos"
+        android:src="@drawable/volume_recipe"
+        android:visibility="invisible"/>
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/pasos"
         android:layout_width="wrap_content"

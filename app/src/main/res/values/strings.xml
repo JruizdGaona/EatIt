@@ -71,7 +71,7 @@
     <string name="activity_comensales">Comensales</string>
     <string name="activity_ingredientes">INGREDIENTES</string>
     <string name="siguiente_paso">Comenzar receta</string>
-    <string name="paso_1">ELABORACIÓN - PASO 1</string>
+    <string name="paso_1">PASO 1</string>
     <string name="siguiente">Siguiente Paso</string>
     <string name="anterior">Anterior Paso</string>
     <string name="fin">Terminar Receta</string>
