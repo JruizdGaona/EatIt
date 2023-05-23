@@ -30,6 +30,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/volumen_in"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/volume_recipe"
+        android:visibility="invisible"
+        android:contentDescription="@string/activar_lector"
+        app:layout_constraintBottom_toBottomOf="@+id/recetas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/recetas"
+        app:layout_constraintTop_toTopOf="@+id/recetas" />
+
+    <ImageView
+        android:id="@+id/volumen_out"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/volume_recipe_out"
+        android:visibility="invisible"
+        android:contentDescription="@string/desactivar_lector"
+        app:layout_constraintBottom_toBottomOf="@+id/recetas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/recetas"
+        app:layout_constraintTop_toTopOf="@+id/recetas" />
+
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/img_receta"
         android:layout_width="350dp"

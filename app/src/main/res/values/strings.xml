@@ -66,6 +66,8 @@
 
     <!-- Cadenas de Texto para el activity de ver Recetas -->
     <string name="activity_nombre_receta">Nueva receta</string>
+    <string name="activar_lector">ACTIVAR LECTOR</string>
+    <string name="desactivar_lector">DESACTIVAR LECTOR</string>
     <string name="activity_dificultad">Dificultad</string>
     <string name="activity_tiempo">Tiempo</string>
     <string name="activity_comensales">Comensales</string>
