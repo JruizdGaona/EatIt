@@ -93,6 +93,18 @@ public class ActivityRecetas extends AppCompatActivity implements Serializable {
                             .load(receta.getUri())
                             .centerCrop()
                             .into(imagenReceta);
+            } else {
+                String fileName = "img_aux.jpg"; // Nombre del archivo en Firebase Storage
+                StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+                StorageReference imageRef = storageRef.child(fileName);
+
+                imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                    String imageUri = uri.toString();
+                    Glide.with(this)
+                            .load(imageUri)
+                            .centerInside()
+                            .into(imagenReceta);
+                }).addOnFailureListener(e -> {});
             }
         } else crear = true;
     }

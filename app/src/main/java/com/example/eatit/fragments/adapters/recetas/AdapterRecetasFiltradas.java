@@ -2,6 +2,7 @@ package com.example.eatit.fragments.adapters.recetas;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -25,6 +27,8 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -234,8 +238,20 @@ public class AdapterRecetasFiltradas extends RecyclerView.Adapter<AdapterRecetas
             if (item.getUri() != null && !item.getUri().isEmpty()) {
                 Glide.with(context)
                         .load(item.getUri())
-                        .centerCrop()
+                        .fitCenter()
                         .into(imagen);
+            } else {
+                String fileName = "img_aux.jpg"; // Nombre del archivo en Firebase Storage
+                StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+                StorageReference imageRef = storageRef.child(fileName);
+
+                imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                    String imageUri = uri.toString();
+                    Glide.with(context)
+                            .load(imageUri)
+                            .centerInside()
+                            .into(imagen);
+                }).addOnFailureListener(e -> {});
             }
             nombre.setText((item.getNombre()));
             duracion.setText(String.valueOf(item.getDuracion()).concat(" h"));
