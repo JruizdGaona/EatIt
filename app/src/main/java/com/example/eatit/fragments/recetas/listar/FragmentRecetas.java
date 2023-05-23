@@ -1,6 +1,7 @@
 package com.example.eatit.fragments.recetas.listar;
 
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +22,12 @@ public class FragmentRecetas extends Fragment {
     private AppCompatTextView dificultad, tiempo, comensales, ingredientes;
     private AppCompatButton comenzarReceta;
     private String email;
+    private TextToSpeech tts;
 
-    public FragmentRecetas(Receta receta, String email) {
+    public FragmentRecetas(Receta receta, String email, TextToSpeech tts) {
         this.receta = receta;
         this.email = email;
+        this.tts = tts;
     }
 
     @Nullable
@@ -56,7 +59,7 @@ public class FragmentRecetas extends Fragment {
         comenzarReceta.setOnClickListener((view) -> {
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
-            fragmentTransaction.replace(R.id.frame_info, new FragmentPasos(receta, 0, email));
+            fragmentTransaction.replace(R.id.frame_info, new FragmentPasos(receta, 0, email, tts));
             fragmentTransaction.commit();
         });
     }

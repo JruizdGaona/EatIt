@@ -1,6 +1,7 @@
 package com.example.eatit.fragments.recetas.listar;
 
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.eatit.R;
+import com.example.eatit.activities.ActivityRecetas;
 import com.example.eatit.entities.Ingrediente;
 import com.example.eatit.entities.Receta;
 import com.example.eatit.entities.Usuario;
@@ -27,22 +29,25 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class FragmentPasos extends Fragment {
 
     private Receta receta;
     private AppCompatTextView pasos;
-    private ImageView siguiente, anterior;
+    private ImageView siguiente, anterior, volumenUp, volumenDown, imagenRetroceso;
     private int numPaso;
     private AppCompatButton botonSiguiente, botonFin, botonAnterior;
     private TextView textoPasos;
     private String email;
     private FirebaseFirestore database = FirebaseFirestore.getInstance();
+    private TextToSpeech tts;
 
-    public FragmentPasos(Receta receta, int numPaso, String email) {
+    public FragmentPasos(Receta receta, int numPaso, String email, TextToSpeech tts) {
         this.receta = receta;
         this.numPaso = numPaso;
         this.email = email;
+        this.tts = tts;
     }
 
     @Nullable
@@ -55,6 +60,7 @@ public class FragmentPasos extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        imagenRetroceso = getActivity().findViewById(R.id.img_back);
         pasos = view.findViewById(R.id.pasos_receta);
         siguiente = view.findViewById(R.id.siguiente_paso);
         anterior = view.findViewById(R.id.anterior_paso);
@@ -64,12 +70,45 @@ public class FragmentPasos extends Fragment {
         botonFin = view.findViewById(R.id.btn_finalizar);
         botonFin.setVisibility(View.INVISIBLE);
         textoPasos = view.findViewById(R.id.pasos);
+        volumenUp = getActivity().findViewById(R.id.volumen_in);
+        volumenUp.setVisibility(View.VISIBLE);
+        volumenUp.setEnabled(true);
+        volumenDown = getActivity().findViewById(R.id.volumen_out);
+        volumenDown.setVisibility(View.INVISIBLE);
+        volumenDown.setEnabled(false);
 
         int showPaso = numPaso + 1;
         if (numPaso == 0) textoPasos.setText(textoPasos.getText().toString().replace("PASO 1", "PASO " + 1));
         else textoPasos.setText(textoPasos.getText().toString().replace("PASO 1", "PASO " + showPaso));
 
         gestionPasos();
+        pulsarTexto();
+        cerrarActivity();
+    }
+
+    private void pulsarTexto() {
+        volumenUp.setOnClickListener((view) -> {
+            volumenDown.setVisibility(View.VISIBLE);
+            volumenUp.setVisibility(View.INVISIBLE);
+            volumenUp.setEnabled(false);
+            volumenDown.setEnabled(true);
+
+            tts = new TextToSpeech(this.getContext(), i -> {
+                // El TextToSpeech está listo para usar
+                tts.setLanguage(Locale.getDefault());
+                tts.speak(pasos.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
+            });
+        });
+
+        volumenDown.setOnClickListener((view1) -> {
+            volumenUp.setVisibility(View.VISIBLE);
+            volumenUp.setEnabled(true);
+            volumenDown.setVisibility(View.INVISIBLE);
+            volumenDown.setEnabled(false);
+
+            tts.stop();
+        });
+
     }
 
     private void gestionPasos() {
@@ -79,50 +118,93 @@ public class FragmentPasos extends Fragment {
             botonFin.setVisibility(View.VISIBLE);
 
             botonFin.setOnClickListener((View) -> {
+                tts.stop();
                 cargarRecetas();
                 actualizarPopularidadRecetas();
                 actualizarEstadoIngredientes();
             });
 
             anterior.setOnClickListener((View) -> {
+                tts.stop();
+
+                volumenUp.setVisibility(View.INVISIBLE);
+                volumenUp.setEnabled(false);
+                volumenDown.setVisibility(View.INVISIBLE);
+                volumenDown.setEnabled(false);
+
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.from_left, R.anim.to_right);
-                fragmentTransaction.replace(R.id.frame_info, new FragmentRecetas(receta, email));
+                fragmentTransaction.replace(R.id.frame_info, new FragmentRecetas(receta, email, tts));
                 fragmentTransaction.commit();
             });
 
             botonAnterior.setOnClickListener((View) -> {
+                tts.stop();
+
+                volumenUp.setVisibility(View.INVISIBLE);
+                volumenUp.setEnabled(false);
+                volumenDown.setVisibility(View.INVISIBLE);
+                volumenDown.setEnabled(false);
+
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.from_left, R.anim.to_right);
-                fragmentTransaction.replace(R.id.frame_info, new FragmentRecetas(receta, email));
+                fragmentTransaction.replace(R.id.frame_info, new FragmentRecetas(receta, email, tts));
                 fragmentTransaction.commit();
             });
         } else if (numPaso == 0) {
             siguiente.setOnClickListener((View) -> {
+                tts.stop();
+
+                volumenUp.setVisibility(View.VISIBLE);
+                volumenUp.setEnabled(true);
+                volumenDown.setVisibility(View.INVISIBLE);
+                volumenDown.setEnabled(false);
+
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
-                fragmentTransaction.replace(R.id.frame_info, new FragmentPasos(receta, numPaso + 1, email));
+                fragmentTransaction.replace(R.id.frame_info, new FragmentPasos(receta, numPaso + 1, email, tts));
                 fragmentTransaction.commit();
             });
 
             anterior.setOnClickListener((View) -> {
+                tts.stop();
+
+                volumenUp.setVisibility(View.INVISIBLE);
+                volumenUp.setEnabled(false);
+                volumenDown.setVisibility(View.INVISIBLE);
+                volumenDown.setEnabled(false);
+
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.from_left, R.anim.to_right);
-                fragmentTransaction.replace(R.id.frame_info, new FragmentRecetas(receta, email));
+                fragmentTransaction.replace(R.id.frame_info, new FragmentRecetas(receta, email, tts));
                 fragmentTransaction.commit();
             });
 
             botonSiguiente.setOnClickListener((View) -> {
+                tts.stop();
+
+                volumenUp.setVisibility(View.VISIBLE);
+                volumenUp.setEnabled(true);
+                volumenDown.setVisibility(View.INVISIBLE);
+                volumenDown.setEnabled(false);
+
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
-                fragmentTransaction.replace(R.id.frame_info, new FragmentPasos(receta, numPaso + 1, email));
+                fragmentTransaction.replace(R.id.frame_info, new FragmentPasos(receta, numPaso + 1, email, tts));
                 fragmentTransaction.commit();
             });
 
             botonAnterior.setOnClickListener((View) -> {
+                tts.stop();
+
+                volumenUp.setVisibility(View.INVISIBLE);
+                volumenUp.setEnabled(false);
+                volumenDown.setVisibility(View.INVISIBLE);
+                volumenDown.setEnabled(false);
+
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.from_left, R.anim.to_right);
-                fragmentTransaction.replace(R.id.frame_info, new FragmentRecetas(receta, email));
+                fragmentTransaction.replace(R.id.frame_info, new FragmentRecetas(receta, email, tts));
                 fragmentTransaction.commit();
             });
         } else if (numPaso == receta.getPasos().size() - 1) {
@@ -131,50 +213,93 @@ public class FragmentPasos extends Fragment {
             botonFin.setVisibility(View.VISIBLE);
 
             botonFin.setOnClickListener((View) -> {
+                tts.stop();
                 cargarRecetas();
                 actualizarPopularidadRecetas();
                 actualizarEstadoIngredientes();
             });
 
             anterior.setOnClickListener((View) -> {
+                tts.stop();
+
+                volumenUp.setVisibility(View.VISIBLE);
+                volumenUp.setEnabled(true);
+                volumenDown.setVisibility(View.INVISIBLE);
+                volumenDown.setEnabled(false);
+
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.from_left, R.anim.to_right);
-                fragmentTransaction.replace(R.id.frame_info, new FragmentPasos(receta, numPaso - 1, email));
+                fragmentTransaction.replace(R.id.frame_info, new FragmentPasos(receta, numPaso - 1, email, tts));
                 fragmentTransaction.commit();
             });
 
             botonAnterior.setOnClickListener((View) -> {
+                tts.stop();
+
+                volumenUp.setVisibility(View.VISIBLE);
+                volumenUp.setEnabled(true);
+                volumenDown.setVisibility(View.INVISIBLE);
+                volumenDown.setEnabled(false);
+
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.from_left, R.anim.to_right);
-                fragmentTransaction.replace(R.id.frame_info, new FragmentPasos(receta, numPaso - 1, email));
+                fragmentTransaction.replace(R.id.frame_info, new FragmentPasos(receta, numPaso - 1, email, tts));
                 fragmentTransaction.commit();
             });
         } else {
             siguiente.setOnClickListener((View) -> {
+                tts.stop();
+
+                volumenUp.setVisibility(View.VISIBLE);
+                volumenUp.setEnabled(true);
+                volumenDown.setVisibility(View.INVISIBLE);
+                volumenDown.setEnabled(false);
+
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
-                fragmentTransaction.replace(R.id.frame_info, new FragmentPasos(receta, numPaso + 1, email));
+                fragmentTransaction.replace(R.id.frame_info, new FragmentPasos(receta, numPaso + 1, email, tts));
                 fragmentTransaction.commit();
             });
 
             anterior.setOnClickListener((View) -> {
+                tts.stop();
+
+                volumenUp.setVisibility(View.VISIBLE);
+                volumenUp.setEnabled(true);
+                volumenDown.setVisibility(View.INVISIBLE);
+                volumenDown.setEnabled(false);
+
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.from_left, R.anim.to_right);
-                fragmentTransaction.replace(R.id.frame_info, new FragmentPasos(receta, numPaso - 1, email));
+                fragmentTransaction.replace(R.id.frame_info, new FragmentPasos(receta, numPaso - 1, email, tts));
                 fragmentTransaction.commit();
             });
 
             botonSiguiente.setOnClickListener((View) -> {
+                tts.stop();
+
+                volumenUp.setVisibility(View.VISIBLE);
+                volumenUp.setEnabled(true);
+                volumenDown.setVisibility(View.INVISIBLE);
+                volumenDown.setEnabled(false);
+
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.from_right, R.anim.to_left);
-                fragmentTransaction.replace(R.id.frame_info, new FragmentPasos(receta, numPaso + 1, email));
+                fragmentTransaction.replace(R.id.frame_info, new FragmentPasos(receta, numPaso + 1, email, tts));
                 fragmentTransaction.commit();
             });
 
             botonAnterior.setOnClickListener((View) -> {
+                tts.stop();
+
+                volumenUp.setVisibility(View.VISIBLE);
+                volumenUp.setEnabled(true);
+                volumenDown.setVisibility(View.INVISIBLE);
+                volumenDown.setEnabled(false);
+
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.from_left, R.anim.to_right);
-                fragmentTransaction.replace(R.id.frame_info, new FragmentPasos(receta, numPaso - 1, email));
+                fragmentTransaction.replace(R.id.frame_info, new FragmentPasos(receta, numPaso - 1, email, tts));
                 fragmentTransaction.commit();
             });
         }
@@ -250,5 +375,12 @@ public class FragmentPasos extends Fragment {
                }
             });
         }
+    }
+
+    private void cerrarActivity() {
+        imagenRetroceso.setOnClickListener((view) -> {
+            tts.stop();
+            getActivity().finish();
+        });
     }
 }

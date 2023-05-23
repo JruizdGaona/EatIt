@@ -9,6 +9,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.speech.tts.TextToSpeech;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +29,7 @@ import com.example.eatit.R;
 import com.example.eatit.entities.Receta;
 import com.example.eatit.fragments.recetas.actualizar.FragmentActualizarReceta;
 import com.example.eatit.fragments.recetas.crear.FragmentCrearReceta;
+import com.example.eatit.fragments.recetas.listar.FragmentPasos;
 import com.example.eatit.fragments.recetas.listar.FragmentRecetas;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -40,6 +44,7 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class ActivityRecetas extends AppCompatActivity implements Serializable {
 
@@ -52,6 +57,7 @@ public class ActivityRecetas extends AppCompatActivity implements Serializable {
     private Uri uri;
     private boolean editar;
     StorageReference storageReference;
+    private TextToSpeech tts;
     private static final int REQUEST_CAMERA_CODE = 1;
     private static final int REQUEST_STORAGE_CODE = 2;
     private static final int PICK_CAMERA_CODE = 3;
@@ -71,6 +77,7 @@ public class ActivityRecetas extends AppCompatActivity implements Serializable {
     }
 
     private void inicializarVariables() {
+        tts = new TextToSpeech(this, null);
         Intent intent = getIntent();
         email = intent.getStringExtra("email");
         receta = (Receta) intent.getSerializableExtra("receta");
@@ -102,7 +109,7 @@ public class ActivityRecetas extends AppCompatActivity implements Serializable {
             fragmentTransaction.replace(R.id.frame_info, new FragmentActualizarReceta(email, receta, uri)).commit();
         } else {
             addImagen = false;
-            fragmentTransaction.replace(R.id.frame_info, new FragmentRecetas(receta, email)).commit();
+            fragmentTransaction.replace(R.id.frame_info, new FragmentRecetas(receta, email, tts)).commit();
         }
     }
 
@@ -291,6 +298,9 @@ public class ActivityRecetas extends AppCompatActivity implements Serializable {
     }
 
     private void cerrarActivity() {
-        imagenRetroceso.setOnClickListener((view) -> this.finish());
+        imagenRetroceso.setOnClickListener((view) -> {
+            tts.stop();
+            this.finish();
+        });
     }
 }
