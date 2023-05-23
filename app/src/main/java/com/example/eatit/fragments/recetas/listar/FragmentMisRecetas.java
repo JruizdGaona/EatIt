@@ -1,11 +1,17 @@
 package com.example.eatit.fragments.recetas.listar;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.example.eatit.R;
@@ -18,6 +24,7 @@ import com.example.eatit.fragments.recetas.listar.FrameMisRecetas;
 public class FragmentMisRecetas extends Fragment {
 
     private Usuario usuario;
+    private AppCompatImageView info;
 
     public FragmentMisRecetas (Usuario usuario) {
         this.usuario = usuario;
@@ -45,9 +52,28 @@ public class FragmentMisRecetas extends Fragment {
      */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        info = view.findViewById(R.id.info_receta);
+        abrirInfo();
+
         Fragment fragmentMisRecetas = new FrameMisRecetas(usuario);
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
 
         fragmentTransaction.replace(R.id.frame_mis_recetas, fragmentMisRecetas).commit();
+    }
+
+    private void abrirInfo() {
+        info.setOnClickListener((View) -> {
+            Dialog dialog = new Dialog(getContext());
+            dialog.setContentView(R.layout.card_info_receta);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+            cerrarCardView(dialog);
+            dialog.show();
+        });
+    }
+
+    private void cerrarCardView(Dialog dialog) {
+        ImageView imageView = dialog.findViewById(R.id.cerrar_info_receta);
+        imageView.setOnClickListener((View) -> dialog.dismiss());
     }
 }

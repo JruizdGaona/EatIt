@@ -119,6 +119,7 @@
     <string name="desc4">- Para que dichos ingredientes aparezcan disponibles, se deberá:</string>
     <string name="desc5">- Actualizar la fecha de caducidad.</string>
     <string name="desc6">- Volver a habilitar el ingrediente.</string>
+    <string name="info_receta">Mantén pulsado sobre cada receta para editarla o eliminarla</string>
 
 
     <string name="op_recetas">OPCIONES</string>

@@ -21,6 +21,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/info_receta"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/recetas"
+        app:layout_constraintTop_toTopOf="@+id/recetas"
+        app:layout_constraintBottom_toBottomOf="@+id/recetas"
+        android:src="@drawable/ic_info" />
+
     <!-- Barra separatoria entre el título y el Frame que carga las Recetas -->
     <LinearLayout
         android:id="@+id/linearLayout"
