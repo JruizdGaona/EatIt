@@ -48,19 +48,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- Imagen del ingrediente -->
-            <com.google.android.material.imageview.ShapeableImageView
+            <ImageView
                 android:id="@+id/ilm_foto"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginTop="10dp"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
                 android:src="@drawable/btn_login_disabled"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:shapeAppearanceOverlay="@style/RoundCorner" />
+                app:layout_constraintTop_toTopOf="parent"/>
+
 
             <!-- Nombre del ingrdiente -->
             <TextView

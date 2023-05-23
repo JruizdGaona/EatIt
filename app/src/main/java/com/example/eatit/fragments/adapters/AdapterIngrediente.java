@@ -1,14 +1,19 @@
 package com.example.eatit.fragments.adapters;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.example.eatit.R;
 import com.example.eatit.entities.Ingrediente;
 import com.example.eatit.entities.Usuario;
@@ -30,6 +35,7 @@ public class AdapterIngrediente extends RecyclerView.Adapter<AdapterIngrediente.
     private final Context context;
     TextView nombre;
     Usuario usuario;
+    ImageView foto;
 
     /**
      * Constructor del Adapter de Ingredientes.
@@ -91,6 +97,7 @@ public class AdapterIngrediente extends RecyclerView.Adapter<AdapterIngrediente.
         public MyViewHolder(View view){
             super(view);
             nombre = view.findViewById(R.id.ingrediente_nombre);
+            foto = view.findViewById(R.id.ilm_foto);
             cv = view.findViewById(R.id.layout_list_ingredientes);
         }
 
@@ -98,6 +105,9 @@ public class AdapterIngrediente extends RecyclerView.Adapter<AdapterIngrediente.
             nombre.setText((item.getNombre()));
             String fechaCad = item.getFechaCaducidad();
             boolean desactivado = item.isDesactivado();
+
+            String tipo = item.getTipo();
+            ponerImagen(tipo);
 
             if (desactivado) {
                 cv.findViewById(R.id.disabled_ic_card).setVisibility(View.VISIBLE);
@@ -115,5 +125,38 @@ public class AdapterIngrediente extends RecyclerView.Adapter<AdapterIngrediente.
                 e.printStackTrace();
             }
         }
+    }
+
+    private void ponerImagen(String tipo) {
+        Drawable darwable;
+
+        switch (tipo) {
+            case "Otro":
+                darwable = ResourcesCompat.getDrawable(context.getResources(), R.drawable.otro, null);
+                break;
+            case "Carne":
+                darwable = ResourcesCompat.getDrawable(context.getResources(), R.drawable.carne_uno, null);
+                break;
+            case "Pescado":
+                darwable = ResourcesCompat.getDrawable(context.getResources(), R.drawable.pescado, null);
+                break;
+            case "Verdura":
+                darwable = ResourcesCompat.getDrawable(context.getResources(), R.drawable.verdura, null);
+                break;
+            case "Fruta":
+                darwable = ResourcesCompat.getDrawable(context.getResources(), R.drawable.fruta, null);
+                break;
+            case "Lácteos":
+                darwable = ResourcesCompat.getDrawable(context.getResources(), R.drawable.lacteo, null);
+                break;
+            case "Cereales":
+                darwable = ResourcesCompat.getDrawable(context.getResources(), R.drawable.cereales, null);
+                break;
+            default:
+                darwable = ResourcesCompat.getDrawable(context.getResources(), R.drawable.sinespec, null);
+                break;
+        }
+
+        foto.setImageDrawable(darwable);
     }
 }
