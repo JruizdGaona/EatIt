@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -22,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
@@ -94,17 +96,11 @@ public class ActivityRecetas extends AppCompatActivity implements Serializable {
                             .centerCrop()
                             .into(imagenReceta);
             } else {
-                String fileName = "img_aux.jpg"; // Nombre del archivo en Firebase Storage
-                StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-                StorageReference imageRef = storageRef.child(fileName);
-
-                imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                    String imageUri = uri.toString();
-                    Glide.with(this)
-                            .load(imageUri)
-                            .centerInside()
-                            .into(imagenReceta);
-                }).addOnFailureListener(e -> {});
+                Drawable darwable = ResourcesCompat.getDrawable(getResources(), R.drawable.img_aux, null);
+                Glide.with(this)
+                        .load(darwable)
+                        .centerInside()
+                        .into(imagenReceta);
             }
         } else crear = true;
     }

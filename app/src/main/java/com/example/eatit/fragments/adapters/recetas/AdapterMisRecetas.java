@@ -129,7 +129,6 @@ public class AdapterMisRecetas extends RecyclerView.Adapter<AdapterMisRecetas.My
             consultaUsuario.addOnSuccessListener(documentSnapshotsUsuario -> {
                 if (!documentSnapshotsUsuario.isEmpty()) {
                     String idUsuario = documentSnapshotsUsuario.getDocuments().get(0).getId();
-                    Toast.makeText(context, "IdUsuario: " + idUsuario, Toast.LENGTH_SHORT).show();
                     Task<QuerySnapshot> consulta = coleccion.whereEqualTo("nombre", receta.getNombre()).whereEqualTo("usuarioId", idUsuario).get();
 
                     consulta.addOnSuccessListener(documentSnapshots -> {
@@ -137,7 +136,6 @@ public class AdapterMisRecetas extends RecyclerView.Adapter<AdapterMisRecetas.My
                             for (DocumentSnapshot documentSnapshot : documentSnapshots.getDocuments()) {
                                 if (documentSnapshot.getString("nombre").equalsIgnoreCase(receta.getNombre())) {
                                     coleccion.document(documentSnapshot.getId()).delete().addOnSuccessListener(aVoid -> {
-                                        Toast.makeText(context, "RECETA: " + receta.getNombre(), Toast.LENGTH_SHORT).show();
                                         eliminarRecetaDelUsuario(receta);
                                         Toast.makeText(context, "Receta eliminada correctamente", Toast.LENGTH_SHORT).show();
                                         dialog.dismiss();
@@ -200,28 +198,22 @@ public class AdapterMisRecetas extends RecyclerView.Adapter<AdapterMisRecetas.My
         public MyViewHolder(View view){
             super(view);
             nombre = view.findViewById(R.id.mis_recetas_nombre);
-            imagen = view.findViewById(R.id.ilm_foto);
+            imagen = view.findViewById(R.id.ilm_foto_receta);
             cv = view.findViewById(R.id.layout_list_mis_recetas);
         }
 
-        void bindData(final Receta item) {
+        void bindData(@NonNull final Receta item) {
             if (item.getUri() != null && !item.getUri().isEmpty()) {
                 Glide.with(context)
                         .load(item.getUri())
-                        .centerCrop()
+                        .fitCenter()
                         .into(imagen);
             } else {
-                String fileName = "img_aux.jpg"; // Nombre del archivo en Firebase Storage
-                StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-                StorageReference imageRef = storageRef.child(fileName);
-
-                imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                    String imageUri = uri.toString();
-                    Glide.with(context)
-                            .load(imageUri)
-                            .centerInside()
-                            .into(imagen);
-                }).addOnFailureListener(e -> {});
+                Drawable darwable = ResourcesCompat.getDrawable(context.getResources(), R.drawable.img_aux, null);
+                Glide.with(context)
+                        .load(darwable)
+                        .centerInside()
+                        .into(imagen);
             }
             nombre.setText((item.getNombre()));
         }

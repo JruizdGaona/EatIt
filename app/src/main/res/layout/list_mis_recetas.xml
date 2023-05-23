@@ -30,7 +30,7 @@
 
             <!-- Imagen de la receta -->
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/ilm_foto"
+                android:id="@+id/ilm_foto_receta"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="10dp"
@@ -54,9 +54,9 @@
                 android:textColor="@color/doradoClaro"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/ilm_foto"
-                app:layout_constraintStart_toStartOf="@+id/ilm_foto"
-                app:layout_constraintTop_toBottomOf="@+id/ilm_foto" />
+                app:layout_constraintEnd_toEndOf="@+id/ilm_foto_receta"
+                app:layout_constraintStart_toStartOf="@+id/ilm_foto_receta"
+                app:layout_constraintTop_toBottomOf="@+id/ilm_foto_receta" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>

@@ -247,17 +247,11 @@ public class AdapterReceta extends RecyclerView.Adapter<AdapterReceta.MyViewHold
                         .fitCenter()
                         .into(imagen);
             } else {
-                String fileName = "img_aux.jpg"; // Nombre del archivo en Firebase Storage
-                StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-                StorageReference imageRef = storageRef.child(fileName);
-
-                imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                    String imageUri = uri.toString();
-                    Glide.with(context)
-                            .load(imageUri)
-                            .centerInside()
-                            .into(imagen);
-                }).addOnFailureListener(e -> {});
+                Drawable darwable = ResourcesCompat.getDrawable(context.getResources(), R.drawable.img_aux, null);
+                Glide.with(context)
+                        .load(darwable)
+                        .centerInside()
+                        .into(imagen);
             }
             nombre.setText((item.getNombre()));
             duracion.setText(String.valueOf(item.getDuracion()).concat(" h"));
