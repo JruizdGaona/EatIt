@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.eatit.R;
 import com.example.eatit.activities.ActivityRecetas;
+import com.example.eatit.activities.CloseActivityEvent;
 import com.example.eatit.entities.Ingrediente;
 import com.example.eatit.entities.Receta;
 import com.example.eatit.entities.Usuario;
@@ -26,6 +27,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -380,7 +383,8 @@ public class FragmentPasos extends Fragment {
     private void cerrarActivity() {
         imagenRetroceso.setOnClickListener((view) -> {
             tts.stop();
-            getActivity().finish();
+            // En algún lugar apropiado, registra y publica el evento
+            EventBus.getDefault().post(new CloseActivityEvent());
         });
     }
 }

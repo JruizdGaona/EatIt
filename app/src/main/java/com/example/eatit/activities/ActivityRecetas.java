@@ -38,6 +38,9 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -66,6 +69,23 @@ public class ActivityRecetas extends AppCompatActivity implements Serializable {
     private static final int PICK_GALLERY_CODE = 4;
     private final String[] cameraPermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
     private final String[] storagePermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
+    @Subscribe
+    public void onCloseActivity(CloseActivityEvent event) {
+        finish();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this); // Registrar la actividad en EventBus
+    }
+
+    @Override
+    protected void onStop() {
+        EventBus.getDefault().unregister(this); // Desregistrar la actividad de EventBus
+        super.onStop();
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -307,7 +327,6 @@ public class ActivityRecetas extends AppCompatActivity implements Serializable {
 
     private void cerrarActivity() {
         imagenRetroceso.setOnClickListener((view) -> {
-            tts.stop();
             this.finish();
         });
     }

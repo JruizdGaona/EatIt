@@ -35,7 +35,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:23.1.2'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.google.firebase:firebase-auth:22.0.0'
-    implementation 'com.google.firebase:firebase-firestore:24.6.0'
+    implementation 'com.google.firebase:firebase-firestore:24.6.1'
     implementation 'com.google.firebase:firebase-storage:20.2.0'
     implementation 'com.getbase:floatingactionbutton:1.10.1'
     testImplementation 'junit:junit:4.13.2'
@@ -48,4 +48,5 @@ dependencies {
     implementation 'com.github.GrenderG:Toasty:1.5.2'
     implementation 'com.airbnb.android:lottie:4.0.0'
     implementation 'com.squareup.okhttp3:okhttp:4.9.1'
+    implementation 'org.greenrobot:eventbus:3.2.0'
 }
