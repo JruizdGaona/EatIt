@@ -139,9 +139,9 @@ public class FrameIngredientes extends Fragment {
                     Toast.makeText(getContext(), "Error al escanear el código", Toast.LENGTH_SHORT).show();
                 } else {
                     loadingDialog.showDialog("Buscando ingredientes...");
+
                     // Código para hacer la solicitud GET a la API de Open Food Facts
-                    new MyAsyncTask(getContext(), usuario).execute(barcodeResult);
-                    loadingDialog.closeDialog();
+                    new MyAsyncTask(getContext(), usuario, loadingDialog).execute(barcodeResult);
                 }
             }
         }
@@ -198,10 +198,12 @@ public class FrameIngredientes extends Fragment {
     private static class MyAsyncTask extends AsyncTask<String, Void, String> {
         private WeakReference<Context> contextRef;
         private Usuario usuario;
+        private LoadingDialog loadingDialog;
 
-        public MyAsyncTask(Context context, Usuario usuario) {
+        public MyAsyncTask(Context context, Usuario usuario, LoadingDialog loadingDialog) {
             contextRef = new WeakReference<>(context);
             this.usuario = usuario;
+            this.loadingDialog = loadingDialog;
         }
 
         @Override
@@ -292,12 +294,16 @@ public class FrameIngredientes extends Fragment {
 
                         }
 
+                        loadingDialog.closeDialog();
+
                         CardAddIngrediente cardAddIngrediente = new CardAddIngrediente(context, 2, ingrediente, usuario);
                         cardAddIngrediente.operacionesCardView();
                     } catch (JSONException e) {
+                        loadingDialog.closeDialog();
                         Toast.makeText(context, "Ingrediente no encontrado", Toast.LENGTH_SHORT).show();
                     }
                 } else {
+                    loadingDialog.closeDialog();
                     Toast.makeText(context, "Error al escanear el código de barras", Toast.LENGTH_SHORT).show();
                 }
             }
