@@ -254,7 +254,7 @@ public class AdapterReceta extends RecyclerView.Adapter<AdapterReceta.MyViewHold
                         .into(imagen);
             }
             nombre.setText((item.getNombre()));
-            duracion.setText(String.valueOf(item.getDuracion()).concat(" h"));
+            duracion.setText(String.valueOf(item.getDuracion()).concat("'"));
             dificultad.setText(item.getDificultad());
         }
     }
