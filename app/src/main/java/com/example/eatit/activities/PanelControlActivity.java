@@ -184,8 +184,6 @@ public class PanelControlActivity extends AppCompatActivity implements Navigatio
                 fragmentTransaction.replace(R.id.frame_inicio, new FragmentAjustes(user, usuario, nombreUsu));
                 break;
             case R.id.nav_sesion:
-                mostrarMensajesCarga(1, loadingDialog);
-                status = 1;
                 LoginActivity.cambiarEstadoCheckbox(PanelControlActivity.this, false);
                 this.finish();
                 startActivity(new Intent(PanelControlActivity.this, LoginActivity.class));
