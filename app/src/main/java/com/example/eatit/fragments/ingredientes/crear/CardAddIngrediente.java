@@ -245,18 +245,23 @@ public class CardAddIngrediente {
                     String id = documentSnapshot.getId();
                     List<Ingrediente> ingredientesUsuario = usuario.getIngredientes();
 
-                    if (ingredientesUsuario == null) ingredientesUsuario = new ArrayList<>();
+                    if (!name.getText().toString().equalsIgnoreCase(oldName)) {
+                        if (ingredientesUsuario == null) ingredientesUsuario = new ArrayList<>();
 
-                    for (Ingrediente i: ingredientesUsuario) {
-                        if (i.getNombre().equalsIgnoreCase(name.getText().toString())) {
-                            exist = true;
-                            break;
+                        for (Ingrediente i: ingredientesUsuario) {
+                            if (i.getNombre().equalsIgnoreCase(name.getText().toString())) {
+                                exist = true;
+                                break;
+                            }
                         }
-                    }
 
-                    if (exist) {
-                        Toast.makeText(context, "Ya existe un Ingrediente con ese Nombre", Toast.LENGTH_SHORT).show();
-                        dialog.dismiss();
+                        if (exist) {
+                            Toast.makeText(context, "Ya existe un Ingrediente con ese Nombre", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        } else {
+                            Ingrediente newIngrediente = actualizarValoresIngrediente(ingrediente);
+                            actualizarIngrediente(dialog, ingrediente, newIngrediente, oldName);
+                        }
                     } else {
                         Ingrediente newIngrediente = actualizarValoresIngrediente(ingrediente);
                         actualizarIngrediente(dialog, ingrediente, newIngrediente, oldName);
